@@ -202,7 +202,7 @@ try {
             break;
             
         case 'dashboard':
-            require_once __DIR__ . '/dashboard.php';
+            require_once __DIR__ . '/../modules/dashboard/controllers/index_controller.php';
             break;
             
         default:
