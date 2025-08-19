@@ -1,3 +1,30 @@
-Cloude te pasare un repositorio para que lo analices, analiza en especial el esquema sql, y el readme.md ya que nuestro deber sera construir la logica y frontend del proyecto consumiendo la bd actual. no hagas comentarios, ni des retroalimentaciones, no se necesitam, di 'Listo' cuando termines y espera mas instrucciones.
+<?php
+/**
+ * Logout Controller
+ * Handles user logout and session cleanup
+ */
 
-Ya esta creada y en phpmyadmin instalada la bd, que dices si segun el modelo del negocio iniciamos con las fase 2 (login autenticacion), recuerda debes solo escribir el codigo de cada documento del repositorio, sin crear uno nuevo consumiremos lo que ya hay. diria que iniciemos analizando con login, que redirija al dashboard que esta en la capeta modules, ya que actualmente hay el problema de esta redirigiendo a phpmyadmin dashboard segun el rol o conque deseas uniciar? - escribe respuestas directas y concisas no gastes prompt.
+require_once __DIR__ . '/../../../core/helpers.php';
+require_once __DIR__ . '/../../../core/rbac.php';
+
+// Check if user is logged in
+if (!isLoggedIn()) {
+    redirect('/crm-project/public/index.php?module=auth&action=login');
+}
+
+// Log security event
+logSecurityEvent('USER_LOGOUT', [
+    'user_id' => getCurrentUser()['user_id'] ?? null,
+    'username' => getCurrentUser()['username'] ?? null
+]);
+
+// Destroy session
+session_unset();
+session_destroy();
+
+// Start new session for flash message
+session_start();
+$_SESSION['logout_success'] = 'You have been successfully logged out.';
+
+// Redirect to login
+redirect('/crm-project/public/index.php?module=auth&action=login');
