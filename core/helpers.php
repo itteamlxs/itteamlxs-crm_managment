@@ -4,6 +4,8 @@
  * Reusable utilities for the CRM system
  */
 
+require_once __DIR__ . '/i18n.php';
+
 /**
  * Generate CSRF token and store in session
  * @return string

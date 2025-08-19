@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="<?php echo sanitizeOutput(getUserLanguage()); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo sanitizeOutput(APP_NAME); ?> - Login</title>
+    <title><?php echo sanitizeOutput(__('app_name') ?: APP_NAME); ?> - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -12,8 +12,8 @@
             <div class="col-md-6 col-lg-4">
                 <div class="card mt-5">
                     <div class="card-header text-center">
-                        <h4><?php echo sanitizeOutput(APP_NAME); ?></h4>
-                        <p class="mb-0">Please sign in</p>
+                        <h4><?php echo sanitizeOutput(__('app_name') ?: APP_NAME); ?></h4>
+                        <p class="mb-0"><?php echo __('please_sign_in') ?: 'Please sign in'; ?></p>
                     </div>
                     <div class="card-body">
                         <?php if (!empty($error)): ?>
@@ -38,7 +38,7 @@
                             <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
                             
                             <div class="mb-3">
-                                <label for="username" class="form-label">Username or Email</label>
+                                <label for="username" class="form-label"><?php echo __('username_or_email') ?: 'Username or Email'; ?></label>
                                 <input type="text" 
                                        class="form-control" 
                                        id="username" 
@@ -48,7 +48,7 @@
                             </div>
                             
                             <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
+                                <label for="password" class="form-label"><?php echo __('password') ?: 'Password'; ?></label>
                                 <input type="password" 
                                        class="form-control" 
                                        id="password" 
@@ -57,20 +57,20 @@
                             </div>
                             
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Sign In</button>
+                                <button type="submit" class="btn btn-primary"><?php echo __('sign_in') ?: 'Sign In'; ?></button>
                             </div>
                         </form>
                         
                         <div class="text-center mt-3">
                             <a href="/crm-project/public/index.php?module=auth&action=reset" class="text-muted">
-                                Forgot your password?
+                                <?php echo __('forgot_password') ?: 'Forgot your password?'; ?>
                             </a>
                         </div>
                     </div>
                     <div class="card-footer text-center">
                         <small class="text-muted">
                             <?php if (APP_DEBUG): ?>
-                                Debug Mode: Use leon/temporal2024#
+                                <?php echo __('debug_mode_credentials') ?: 'Debug Mode: Use leon/temporal2024#'; ?>
                             <?php endif; ?>
                         </small>
                     </div>
