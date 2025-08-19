@@ -18,13 +18,6 @@ if (isLoggedIn() && !checkSessionTimeout()) {
 $module = sanitizeInput($_GET['module'] ?? '');
 $action = sanitizeInput($_GET['action'] ?? '');
 
-// Debug temporal
-if (APP_DEBUG) {
-    echo "Module: " . $module . "<br>";
-    echo "Action: " . $action . "<br>";
-    echo "Logged in: " . (isLoggedIn() ? 'Yes' : 'No') . "<br>";
-}
-
 // Whitelist allowed modules and actions for security
 $allowedModules = [
     'auth' => ['login', 'logout', 'reset'],
@@ -202,7 +195,7 @@ try {
             break;
             
         case 'dashboard':
-            require_once __DIR__ . '/../modules/dashboard/controllers/index_controller.php';
+            require_once __DIR__ . '/dashboard.php';
             break;
             
         default:

@@ -1,3 +1,12 @@
+<?php
+require_once __DIR__ . '/../../../config/app.php';
+require_once __DIR__ . '/../../../core/helpers.php';
+require_once __DIR__ . '/../../../core/security.php';
+require_once __DIR__ . '/../../../core/rbac.php';
+
+requireLogin();
+$user = getCurrentUser();
+?>
 <!DOCTYPE html>
 <html lang="<?php echo sanitizeOutput(getUserLanguage()); ?>">
 <head>
@@ -16,7 +25,7 @@
                 <h5>Welcome, <?php echo sanitizeOutput($user['display_name']); ?>!</h5>
                 <p><strong>Role:</strong> <?php echo sanitizeOutput(getUserRole()); ?></p>
                 <p><strong>Login Date:</strong> <?php echo date('Y-m-d H:i:s'); ?></p>
-                <a href="/?module=auth&action=logout" class="btn btn-danger">Logout</a>
+                <a href="../../../public/index.php?module=auth&action=logout" class="btn btn-danger">Logout</a>
             </div>
         </div>
     </div>

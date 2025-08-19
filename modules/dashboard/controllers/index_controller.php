@@ -14,4 +14,4 @@ requireLogin();
 $user = getCurrentUser();
 
 // Include dashboard view
-include __DIR__ . '/../views/index.php';
+include __DIR__ . '/../views/dashboard.php';
