@@ -28,7 +28,7 @@
                             </div>
                         <?php endif; ?>
                         
-                        <form method="POST" action="/?module=auth&action=login">
+                        <form method="POST" action="/crm-project/public/index.php?module=auth&action=login">
                             <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
                             
                             <div class="mb-3">

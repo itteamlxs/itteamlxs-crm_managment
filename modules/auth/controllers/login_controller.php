@@ -38,8 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     session_regenerate_id(true);
                     
                     // Redirect to dashboard
-                    header("Location: http://localhost/crm-project/modules/dashboard/views/dashboard.php");
-                    exit;
+                    redirect('/?module=dashboard&action=index');
                 } else {
                     $error = 'Invalid username or password';
                 }
