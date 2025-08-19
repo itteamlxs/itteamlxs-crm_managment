@@ -37,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Regenerate session ID for security
                     session_regenerate_id(true);
                     
-                    // Redirect to dashboard
-                    redirect('/?module=dashboard&action=index');
+                    // Redirect to dashboard - FIX: Use full project path
+                    redirect('/crm-project/public/index.php?module=dashboard&action=index');
                 } else {
                     $error = 'Invalid username or password';
                 }
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // If already logged in, redirect to dashboard
 if (isLoggedIn()) {
-    redirect('/?module=dashboard&action=index');
+    redirect('/crm-project/public/index.php?module=dashboard&action=index');
 }
 
 // Include login view
