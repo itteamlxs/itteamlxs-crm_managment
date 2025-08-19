@@ -25,7 +25,7 @@ $user = getCurrentUser();
                 <h5>Welcome, <?php echo sanitizeOutput($user['display_name']); ?>!</h5>
                 <p><strong>Role:</strong> <?php echo sanitizeOutput(getUserRole()); ?></p>
                 <p><strong>Login Date:</strong> <?php echo date('Y-m-d H:i:s'); ?></p>
-                <a href="../../../public/index.php?module=auth&action=logout" class="btn btn-danger">Logout</a>
+                <a href="/crm-project/public/index.php?module=auth&action=logout" class="btn btn-danger">Logout</a>
             </div>
         </div>
     </div>

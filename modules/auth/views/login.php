@@ -28,6 +28,12 @@
                             </div>
                         <?php endif; ?>
                         
+                        <?php if (isset($_SESSION['logout_success'])): ?>
+                            <div class="alert alert-success" role="alert">
+                                <?php echo sanitizeOutput($_SESSION['logout_success']); unset($_SESSION['logout_success']); ?>
+                            </div>
+                        <?php endif; ?>
+                        
                         <form method="POST" action="/crm-project/public/index.php?module=auth&action=login">
                             <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
                             
@@ -54,11 +60,17 @@
                                 <button type="submit" class="btn btn-primary">Sign In</button>
                             </div>
                         </form>
+                        
+                        <div class="text-center mt-3">
+                            <a href="/crm-project/public/index.php?module=auth&action=reset" class="text-muted">
+                                Forgot your password?
+                            </a>
+                        </div>
                     </div>
                     <div class="card-footer text-center">
                         <small class="text-muted">
                             <?php if (APP_DEBUG): ?>
-                                Debug Mode: Use admin/password123
+                                Debug Mode: Use leon/temporal2024#
                             <?php endif; ?>
                         </small>
                     </div>
