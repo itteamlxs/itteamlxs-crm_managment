@@ -401,6 +401,35 @@ WHERE (SELECT role_id FROM users WHERE user_id = SESSION_USER()) IN (
     )
 );
 
+-- User Management Views
+-- Add to schema.sql after existing views
+
+-- View: vw_users - For user listing with role information
+CREATE VIEW vw_users AS
+SELECT u.user_id, u.username, u.email, u.display_name, 
+       u.profile_picture, u.language, u.role_id, u.is_admin, 
+       u.is_active, u.created_at, u.updated_at, u.last_login_at,
+       r.role_name
+FROM users u 
+JOIN roles r ON u.role_id = r.role_id
+ORDER BY u.created_at DESC;
+
+-- View: vw_user_profile - For individual user profile details
+CREATE VIEW vw_user_profile AS
+SELECT u.user_id, u.username, u.email, u.display_name, 
+       u.profile_picture, u.language, u.role_id, u.is_admin, 
+       u.is_active, u.force_password_change, u.created_at, 
+       u.updated_at, u.last_login_at, u.failed_login_attempts,
+       u.locked_until, r.role_name, r.description as role_description
+FROM users u 
+JOIN roles r ON u.role_id = r.role_id;
+
+-- View: vw_user_roles - For role dropdown/selection
+CREATE VIEW vw_user_roles AS
+SELECT role_id, role_name, description, created_at
+FROM roles 
+ORDER BY role_name;
+
 -- Triggers
 DELIMITER //
 
