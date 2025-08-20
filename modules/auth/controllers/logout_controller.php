@@ -24,7 +24,7 @@ session_destroy();
 
 // Start new session for flash message
 session_start();
-$_SESSION['logout_success'] = 'You have been successfully logged out.';
+$_SESSION['logout_success'] = __('logout_success');
 
 // Redirect to login
 redirect('/crm-project/public/index.php?module=auth&action=login');
