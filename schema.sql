@@ -392,14 +392,15 @@ WHERE q.status = 'APPROVED'
 GROUP BY c.client_id, c.company_name;
 
 -- View: vw_settings
+-- Recrear la vista sin el filtro SESSION_USER() problemático
+-- En su lugar, el control de permisos se hará en el código PHP
 CREATE VIEW vw_settings AS
-SELECT s.setting_id, s.setting_key, s.setting_value
+SELECT s.setting_id, s.setting_key, s.setting_value, s.created_at, s.updated_at
 FROM settings s
-WHERE (SELECT role_id FROM users WHERE user_id = SESSION_USER()) IN (
-    SELECT role_id FROM role_permissions WHERE permission_id = (
-        SELECT permission_id FROM permissions WHERE permission_name = 'manage_settings'
-    )
-);
+ORDER BY s.setting_key;
+
+-- Verificar que la vista funciona
+SELECT * FROM vw_settings LIMIT 5;
 
 -- User Management Views
 -- Add to schema.sql after existing views

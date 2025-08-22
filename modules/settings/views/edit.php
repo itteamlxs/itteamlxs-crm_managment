@@ -52,7 +52,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                     <div class="mb-3">
                                         <label for="company_display_name" class="form-label"><?php echo __('company_name') ?: 'Company Name'; ?> *</label>
                                         <input type="text" class="form-control" id="company_display_name" name="company_display_name" 
-                                               value="<?php echo sanitizeOutput($currentSettings['company_display_name'] ?? ''); ?>" required>
+                                               value="<?php echo htmlspecialchars($currentSettings['company_display_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -60,8 +60,9 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                         <label for="timezone" class="form-label"><?php echo __('timezone') ?: 'Timezone'; ?></label>
                                         <select class="form-select" id="timezone" name="timezone">
                                             <?php foreach ($timezones as $value => $label): ?>
-                                            <option value="<?php echo $value; ?>" <?php echo ($currentSettings['timezone'] ?? '') === $value ? 'selected' : ''; ?>>
-                                                <?php echo sanitizeOutput($label); ?>
+                                            <option value="<?php echo htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); ?>" 
+                                                    <?php echo ($currentSettings['timezone'] ?? 'America/New_York') === $value ? 'selected' : ''; ?>>
+                                                <?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?>
                                             </option>
                                             <?php endforeach; ?>
                                         </select>
@@ -74,7 +75,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                     <div class="mb-3">
                                         <label for="default_tax_rate" class="form-label"><?php echo __('default_tax_rate') ?: 'Default Tax Rate'; ?> (%)</label>
                                         <input type="number" class="form-control" id="default_tax_rate" name="default_tax_rate" 
-                                               value="<?php echo sanitizeOutput($currentSettings['default_tax_rate'] ?? '0.00'); ?>" 
+                                               value="<?php echo htmlspecialchars($currentSettings['default_tax_rate'] ?? '0.00', ENT_QUOTES, 'UTF-8'); ?>" 
                                                step="0.01" min="0" max="100">
                                     </div>
                                 </div>
@@ -84,6 +85,9 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                         <div class="mt-2">
                                             <?php 
                                             $selectedLanguages = json_decode($currentSettings['available_languages'] ?? '["es"]', true);
+                                            if (!is_array($selectedLanguages)) {
+                                                $selectedLanguages = ['es'];
+                                            }
                                             foreach ($languages as $code => $name): 
                                             ?>
                                             <div class="form-check form-check-inline">
@@ -91,7 +95,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                                        name="available_languages[]" value="<?php echo $code; ?>"
                                                        <?php echo in_array($code, $selectedLanguages) ? 'checked' : ''; ?>>
                                                 <label class="form-check-label" for="lang_<?php echo $code; ?>">
-                                                    <?php echo sanitizeOutput($name); ?>
+                                                    <?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?>
                                                 </label>
                                             </div>
                                             <?php endforeach; ?>
@@ -113,7 +117,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                     <div class="mb-3">
                                         <label for="quote_expiry_days" class="form-label"><?php echo __('quote_expiry_days') ?: 'Quote Expiry (Days)'; ?></label>
                                         <input type="number" class="form-control" id="quote_expiry_days" name="quote_expiry_days" 
-                                               value="<?php echo sanitizeOutput($currentSettings['quote_expiry_days'] ?? '7'); ?>" 
+                                               value="<?php echo htmlspecialchars($currentSettings['quote_expiry_days'] ?? '7', ENT_QUOTES, 'UTF-8'); ?>" 
                                                min="1" max="365">
                                     </div>
                                 </div>
@@ -121,7 +125,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                     <div class="mb-3">
                                         <label for="quote_expiry_notification_days" class="form-label"><?php echo __('notification_days') ?: 'Notification Days'; ?></label>
                                         <input type="number" class="form-control" id="quote_expiry_notification_days" name="quote_expiry_notification_days" 
-                                               value="<?php echo sanitizeOutput($currentSettings['quote_expiry_notification_days'] ?? '3'); ?>" 
+                                               value="<?php echo htmlspecialchars($currentSettings['quote_expiry_notification_days'] ?? '3', ENT_QUOTES, 'UTF-8'); ?>" 
                                                min="1" max="30">
                                     </div>
                                 </div>
@@ -129,7 +133,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                     <div class="mb-3">
                                         <label for="low_stock_threshold" class="form-label"><?php echo __('low_stock_threshold') ?: 'Low Stock Threshold'; ?></label>
                                         <input type="number" class="form-control" id="low_stock_threshold" name="low_stock_threshold" 
-                                               value="<?php echo sanitizeOutput($currentSettings['low_stock_threshold'] ?? '10'); ?>" 
+                                               value="<?php echo htmlspecialchars($currentSettings['low_stock_threshold'] ?? '10', ENT_QUOTES, 'UTF-8'); ?>" 
                                                min="0">
                                     </div>
                                 </div>
@@ -148,14 +152,14 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                     <div class="mb-3">
                                         <label for="smtp_host" class="form-label"><?php echo __('smtp_host') ?: 'SMTP Host'; ?></label>
                                         <input type="text" class="form-control" id="smtp_host" name="smtp_host" 
-                                               value="<?php echo sanitizeOutput($currentSettings['smtp_host'] ?? ''); ?>">
+                                               value="<?php echo htmlspecialchars($currentSettings['smtp_host'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="smtp_port" class="form-label"><?php echo __('smtp_port') ?: 'SMTP Port'; ?></label>
                                         <input type="number" class="form-control" id="smtp_port" name="smtp_port" 
-                                               value="<?php echo sanitizeOutput($currentSettings['smtp_port'] ?? '587'); ?>">
+                                               value="<?php echo htmlspecialchars($currentSettings['smtp_port'] ?? '587', ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -163,8 +167,9 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                         <label for="smtp_encryption" class="form-label"><?php echo __('encryption') ?: 'Encryption'; ?></label>
                                         <select class="form-select" id="smtp_encryption" name="smtp_encryption">
                                             <?php foreach ($encryptionTypes as $value => $label): ?>
-                                            <option value="<?php echo $value; ?>" <?php echo ($currentSettings['smtp_encryption'] ?? '') === $value ? 'selected' : ''; ?>>
-                                                <?php echo sanitizeOutput($label); ?>
+                                            <option value="<?php echo htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); ?>" 
+                                                    <?php echo ($currentSettings['smtp_encryption'] ?? 'TLS') === $value ? 'selected' : ''; ?>>
+                                                <?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?>
                                             </option>
                                             <?php endforeach; ?>
                                         </select>
@@ -177,7 +182,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                     <div class="mb-3">
                                         <label for="smtp_username" class="form-label"><?php echo __('smtp_username') ?: 'SMTP Username'; ?></label>
                                         <input type="text" class="form-control" id="smtp_username" name="smtp_username" 
-                                               value="<?php echo sanitizeOutput($currentSettings['smtp_username'] ?? ''); ?>">
+                                               value="<?php echo htmlspecialchars($currentSettings['smtp_username'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -194,14 +199,14 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                     <div class="mb-3">
                                         <label for="from_email" class="form-label"><?php echo __('from_email') ?: 'From Email'; ?></label>
                                         <input type="email" class="form-control" id="from_email" name="from_email" 
-                                               value="<?php echo sanitizeOutput($currentSettings['from_email'] ?? ''); ?>">
+                                               value="<?php echo htmlspecialchars($currentSettings['from_email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="from_name" class="form-label"><?php echo __('from_name') ?: 'From Name'; ?></label>
                                         <input type="text" class="form-control" id="from_name" name="from_name" 
-                                               value="<?php echo sanitizeOutput($currentSettings['from_name'] ?? ''); ?>">
+                                               value="<?php echo htmlspecialchars($currentSettings['from_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +224,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                             <div class="mb-3">
                                 <label for="backup_time" class="form-label"><?php echo __('backup_time') ?: 'Daily Backup Time'; ?></label>
                                 <input type="time" class="form-control" id="backup_time" name="backup_time" 
-                                       value="<?php echo sanitizeOutput($currentSettings['backup_time'] ?? '02:00:00'); ?>">
+                                       value="<?php echo htmlspecialchars($currentSettings['backup_time'] ?? '02:00:00', ENT_QUOTES, 'UTF-8'); ?>">
                                 <div class="form-text"><?php echo __('backup_time_help') ?: 'Time for automatic daily backups'; ?></div>
                             </div>
                         </div>
