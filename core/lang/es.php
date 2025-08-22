@@ -115,5 +115,33 @@ return [
     'error_creating_user' => 'Error al crear usuario',
     
     // Common
-    'change_language' => 'Cambiar Idioma'
+    'change_language' => 'Cambiar Idioma',
+
+    // Roles Management
+    'roles_management' => 'Gestión de Roles',
+    'manage_roles_description' => 'Gestionar roles y permisos',
+    'add_role' => 'Agregar Rol',
+    'edit_role' => 'Editar Rol',
+    'create_role' => 'Crear Rol',
+    'update_role' => 'Actualizar Rol',
+    'role_name' => 'Nombre del Rol',
+    'description' => 'Descripción',
+    'created_at' => 'Creado',
+    'roles_list' => 'Lista de Roles',
+    'no_roles_available' => 'No hay roles disponibles',
+    'back_to_roles' => 'Volver a Roles',
+    'back_to_dashboard' => 'Panel de Control',
+    
+    // Permissions
+    'assign_permissions' => 'Asignar Permisos',
+    'permissions' => 'Permisos',
+    'save_permissions' => 'Guardar Permisos',
+    'select_all' => 'Seleccionar Todo',
+    'select_none' => 'Seleccionar Nada',
+    'no_permissions_available' => 'No hay permisos disponibles',
+    'role_not_found' => 'Rol no encontrado',
+    
+    // General
+    'access' => 'Acceder',
+    'navigation' => 'Navegación'
 ];

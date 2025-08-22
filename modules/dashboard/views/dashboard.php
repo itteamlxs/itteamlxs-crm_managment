@@ -57,6 +57,21 @@ $user = getCurrentUser();
                     </div>
                     <?php endif; ?>
 
+                    <?php if ($user['is_admin']): ?>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-warning">
+                            <div class="card-body text-center">
+                                <i class="bi bi-shield-check text-warning" style="font-size: 2rem;"></i>
+                                <h6 class="card-title mt-2"><?php echo __('roles_management') ?: 'Roles Management'; ?></h6>
+                                <p class="card-text small"><?php echo __('manage_roles_description') ?: 'Manage roles and permissions'; ?></p>
+                                <a href="<?php echo url('roles', 'list'); ?>" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-arrow-right"></i> <?php echo __('access') ?: 'Access'; ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100 border-info">
                             <div class="card-body text-center">
