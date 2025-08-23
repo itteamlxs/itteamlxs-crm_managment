@@ -1,7 +1,7 @@
 <?php
 /**
  * Products Controller
- * Handles product listing, create, edit
+ * Handles product listing, create, edit, delete
  */
 
 require_once __DIR__ . '/../models/ProductModel.php';
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         
-        if ($action === 'edit_product') {
+        if ($action === 'update_product') {
             requirePermission('manage_products');
             
             $productId = (int)($_POST['product_id'] ?? 0);
@@ -71,6 +71,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = 'Error updating product';
             }
         }
+        
+        if ($action === 'delete_product') {
+            requirePermission('manage_products');
+            
+            $productId = (int)($_POST['product_id'] ?? 0);
+            
+            if ($productId <= 0) {
+                $error = 'Invalid product ID';
+            } else {
+                if ($productModel->deleteProduct($productId)) {
+                    $success = 'Product deleted successfully';
+                } else {
+                    $error = 'Error deleting product';
+                }
+            }
+        }
     }
 }
 
@@ -78,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $page = (int)($_GET['page'] ?? 1);
 $search = sanitizeInput($_GET['search'] ?? '');
 $productsData = $productModel->getAllProducts($page, 20, $search);
-$categories = $productModel->getCategories();
+$categories = $productModel->getCategoriesForDropdown(); // Fixed: usar método correcto para dropdown
 $lowStockProducts = $productModel->getLowStockProducts();
 
 // Get product for editing if specified

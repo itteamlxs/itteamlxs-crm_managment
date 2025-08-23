@@ -68,7 +68,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                             </div>
                             <div class="col-md-3">
                                 <?php if (hasPermission('manage_products')): ?>
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#productModal">
                                     <i class="bi bi-plus"></i> Add Product
                                 </button>
                                 <?php endif; ?>
@@ -116,6 +116,10 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                                class="btn btn-sm btn-outline-primary">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" 
+                                                    onclick="deleteProduct(<?php echo $product['product_id']; ?>, '<?php echo htmlspecialchars($product['product_name'], ENT_QUOTES, 'UTF-8'); ?>')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
                                             <?php endif; ?>
                                         </td>
                                     </tr>
@@ -140,7 +144,15 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                         <?php endif; ?>
                         
                         <?php else: ?>
-                        <p class="text-muted">No products found.</p>
+                        <div class="text-center py-4">
+                            <i class="bi bi-box text-muted" style="font-size: 3rem;"></i>
+                            <p class="text-muted mt-2">No products found.</p>
+                            <?php if (hasPermission('manage_products')): ?>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">
+                                <i class="bi bi-plus"></i> Add First Product
+                            </button>
+                            <?php endif; ?>
+                        </div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -148,12 +160,15 @@ require_once __DIR__ . '/../../../core/url_helper.php';
 
             <div class="col-md-4">
                 <!-- Categories Summary -->
+                <?php 
+                $categorySummary = $productModel->getCategories();
+                ?>
                 <div class="card mb-4">
                     <div class="card-header">
                         <h6 class="mb-0">Categories</h6>
                     </div>
                     <div class="card-body">
-                        <?php foreach ($categories as $category): ?>
+                        <?php foreach ($categorySummary as $category): ?>
                         <div class="d-flex justify-content-between">
                             <span><?php echo htmlspecialchars($category['category_name'], ENT_QUOTES, 'UTF-8'); ?></span>
                             <span class="badge bg-secondary"><?php echo $category['product_count']; ?></span>
@@ -181,14 +196,14 @@ require_once __DIR__ . '/../../../core/url_helper.php';
             </div>
         </div>
 
-        <!-- Add Product Modal -->
+        <!-- Product Modal -->
         <?php if (hasPermission('manage_products')): ?>
-        <div class="modal fade" id="addProductModal" tabindex="-1">
+        <div class="modal fade" id="productModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="POST">
                         <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
-                        <input type="hidden" name="action" value="<?php echo $editProduct ? 'edit_product' : 'create_product'; ?>">
+                        <input type="hidden" name="action" value="<?php echo $editProduct ? 'update_product' : 'create_product'; ?>">
                         <?php if ($editProduct): ?>
                         <input type="hidden" name="product_id" value="<?php echo $editProduct['product_id']; ?>">
                         <?php endif; ?>
@@ -251,6 +266,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-<?php echo $editProduct ? 'check' : 'plus'; ?>"></i>
                                 <?php echo $editProduct ? 'Update Product' : 'Create Product'; ?>
                             </button>
                         </div>
@@ -259,16 +275,29 @@ require_once __DIR__ . '/../../../core/url_helper.php';
             </div>
         </div>
         <?php endif; ?>
+
+        <!-- Delete Form -->
+        <form id="deleteForm" method="POST" style="display: none;">
+            <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+            <input type="hidden" name="action" value="delete_product">
+            <input type="hidden" name="product_id" id="deleteProductId">
+        </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         <?php if ($editProduct): ?>
-        // Auto-open modal for editing
         document.addEventListener('DOMContentLoaded', function() {
-            new bootstrap.Modal(document.getElementById('addProductModal')).show();
+            new bootstrap.Modal(document.getElementById('productModal')).show();
         });
         <?php endif; ?>
+
+        function deleteProduct(productId, productName) {
+            if (confirm('Are you sure you want to delete "' + productName + '"? This will set stock to 0.')) {
+                document.getElementById('deleteProductId').value = productId;
+                document.getElementById('deleteForm').submit();
+            }
+        }
     </script>
 </body>
 </html>

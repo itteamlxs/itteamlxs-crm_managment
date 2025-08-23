@@ -63,6 +63,18 @@ class ProductModel {
     }
     
     /**
+     * Get categories for dropdown (all categories)
+     */
+    public function getCategoriesForDropdown() {
+        try {
+            return $this->db->fetchAll("SELECT category_id, category_name, description FROM product_categories ORDER BY category_name");
+        } catch (Exception $e) {
+            logError("Get categories dropdown error: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    /**
      * Get low stock products
      */
     public function getLowStockProducts() {
@@ -125,6 +137,20 @@ class ProductModel {
     }
     
     /**
+     * Delete product (soft delete by setting stock to 0)
+     */
+    public function deleteProduct($productId) {
+        try {
+            $sql = "UPDATE products SET stock_quantity = 0 WHERE product_id = ?";
+            $this->db->execute($sql, [$productId]);
+            return true;
+        } catch (Exception $e) {
+            logError("Delete product error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
      * Create category
      */
     public function createCategory($name, $description = '') {
@@ -139,11 +165,63 @@ class ProductModel {
     }
     
     /**
-     * Get product by ID (from view)
+     * Update category
+     */
+    public function updateCategory($categoryId, $name, $description = '') {
+        try {
+            $sql = "UPDATE product_categories SET category_name = ?, description = ? WHERE category_id = ?";
+            $this->db->execute($sql, [$name, $description, $categoryId]);
+            return true;
+        } catch (Exception $e) {
+            logError("Update category error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Delete category (only if no products)
+     */
+    public function deleteCategory($categoryId) {
+        try {
+            // Check if category has products
+            $checkSql = "SELECT COUNT(*) as count FROM products WHERE category_id = ?";
+            $result = $this->db->fetch($checkSql, [$categoryId]);
+            
+            if ($result['count'] > 0) {
+                return false; // Cannot delete category with products
+            }
+            
+            $sql = "DELETE FROM product_categories WHERE category_id = ?";
+            $this->db->execute($sql, [$categoryId]);
+            return true;
+        } catch (Exception $e) {
+            logError("Delete category error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Get category by ID
+     */
+    public function getCategoryById($categoryId) {
+        try {
+            $sql = "SELECT * FROM product_categories WHERE category_id = ?";
+            return $this->db->fetch($sql, [$categoryId]);
+        } catch (Exception $e) {
+            logError("Get category by ID error: " . $e->getMessage());
+            return null;
+        }
+    }
+    
+    /**
+     * Get product by ID (from table for editing - includes category_id)
      */
     public function getProductById($productId) {
         try {
-            $sql = "SELECT * FROM vw_products WHERE product_id = ?";
+            $sql = "SELECT p.*, pc.category_name 
+                    FROM products p 
+                    JOIN product_categories pc ON p.category_id = pc.category_id 
+                    WHERE p.product_id = ?";
             return $this->db->fetch($sql, [$productId]);
         } catch (Exception $e) {
             logError("Get product by ID error: " . $e->getMessage());

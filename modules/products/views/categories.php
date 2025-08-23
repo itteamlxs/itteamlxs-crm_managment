@@ -61,6 +61,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                         <th>Category Name</th>
                                         <th>Products Count</th>
                                         <th>Created</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,6 +77,20 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                             <small class="text-muted">
                                                 <?php echo isset($category['created_at']) ? formatDate($category['created_at'], 'M d, Y') : 'N/A'; ?>
                                             </small>
+                                        </td>
+                                        <td>
+                                            <?php if (hasPermission('manage_products')): ?>
+                                            <a href="?module=products&action=categories&edit_id=<?php echo $category['category_id']; ?>" 
+                                               class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <?php if ($category['product_count'] == 0): ?>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" 
+                                                    onclick="deleteCategory(<?php echo $category['category_id']; ?>, '<?php echo htmlspecialchars($category['category_name'], ENT_QUOTES, 'UTF-8'); ?>')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                            <?php endif; ?>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -125,11 +140,11 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                         <hr>
                         <h6>Top Categories</h6>
                         <?php 
-                        // Sort categories by product count
-                        usort($categories, function($a, $b) {
+                        $topCategories = $categories;
+                        usort($topCategories, function($a, $b) {
                             return $b['product_count'] - $a['product_count'];
                         });
-                        $topCategories = array_slice($categories, 0, 5);
+                        $topCategories = array_slice($topCategories, 0, 5);
                         ?>
                         <?php foreach ($topCategories as $category): ?>
                         <div class="d-flex justify-content-between align-items-center mb-2">
@@ -143,34 +158,40 @@ require_once __DIR__ . '/../../../core/url_helper.php';
             </div>
         </div>
 
-        <!-- Add Category Modal -->
+        <!-- Add/Edit Category Modal -->
         <?php if (hasPermission('manage_products')): ?>
         <div class="modal fade" id="addCategoryModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="POST">
                         <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+                        <input type="hidden" name="action" value="<?php echo $editCategory ? 'update_category' : 'create_category'; ?>">
+                        <?php if ($editCategory): ?>
+                        <input type="hidden" name="category_id" value="<?php echo $editCategory['category_id']; ?>">
+                        <?php endif; ?>
                         
                         <div class="modal-header">
-                            <h5 class="modal-title">Add New Category</h5>
+                            <h5 class="modal-title"><?php echo $editCategory ? 'Edit Category' : 'Add New Category'; ?></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="category_name" class="form-label">Category Name *</label>
-                                <input type="text" class="form-control" id="category_name" name="category_name" required>
+                                <input type="text" class="form-control" id="category_name" name="category_name" 
+                                       value="<?php echo htmlspecialchars($editCategory['category_name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
                                 <div class="form-text">Choose a descriptive name for the category</div>
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description (Optional)</label>
                                 <textarea class="form-control" id="description" name="description" rows="3" 
-                                          placeholder="Brief description of this category..."></textarea>
+                                          placeholder="Brief description of this category..."><?php echo htmlspecialchars($editCategory['description'] ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-plus"></i> Create Category
+                                <i class="bi bi-<?php echo $editCategory ? 'check' : 'plus'; ?>"></i> 
+                                <?php echo $editCategory ? 'Update Category' : 'Create Category'; ?>
                             </button>
                         </div>
                     </form>
@@ -178,8 +199,29 @@ require_once __DIR__ . '/../../../core/url_helper.php';
             </div>
         </div>
         <?php endif; ?>
+
+        <!-- Delete Form -->
+        <form id="deleteForm" method="POST" style="display: none;">
+            <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+            <input type="hidden" name="action" value="delete_category">
+            <input type="hidden" name="category_id" id="deleteCategoryId">
+        </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        <?php if ($editCategory): ?>
+        document.addEventListener('DOMContentLoaded', function() {
+            new bootstrap.Modal(document.getElementById('addCategoryModal')).show();
+        });
+        <?php endif; ?>
+
+        function deleteCategory(categoryId, categoryName) {
+            if (confirm('Are you sure you want to delete "' + categoryName + '"? This action cannot be undone.')) {
+                document.getElementById('deleteCategoryId').value = categoryId;
+                document.getElementById('deleteForm').submit();
+            }
+        }
+    </script>
 </body>
 </html>
