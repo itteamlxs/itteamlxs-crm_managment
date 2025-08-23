@@ -1,7 +1,7 @@
 <?php
 /**
  * Product Model
- * Uses vw_products, vw_category_summary, vw_low_stock_products views
+ * Maneja productos y categorías usando vistas del esquema
  */
 
 require_once __DIR__ . '/../../../config/db.php';
@@ -16,27 +16,41 @@ class ProductModel {
     }
     
     /**
-     * Get all products with categories
+     * Obtener productos con paginación y filtros
      */
-    public function getAllProducts($page = 1, $limit = 10, $search = '') {
+    public function getProducts($page = 1, $limit = 10, $search = '', $categoryId = null) {
         try {
             $pagination = validatePagination($page, $limit);
-            $searchPattern = '%' . $search . '%';
             
-            $sql = "SELECT * FROM vw_products 
-                    WHERE product_name LIKE ? OR sku LIKE ? OR category_name LIKE ?
-                    ORDER BY product_name
+            $conditions = [];
+            $params = [];
+            
+            if (!empty($search)) {
+                $conditions[] = "(product_name LIKE ? OR sku LIKE ?)";
+                $params[] = '%' . $search . '%';
+                $params[] = '%' . $search . '%';
+            }
+            
+            if ($categoryId) {
+                $conditions[] = "category_id = ?";
+                $params[] = $categoryId;
+            }
+            
+            $whereClause = !empty($conditions) ? 'WHERE ' . implode(' AND ', $conditions) : '';
+            
+            $sql = "SELECT * FROM vw_products {$whereClause} 
+                    ORDER BY product_name ASC
                     LIMIT ? OFFSET ?";
             
-            $products = $this->db->fetchAll($sql, [
-                $searchPattern, $searchPattern, $searchPattern, 
-                $pagination['limit'], $pagination['offset']
-            ]);
+            $params[] = $pagination['limit'];
+            $params[] = $pagination['offset'];
             
-            // Get total count
-            $countSql = "SELECT COUNT(*) as total FROM vw_products 
-                        WHERE product_name LIKE ? OR sku LIKE ? OR category_name LIKE ?";
-            $total = $this->db->fetch($countSql, [$searchPattern, $searchPattern, $searchPattern])['total'];
+            $products = $this->db->fetchAll($sql, $params);
+            
+            // Contar total
+            $countSql = "SELECT COUNT(*) as total FROM vw_products {$whereClause}";
+            $countParams = array_slice($params, 0, count($params) - 2);
+            $total = $this->db->fetch($countSql, $countParams)['total'];
             
             return [
                 'products' => $products,
@@ -51,56 +65,44 @@ class ProductModel {
     }
     
     /**
-     * Get categories summary
+     * Obtener producto por ID
      */
-    public function getCategories() {
+    public function getProductById($productId) {
         try {
-            return $this->db->fetchAll("SELECT * FROM vw_category_summary ORDER BY category_name");
+            $sql = "SELECT p.*, pc.category_name 
+                    FROM products p 
+                    JOIN product_categories pc ON p.category_id = pc.category_id 
+                    WHERE p.product_id = ?";
+            return $this->db->fetch($sql, [$productId]);
         } catch (Exception $e) {
-            logError("Get categories error: " . $e->getMessage());
-            return [];
+            logError("Get product by ID error: " . $e->getMessage());
+            return null;
         }
     }
     
     /**
-     * Get categories for dropdown (all categories)
-     */
-    public function getCategoriesForDropdown() {
-        try {
-            return $this->db->fetchAll("SELECT category_id, category_name, description FROM product_categories ORDER BY category_name");
-        } catch (Exception $e) {
-            logError("Get categories dropdown error: " . $e->getMessage());
-            return [];
-        }
-    }
-    
-    /**
-     * Get low stock products
-     */
-    public function getLowStockProducts() {
-        try {
-            return $this->db->fetchAll("SELECT * FROM vw_low_stock_products ORDER BY stock_quantity ASC");
-        } catch (Exception $e) {
-            logError("Get low stock error: " . $e->getMessage());
-            return [];
-        }
-    }
-    
-    /**
-     * Create product
+     * Crear producto
      */
     public function createProduct($data) {
         try {
-            $sql = "INSERT INTO products (category_id, product_name, sku, price, tax_rate, stock_quantity) 
-                    VALUES (?, ?, ?, ?, ?, ?)";
+            // Validar SKU único
+            if (!$this->isSkuUnique($data['sku'])) {
+                return false;
+            }
+            
+            $sql = "INSERT INTO products (category_id, product_name, sku, price, tax_rate, 
+                                        stock_quantity, min_stock_level, description) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             
             $this->db->execute($sql, [
                 $data['category_id'],
                 $data['product_name'],
                 $data['sku'],
                 $data['price'],
-                $data['tax_rate'],
-                $data['stock_quantity']
+                $data['tax_rate'] ?? 0.00,
+                $data['stock_quantity'] ?? 0,
+                $data['min_stock_level'] ?? 10,
+                $data['description'] ?? ''
             ]);
             
             return $this->db->lastInsertId();
@@ -111,12 +113,18 @@ class ProductModel {
     }
     
     /**
-     * Update product
+     * Actualizar producto
      */
     public function updateProduct($productId, $data) {
         try {
+            // Validar SKU único (excluyendo el producto actual)
+            if (!$this->isSkuUnique($data['sku'], $productId)) {
+                return false;
+            }
+            
             $sql = "UPDATE products 
-                    SET category_id = ?, product_name = ?, sku = ?, price = ?, tax_rate = ?, stock_quantity = ?
+                    SET category_id = ?, product_name = ?, sku = ?, price = ?, 
+                        tax_rate = ?, stock_quantity = ?, min_stock_level = ?, description = ?
                     WHERE product_id = ?";
             
             $this->db->execute($sql, [
@@ -124,8 +132,10 @@ class ProductModel {
                 $data['product_name'],
                 $data['sku'],
                 $data['price'],
-                $data['tax_rate'],
-                $data['stock_quantity'],
+                $data['tax_rate'] ?? 0.00,
+                $data['stock_quantity'] ?? 0,
+                $data['min_stock_level'] ?? 10,
+                $data['description'] ?? '',
                 $productId
             ]);
             
@@ -137,11 +147,21 @@ class ProductModel {
     }
     
     /**
-     * Delete product (soft delete by setting stock to 0)
+     * Eliminar producto (soft delete - stock = 0)
      */
     public function deleteProduct($productId) {
         try {
-            $sql = "UPDATE products SET stock_quantity = 0 WHERE product_id = ?";
+            // Verificar si tiene cotizaciones activas
+            $checkSql = "SELECT COUNT(*) as count FROM quote_items qi 
+                        JOIN quotes q ON qi.quote_id = q.quote_id 
+                        WHERE qi.product_id = ? AND q.status IN ('pending', 'approved')";
+            $result = $this->db->fetch($checkSql, [$productId]);
+            
+            if ($result['count'] > 0) {
+                return ['error' => 'Cannot delete product with active quotes'];
+            }
+            
+            $sql = "UPDATE products SET stock_quantity = 0, is_active = 0 WHERE product_id = ?";
             $this->db->execute($sql, [$productId]);
             return true;
         } catch (Exception $e) {
@@ -151,57 +171,25 @@ class ProductModel {
     }
     
     /**
-     * Create category
+     * Obtener categorías
      */
-    public function createCategory($name, $description = '') {
+    public function getCategories($includeStats = false) {
         try {
-            $sql = "INSERT INTO product_categories (category_name, description) VALUES (?, ?)";
-            $this->db->execute($sql, [$name, $description]);
-            return $this->db->lastInsertId();
-        } catch (Exception $e) {
-            logError("Create category error: " . $e->getMessage());
-            return false;
-        }
-    }
-    
-    /**
-     * Update category
-     */
-    public function updateCategory($categoryId, $name, $description = '') {
-        try {
-            $sql = "UPDATE product_categories SET category_name = ?, description = ? WHERE category_id = ?";
-            $this->db->execute($sql, [$name, $description, $categoryId]);
-            return true;
-        } catch (Exception $e) {
-            logError("Update category error: " . $e->getMessage());
-            return false;
-        }
-    }
-    
-    /**
-     * Delete category (only if no products)
-     */
-    public function deleteCategory($categoryId) {
-        try {
-            // Check if category has products
-            $checkSql = "SELECT COUNT(*) as count FROM products WHERE category_id = ?";
-            $result = $this->db->fetch($checkSql, [$categoryId]);
-            
-            if ($result['count'] > 0) {
-                return false; // Cannot delete category with products
+            if ($includeStats) {
+                return $this->db->fetchAll("SELECT * FROM vw_category_summary ORDER BY category_name");
+            } else {
+                return $this->db->fetchAll("SELECT category_id, category_name, description 
+                                           FROM product_categories 
+                                           ORDER BY category_name");
             }
-            
-            $sql = "DELETE FROM product_categories WHERE category_id = ?";
-            $this->db->execute($sql, [$categoryId]);
-            return true;
         } catch (Exception $e) {
-            logError("Delete category error: " . $e->getMessage());
-            return false;
+            logError("Get categories error: " . $e->getMessage());
+            return [];
         }
     }
     
     /**
-     * Get category by ID
+     * Obtener categoría por ID
      */
     public function getCategoryById($categoryId) {
         try {
@@ -214,18 +202,106 @@ class ProductModel {
     }
     
     /**
-     * Get product by ID (from table for editing - includes category_id)
+     * Crear categoría
      */
-    public function getProductById($productId) {
+    public function createCategory($data) {
         try {
-            $sql = "SELECT p.*, pc.category_name 
-                    FROM products p 
-                    JOIN product_categories pc ON p.category_id = pc.category_id 
-                    WHERE p.product_id = ?";
-            return $this->db->fetch($sql, [$productId]);
+            $sql = "INSERT INTO product_categories (category_name, description) VALUES (?, ?)";
+            $this->db->execute($sql, [$data['category_name'], $data['description'] ?? '']);
+            return $this->db->lastInsertId();
         } catch (Exception $e) {
-            logError("Get product by ID error: " . $e->getMessage());
-            return null;
+            logError("Create category error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Actualizar categoría
+     */
+    public function updateCategory($categoryId, $data) {
+        try {
+            $sql = "UPDATE product_categories SET category_name = ?, description = ? WHERE category_id = ?";
+            $this->db->execute($sql, [$data['category_name'], $data['description'] ?? '', $categoryId]);
+            return true;
+        } catch (Exception $e) {
+            logError("Update category error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Eliminar categoría
+     */
+    public function deleteCategory($categoryId) {
+        try {
+            // Verificar si tiene productos
+            $checkSql = "SELECT COUNT(*) as count FROM products WHERE category_id = ?";
+            $result = $this->db->fetch($checkSql, [$categoryId]);
+            
+            if ($result['count'] > 0) {
+                return ['error' => 'Cannot delete category with products'];
+            }
+            
+            $sql = "DELETE FROM product_categories WHERE category_id = ?";
+            $this->db->execute($sql, [$categoryId]);
+            return true;
+        } catch (Exception $e) {
+            logError("Delete category error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Obtener productos con stock bajo
+     */
+    public function getLowStockProducts() {
+        try {
+            return $this->db->fetchAll("SELECT * FROM vw_low_stock_products ORDER BY stock_quantity ASC");
+        } catch (Exception $e) {
+            logError("Get low stock error: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    /**
+     * Validar SKU único
+     */
+    private function isSkuUnique($sku, $excludeId = null) {
+        try {
+            $sql = "SELECT COUNT(*) as count FROM products WHERE sku = ?";
+            $params = [$sku];
+            
+            if ($excludeId) {
+                $sql .= " AND product_id != ?";
+                $params[] = $excludeId;
+            }
+            
+            $result = $this->db->fetch($sql, $params);
+            return $result['count'] == 0;
+        } catch (Exception $e) {
+            logError("Check SKU unique error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Actualizar stock (para integraciones externas)
+     */
+    public function updateStock($productId, $quantity, $operation = 'set') {
+        try {
+            if ($operation === 'add') {
+                $sql = "UPDATE products SET stock_quantity = stock_quantity + ? WHERE product_id = ?";
+            } elseif ($operation === 'subtract') {
+                $sql = "UPDATE products SET stock_quantity = GREATEST(0, stock_quantity - ?) WHERE product_id = ?";
+            } else {
+                $sql = "UPDATE products SET stock_quantity = ? WHERE product_id = ?";
+            }
+            
+            $this->db->execute($sql, [$quantity, $productId]);
+            return true;
+        } catch (Exception $e) {
+            logError("Update stock error: " . $e->getMessage());
+            return false;
         }
     }
 }
