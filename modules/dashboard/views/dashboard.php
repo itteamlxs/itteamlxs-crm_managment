@@ -100,6 +100,21 @@ $user = getCurrentUser();
                     </div>
                     <?php endif; ?>
 
+                    <?php if (canAccessModule('products')): ?>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-primary">
+                            <div class="card-body text-center">
+                                <i class="bi bi-box text-primary" style="font-size: 2rem;"></i>
+                                <h6 class="card-title mt-2"><?php echo __('products') ?: 'Products'; ?></h6>
+                                <p class="card-text small"><?php echo __('manage_products_description') ?: 'Manage products and categories'; ?></p>
+                                <a href="<?php echo url('products', 'list'); ?>" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-arrow-right"></i> <?php echo __('access') ?: 'Access'; ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
                     <?php if (canAccessModule('quotes')): ?>
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100 border-warning">
