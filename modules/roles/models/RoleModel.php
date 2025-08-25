@@ -246,4 +246,4 @@ class RoleModel {
             return false;
         }
     }
-}
+} 

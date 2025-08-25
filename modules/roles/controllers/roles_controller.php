@@ -41,6 +41,7 @@ function handleListRoles() {
         $role['can_delete'] = $roleModel->canDeleteRole($role['role_id']);
     }
     
+    unset($role);
     include __DIR__ . '/../views/roles.php';
 }
 
