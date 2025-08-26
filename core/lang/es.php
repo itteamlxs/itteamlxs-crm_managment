@@ -1,6 +1,6 @@
 <?php
 /**
- * Spanish translations - Updated with User Management and Password Change
+ * Spanish translations - Updated with User Management and Role Management
  */
 return [
     // Login page
@@ -91,18 +91,6 @@ return [
     'confirm_reset_password_action' => '¿Está seguro que desea restablecer la contraseña de este usuario?',
     'confirm_deactivate_action' => '¿Está seguro que desea desactivar este usuario?',
     
-    // Password Change
-    'change_password' => 'Cambiar Contraseña',
-    'current_password' => 'Contraseña Actual',
-    'new_password' => 'Nueva Contraseña',
-    'confirm_new_password' => 'Confirmar Nueva Contraseña',
-    'leave_blank_to_keep_current_password' => 'Deje en blanco para mantener la contraseña actual.',
-    'required_to_change_password' => 'Requerido para cambiar la contraseña.',
-    'current_password_required' => 'La contraseña actual es requerida para cambiar la contraseña.',
-    'current_password_incorrect' => 'La contraseña actual es incorrecta.',
-    'new_password_required' => 'La nueva contraseña es requerida.',
-    'user_and_password_updated_successfully' => 'Usuario y contraseña actualizados exitosamente.',
-    
     // Form validation messages
     'username_required' => 'El nombre de usuario es requerido',
     'invalid_username_format' => 'Formato de usuario inválido',
@@ -143,6 +131,25 @@ return [
     'no_roles_available' => 'No hay roles disponibles',
     'back_to_roles' => 'Volver a Roles',
     'back_to_dashboard' => 'Panel de Control',
+    'delete' => 'Eliminar',
+    'confirm_delete' => 'Confirmar Eliminación',
+    
+    // Role form validations
+    'role_name_required' => 'El nombre del rol es requerido',
+    'invalid_role_name_format' => 'Formato de nombre de rol inválido (3-50 caracteres, solo letras, números, espacios y guiones bajos)',
+    'role_name_already_exists' => 'El nombre del rol ya existe',
+    'description_required' => 'La descripción es requerida',
+    
+    // Role operations
+    'error_creating_role' => 'Error al crear el rol',
+    'role_created_successfully' => 'Rol creado exitosamente',
+    'error_updating_role' => 'Error al actualizar el rol',
+    'role_updated_successfully' => 'Rol actualizado exitosamente',
+    'role_deleted_successfully' => 'Rol eliminado exitosamente',
+    'error_deleting_role' => 'Error al eliminar el rol',
+    'cannot_delete_role_with_users' => 'No se puede eliminar el rol porque tiene usuarios asignados. Primero reasigne los usuarios a otro rol.',
+    'confirm_delete_role' => '¿Está seguro que desea eliminar el rol',
+    'this_action_cannot_be_undone' => 'Esta acción no se puede deshacer.',
     
     // Permissions
     'assign_permissions' => 'Asignar Permisos',
@@ -152,6 +159,8 @@ return [
     'select_none' => 'Seleccionar Nada',
     'no_permissions_available' => 'No hay permisos disponibles',
     'role_not_found' => 'Rol no encontrado',
+    'permissions_updated_successfully' => 'Permisos actualizados exitosamente',
+    'error_updating_permissions' => 'Error al actualizar los permisos',
     
     // General
     'access' => 'Acceder',
