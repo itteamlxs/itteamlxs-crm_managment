@@ -22,7 +22,7 @@ $action = sanitizeInput($_GET['action'] ?? '');
 $allowedModules = [
     'auth' => ['login', 'logout', 'reset'],
     'users' => ['list', 'edit', 'profile'],
-    'roles' => ['list', 'assign'],
+    'roles' => ['list', 'assign', 'delete'],
     'clients' => ['list', 'add', 'edit', 'delete'],
     'products' => ['list', 'categories'],
     'quotes' => ['list', 'create', 'approve', 'renew'],
@@ -102,6 +102,9 @@ try {
                     break;
                 case 'assign':
                     require_once $controllerPath . 'assign_controller.php';
+                    break;
+                case 'delete':
+                    require_once $controllerPath . 'roles_controller.php';
                     break;
             }
             break;

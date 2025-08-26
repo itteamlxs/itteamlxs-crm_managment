@@ -77,7 +77,7 @@ function handleAddRole() {
             if (empty($errors)) {
                 if ($roleModel->createRole($formData)) {
                     $_SESSION['success_message'] = __('role_created_successfully');
-                    redirect('/?module=roles&action=list');
+                    redirect(url('roles', 'list'));
                 } else {
                     $errors[] = __('error_creating_role');
                 }
@@ -94,13 +94,13 @@ function handleEditRole() {
     
     $roleId = (int)($_GET['id'] ?? 0);
     if (!$roleId) {
-        redirect('/?module=roles&action=list');
+        redirect(url('roles', 'list'));
     }
     
     $role = $roleModel->getRoleById($roleId);
     if (!$role) {
         $_SESSION['error_message'] = __('role_not_found');
-        redirect('/?module=roles&action=list');
+        redirect(url('roles', 'list'));
     }
     
     $errors = [];
@@ -131,7 +131,7 @@ function handleEditRole() {
             if (empty($errors)) {
                 if ($roleModel->updateRole($roleId, $formData)) {
                     $_SESSION['success_message'] = __('role_updated_successfully');
-                    redirect('/?module=roles&action=list');
+                    redirect(url('roles', 'list'));
                 } else {
                     $errors[] = __('error_updating_role');
                 }
@@ -148,29 +148,29 @@ function handleDeleteRole() {
     global $roleModel;
     
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        redirect('/?module=roles&action=list');
+        redirect(url('roles', 'list'));
     }
     
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
         $_SESSION['error_message'] = __('invalid_security_token');
-        redirect('/?module=roles&action=list');
+        redirect(url('roles', 'list'));
     }
     
     $roleId = (int)($_POST['role_id'] ?? 0);
     if (!$roleId) {
         $_SESSION['error_message'] = __('role_not_found');
-        redirect('/?module=roles&action=list');
+        redirect(url('roles', 'list'));
     }
     
     $role = $roleModel->getRoleById($roleId);
     if (!$role) {
         $_SESSION['error_message'] = __('role_not_found');
-        redirect('/?module=roles&action=list');
+        redirect(url('roles', 'list'));
     }
     
     if (!$roleModel->canDeleteRole($roleId)) {
         $_SESSION['error_message'] = __('cannot_delete_role_with_users');
-        redirect('/?module=roles&action=list');
+        redirect(url('roles', 'list'));
     }
     
     if ($roleModel->deleteRole($roleId)) {
@@ -179,5 +179,5 @@ function handleDeleteRole() {
         $_SESSION['error_message'] = __('error_deleting_role');
     }
     
-    redirect('/?module=roles&action=list');
+    redirect(url('roles', 'list'));
 }

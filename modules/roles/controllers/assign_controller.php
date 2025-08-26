@@ -7,6 +7,7 @@
 require_once __DIR__ . '/../../../core/helpers.php';
 require_once __DIR__ . '/../../../core/security.php';
 require_once __DIR__ . '/../../../core/rbac.php';
+require_once __DIR__ . '/../../../core/url_helper.php';
 require_once __DIR__ . '/../models/RoleModel.php';
 
 requireLogin();
@@ -16,13 +17,13 @@ $roleModel = new RoleModel();
 
 $roleId = (int)($_GET['role_id'] ?? 0);
 if (!$roleId) {
-    redirect('/?module=roles&action=list');
+    redirect(url('roles', 'list'));
 }
 
 $role = $roleModel->getRoleById($roleId);
 if (!$role) {
     $_SESSION['error_message'] = __('role_not_found');
-    redirect('/?module=roles&action=list');
+    redirect(url('roles', 'list'));
 }
 
 $errors = [];
