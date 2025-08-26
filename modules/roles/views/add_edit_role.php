@@ -44,7 +44,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                         </h5>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="" novalidate>
+                        <form method="POST" novalidate>
                             <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
                             
                             <div class="mb-3">
@@ -93,6 +93,6 @@ require_once __DIR__ . '/../../../core/url_helper.php';
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/crm-project/public/assets/js/roles.js"></script>
+    <script src="assets/js/roles.js"></script>
 </body>
 </html>

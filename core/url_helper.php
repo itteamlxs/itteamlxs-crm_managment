@@ -12,13 +12,11 @@
  * @return string
  */
 function url($module = '', $action = '', $params = []) {
-    // Base path - adjust this based on your server configuration
-    $basePath = '/crm-project/public/index.php';
+    // Get current script path
+    $scriptPath = $_SERVER['SCRIPT_NAME'] ?? '/crm-project/public/index.php';
     
-    // If accessed from root, use different path
-    if (isset($_SERVER['SCRIPT_NAME']) && strpos($_SERVER['SCRIPT_NAME'], 'index.php') !== false) {
-        $basePath = $_SERVER['SCRIPT_NAME'];
-    }
+    // Clean up the path - remove any existing parameters
+    $basePath = strtok($scriptPath, '?');
     
     $url = $basePath;
     
@@ -31,7 +29,9 @@ function url($module = '', $action = '', $params = []) {
         
         if (!empty($params)) {
             foreach ($params as $key => $value) {
-                $url .= '&' . urlencode($key) . '=' . urlencode($value);
+                if ($value !== null) {
+                    $url .= '&' . urlencode($key) . '=' . urlencode($value);
+                }
             }
         }
     }

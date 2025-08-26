@@ -153,7 +153,8 @@ class UserModel {
             $params = [];
             
             $allowedFields = ['username', 'email', 'display_name', 'language', 
-                            'role_id', 'is_admin', 'is_active', 'profile_picture'];
+                            'role_id', 'is_admin', 'is_active', 'profile_picture',
+                            'password_hash', 'force_password_change'];
             
             foreach ($allowedFields as $field) {
                 if (isset($userData[$field])) {
@@ -164,6 +165,13 @@ class UserModel {
             
             if (!empty($setParts)) {
                 $setParts[] = "updated_at = NOW()";
+                
+                // Reset failed attempts and unlock if password is being changed
+                if (isset($userData['password_hash'])) {
+                    $setParts[] = "failed_login_attempts = 0";
+                    $setParts[] = "locked_until = NULL";
+                }
+                
                 $sql = "UPDATE users SET " . implode(', ', $setParts) . " WHERE user_id = ?";
                 $params[] = $userId;
                 
@@ -202,6 +210,29 @@ class UserModel {
             
         } catch (Exception $e) {
             logError("Update password error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Verify current password for user
+     * @param int $userId
+     * @param string $currentPassword
+     * @return bool
+     */
+    public function verifyCurrentPassword($userId, $currentPassword) {
+        try {
+            $sql = "SELECT password_hash FROM users WHERE user_id = ?";
+            $result = $this->db->fetch($sql, [$userId]);
+            
+            if (!$result) {
+                return false;
+            }
+            
+            return verifyPassword($currentPassword, $result['password_hash']);
+            
+        } catch (Exception $e) {
+            logError("Verify current password error: " . $e->getMessage());
             return false;
         }
     }

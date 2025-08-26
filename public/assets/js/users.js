@@ -74,12 +74,16 @@ function initProfilePictureHandler() {
 }
 
 /**
- * Initialize password validation for new users
+ * Initialize password validation for new users and password changes
  */
 function initPasswordValidation() {
     const passwordInput = document.getElementById('password');
     const confirmInput = document.getElementById('confirm_password');
+    const newPasswordInput = document.getElementById('new_password');
+    const confirmNewPasswordInput = document.getElementById('confirm_new_password');
+    const currentPasswordInput = document.getElementById('current_password');
     
+    // New user password validation
     if (passwordInput) {
         passwordInput.addEventListener('input', function() {
             validatePasswordStrength(this);
@@ -88,7 +92,28 @@ function initPasswordValidation() {
     
     if (confirmInput) {
         confirmInput.addEventListener('input', function() {
-            validatePasswordMatch();
+            validatePasswordMatch('password', 'confirm_password');
+        });
+    }
+    
+    // Edit user password validation
+    if (newPasswordInput) {
+        newPasswordInput.addEventListener('input', function() {
+            validatePasswordStrength(this);
+            // Show/hide current password requirement
+            toggleCurrentPasswordRequirement();
+        });
+    }
+    
+    if (confirmNewPasswordInput) {
+        confirmNewPasswordInput.addEventListener('input', function() {
+            validatePasswordMatch('new_password', 'confirm_new_password');
+        });
+    }
+    
+    if (currentPasswordInput) {
+        currentPasswordInput.addEventListener('input', function() {
+            validateCurrentPasswordField();
         });
     }
 }
@@ -109,6 +134,53 @@ function initLanguageSwitch() {
     
     // Store original value
     languageSelect.dataset.original = languageSelect.value;
+}
+
+/**
+ * Toggle current password requirement based on new password input
+ */
+function toggleCurrentPasswordRequirement() {
+    const newPasswordInput = document.getElementById('new_password');
+    const currentPasswordInput = document.getElementById('current_password');
+    
+    if (!newPasswordInput || !currentPasswordInput) return;
+    
+    const newPasswordLabel = document.querySelector('label[for="current_password"]');
+    
+    if (newPasswordInput.value.trim()) {
+        // Make current password required if new password is entered
+        currentPasswordInput.setAttribute('required', 'required');
+        if (newPasswordLabel) {
+            newPasswordLabel.innerHTML = newPasswordLabel.innerHTML.replace(' <span class="text-danger">*</span>', '') + ' <span class="text-danger">*</span>';
+        }
+    } else {
+        // Remove requirement if new password is empty
+        currentPasswordInput.removeAttribute('required');
+        if (newPasswordLabel) {
+            newPasswordLabel.innerHTML = newPasswordLabel.innerHTML.replace(' <span class="text-danger">*</span>', '');
+        }
+        clearValidationFeedback(currentPasswordInput);
+    }
+}
+
+/**
+ * Validate current password field
+ */
+function validateCurrentPasswordField() {
+    const currentPasswordInput = document.getElementById('current_password');
+    const newPasswordInput = document.getElementById('new_password');
+    
+    if (!currentPasswordInput || !newPasswordInput) return true;
+    
+    clearValidationFeedback(currentPasswordInput);
+    
+    // Only validate if new password is entered
+    if (newPasswordInput.value.trim() && !currentPasswordInput.value.trim()) {
+        showValidationError(currentPasswordInput, 'La contraseña actual es requerida');
+        return false;
+    }
+    
+    return true;
 }
 
 /**
@@ -183,9 +255,9 @@ function validatePasswordStrength(input) {
 /**
  * Validate password confirmation match
  */
-function validatePasswordMatch() {
-    const passwordInput = document.getElementById('password');
-    const confirmInput = document.getElementById('confirm_password');
+function validatePasswordMatch(passwordId, confirmId) {
+    const passwordInput = document.getElementById(passwordId);
+    const confirmInput = document.getElementById(confirmId);
     
     if (!passwordInput || !confirmInput) return true;
     
@@ -331,12 +403,27 @@ function validateUserForm() {
         isValid = false;
     }
     
+    // Validate new user password
     const passwordInput = document.getElementById('password');
     if (passwordInput && !validatePasswordStrength(passwordInput)) {
         isValid = false;
     }
     
-    if (!validatePasswordMatch()) {
+    if (!validatePasswordMatch('password', 'confirm_password')) {
+        isValid = false;
+    }
+    
+    // Validate password change
+    const newPasswordInput = document.getElementById('new_password');
+    if (newPasswordInput && newPasswordInput.value && !validatePasswordStrength(newPasswordInput)) {
+        isValid = false;
+    }
+    
+    if (!validatePasswordMatch('new_password', 'confirm_new_password')) {
+        isValid = false;
+    }
+    
+    if (!validateCurrentPasswordField()) {
         isValid = false;
     }
     

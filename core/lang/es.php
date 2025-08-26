@@ -1,6 +1,6 @@
 <?php
 /**
- * Spanish translations - Updated with User Management
+ * Spanish translations - Updated with User Management and Password Change
  */
 return [
     // Login page
@@ -90,6 +90,18 @@ return [
     'create_user' => 'Crear Usuario',
     'confirm_reset_password_action' => '¿Está seguro que desea restablecer la contraseña de este usuario?',
     'confirm_deactivate_action' => '¿Está seguro que desea desactivar este usuario?',
+    
+    // Password Change
+    'change_password' => 'Cambiar Contraseña',
+    'current_password' => 'Contraseña Actual',
+    'new_password' => 'Nueva Contraseña',
+    'confirm_new_password' => 'Confirmar Nueva Contraseña',
+    'leave_blank_to_keep_current_password' => 'Deje en blanco para mantener la contraseña actual.',
+    'required_to_change_password' => 'Requerido para cambiar la contraseña.',
+    'current_password_required' => 'La contraseña actual es requerida para cambiar la contraseña.',
+    'current_password_incorrect' => 'La contraseña actual es incorrecta.',
+    'new_password_required' => 'La nueva contraseña es requerida.',
+    'user_and_password_updated_successfully' => 'Usuario y contraseña actualizados exitosamente.',
     
     // Form validation messages
     'username_required' => 'El nombre de usuario es requerido',

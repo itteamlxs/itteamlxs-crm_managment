@@ -206,6 +206,63 @@
                                 </div>
                             <?php endif; ?>
                             
+                            <!-- Change Password Fields (Edit Users) -->
+                            <?php if ($isEdit): ?>
+                                <hr>
+                                <h6>
+                                    <i class="bi bi-shield-lock"></i> <?php echo __('change_password'); ?>
+                                </h6>
+                                <p class="text-muted small">
+                                    <?php echo __('leave_blank_to_keep_current_password'); ?>
+                                </p>
+                                
+                                <!-- Current Password (only for own profile) -->
+                                <?php if ($targetUserId === $currentUser['user_id']): ?>
+                                    <div class="mb-3">
+                                        <label for="current_password" class="form-label">
+                                            <?php echo __('current_password'); ?>
+                                        </label>
+                                        <input type="password" 
+                                               class="form-control" 
+                                               id="current_password" 
+                                               name="current_password">
+                                        <div class="form-text">
+                                            <?php echo __('required_to_change_password'); ?>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <!-- New Password -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="new_password" class="form-label">
+                                                <?php echo __('new_password'); ?>
+                                            </label>
+                                            <input type="password" 
+                                                   class="form-control" 
+                                                   id="new_password" 
+                                                   name="new_password" 
+                                                   minlength="8">
+                                            <div class="form-text">
+                                                <?php echo __('password_requirements'); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="confirm_new_password" class="form-label">
+                                                <?php echo __('confirm_new_password'); ?>
+                                            </label>
+                                            <input type="password" 
+                                                   class="form-control" 
+                                                   id="confirm_new_password" 
+                                                   name="confirm_new_password">
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            
                             <!-- Admin Fields -->
                             <?php if (hasPermission('reset_user_password') || getCurrentUser()['is_admin']): ?>
                                 <hr>
@@ -375,11 +432,42 @@
         
         // Form validation
         document.getElementById('userForm').addEventListener('submit', function(e) {
+            // New user password validation
             const password = document.getElementById('password');
             const confirmPassword = document.getElementById('confirm_password');
             
             if (password && confirmPassword) {
                 if (password.value !== confirmPassword.value) {
+                    e.preventDefault();
+                    alert('<?php echo __('passwords_do_not_match'); ?>');
+                    return false;
+                }
+            }
+            
+            // Edit user password validation
+            const newPassword = document.getElementById('new_password');
+            const confirmNewPassword = document.getElementById('confirm_new_password');
+            const currentPassword = document.getElementById('current_password');
+            
+            if (newPassword && confirmNewPassword) {
+                // If new password is entered, validate it
+                if (newPassword.value && confirmNewPassword.value) {
+                    if (newPassword.value !== confirmNewPassword.value) {
+                        e.preventDefault();
+                        alert('<?php echo __('passwords_do_not_match'); ?>');
+                        return false;
+                    }
+                    
+                    // For own profile, current password is required
+                    if (currentPassword && !currentPassword.value) {
+                        e.preventDefault();
+                        alert('<?php echo __('current_password_required'); ?>');
+                        return false;
+                    }
+                }
+                
+                // If only one password field is filled
+                if (newPassword.value !== confirmNewPassword.value) {
                     e.preventDefault();
                     alert('<?php echo __('passwords_do_not_match'); ?>');
                     return false;
