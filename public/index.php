@@ -134,6 +134,12 @@ try {
                 case 'categories':
                     require_once $controllerPath . 'categories_controller.php';
                     break;
+                case 'add':
+                    require_once $controllerPath . 'add_product_controller.php';
+                    break;
+                case 'edit':
+                    require_once $controllerPath . 'edit_product_controller.php';
+                    break;
             }
             break;
             
