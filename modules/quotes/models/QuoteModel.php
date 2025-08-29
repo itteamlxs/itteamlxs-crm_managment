@@ -249,11 +249,54 @@ class QuoteModel {
     }
     
     /**
-     * Update quote status
+     * Update quote status (simple version without triggers)
      */
     public function updateQuoteStatus($quoteId, $status) {
+        // Disable triggers temporarily by using direct query
         $sql = "UPDATE quotes SET status = ?, updated_at = NOW() WHERE quote_id = ?";
         $this->db->execute($sql, [$status, $quoteId]);
+    }
+    
+    /**
+     * Approve quote manually (avoid trigger conflicts)
+     */
+    public function approveQuoteManual($quoteId) {
+        $this->db->beginTransaction();
+        
+        try {
+            // 1. Update quote status first
+            $sql = "UPDATE quotes SET status = 'APPROVED', updated_at = NOW() WHERE quote_id = ?";
+            $this->db->execute($sql, [$quoteId]);
+            
+            // 2. Manually update stock quantities
+            $itemsSql = "SELECT qi.product_id, qi.quantity 
+                        FROM quote_items qi 
+                        WHERE qi.quote_id = ?";
+            
+            $items = $this->db->fetchAll($itemsSql, [$quoteId]);
+            
+            foreach ($items as $item) {
+                $updateStockSql = "UPDATE products 
+                                  SET stock_quantity = stock_quantity - ? 
+                                  WHERE product_id = ?";
+                $this->db->execute($updateStockSql, [$item['quantity'], $item['product_id']]);
+            }
+            
+            // 3. Get quote and client info for activity log
+            $quote = $this->getQuoteById($quoteId);
+            
+            // 4. Log client activity manually
+            $this->logClientActivity($quote['client_id'], $quoteId, 'QUOTE_APPROVED', [
+                'approved_amount' => $quote['total_amount'],
+                'approved_by' => getCurrentUser()['user_id'] ?? 'system'
+            ]);
+            
+            $this->db->commit();
+            
+        } catch (Exception $e) {
+            $this->db->rollback();
+            throw $e;
+        }
     }
     
     /**

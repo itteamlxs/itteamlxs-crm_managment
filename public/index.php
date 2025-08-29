@@ -25,7 +25,7 @@ $allowedModules = [
     'roles' => ['list', 'assign', 'delete'],
     'clients' => ['list', 'add', 'edit', 'delete'],
     'products' => ['list', 'categories', 'add', 'edit'],
-    'quotes' => ['list', 'create', 'approve', 'renew'],
+    'quotes' => ['list', 'create', 'view', 'edit', 'approve', 'renew', 'send', 'pdf', 'duplicate'],
     'reports' => ['sales', 'clients', 'products', 'compliance'],
     'settings' => ['edit'],
     'access_requests' => ['list', 'review'],
@@ -151,11 +151,26 @@ try {
                 case 'create':
                     require_once $controllerPath . 'create_controller.php';
                     break;
+                case 'view':
+                    require_once $controllerPath . 'view_controller.php';
+                    break;
+                case 'edit':
+                    require_once $controllerPath . 'edit_controller.php';
+                    break;
                 case 'approve':
                     require_once $controllerPath . 'approve_controller.php';
                     break;
                 case 'renew':
                     require_once $controllerPath . 'renew_controller.php';
+                    break;
+                case 'send':
+                    require_once $controllerPath . 'send_controller.php';
+                    break;
+                case 'pdf':
+                    require_once $controllerPath . 'pdf_controller.php';
+                    break;
+                case 'duplicate':
+                    require_once $controllerPath . 'duplicate_controller.php';
                     break;
             }
             break;

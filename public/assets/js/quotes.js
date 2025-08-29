@@ -33,6 +33,18 @@ function initializeQuotesList() {
             }
         });
     });
+    
+    // Duplicate quote buttons
+    document.querySelectorAll('.duplicate-quote').forEach(button => {
+        button.addEventListener('click', function() {
+            const quoteId = this.dataset.quoteId;
+            const quoteNumber = this.dataset.quoteNumber;
+            
+            if (confirm(`¿Está seguro que desea duplicar la cotización ${quoteNumber}?`)) {
+                duplicateQuoteAction(quoteId, quoteNumber);
+            }
+        });
+    });
 }
 
 // Quote Form Functions
@@ -59,7 +71,7 @@ function initializeQuoteForm() {
             const saveBtn = document.getElementById('saveQuoteBtn');
             if (saveBtn) {
                 saveBtn.disabled = true;
-                saveBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Creando...';
+                saveBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Procesando...';
             }
         });
     }
@@ -101,32 +113,49 @@ function addQuoteItem() {
     discountInput.name = `items[${itemNumber - 1}][discount]`;
     
     // Add event listeners
-    productSelect.addEventListener('change', function() {
-        updateItemCalculations(itemDiv);
-    });
-    
-    quantityInput.addEventListener('input', function() {
-        updateItemCalculations(itemDiv);
-        checkStockAvailability(itemDiv);
-    });
-    
-    discountInput.addEventListener('input', function() {
-        updateItemCalculations(itemDiv);
-    });
-    
-    // Remove item button
-    const removeBtn = newItem.querySelector('.remove-item');
-    removeBtn.addEventListener('click', function() {
-        if (confirm(translations?.confirm_remove_item || '¿Está seguro que desea eliminar este artículo?')) {
-            removeQuoteItem(itemDiv);
-        }
-    });
+    setupItemEvents(itemDiv);
     
     // Append to container
     itemsContainer.appendChild(newItem);
     
     // Focus on product select
     productSelect.focus();
+}
+
+// Setup event listeners for item
+function setupItemEvents(itemElement) {
+    const productSelect = itemElement.querySelector('.product-select');
+    const quantityInput = itemElement.querySelector('.quantity-input');
+    const discountInput = itemElement.querySelector('.discount-input');
+    const removeBtn = itemElement.querySelector('.remove-item');
+    
+    if (productSelect) {
+        productSelect.addEventListener('change', function() {
+            updateItemCalculations(itemElement);
+            checkStockAvailability(itemElement);
+        });
+    }
+    
+    if (quantityInput) {
+        quantityInput.addEventListener('input', function() {
+            updateItemCalculations(itemElement);
+            checkStockAvailability(itemElement);
+        });
+    }
+    
+    if (discountInput) {
+        discountInput.addEventListener('input', function() {
+            updateItemCalculations(itemElement);
+        });
+    }
+    
+    if (removeBtn) {
+        removeBtn.addEventListener('click', function() {
+            if (confirm(translations?.confirm_remove_item || '¿Está seguro que desea eliminar este artículo?')) {
+                removeQuoteItem(itemElement);
+            }
+        });
+    }
 }
 
 // Remove quote item
@@ -388,6 +417,44 @@ function rejectQuote(quoteId, quoteNumber) {
             }, 1500);
         } else {
             showAlert(data.error || 'Error al rechazar la cotización', 'danger');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showAlert('Error de conexión', 'danger');
+    });
+}
+
+// Duplicate quote action
+function duplicateQuoteAction(quoteId, quoteNumber) {
+    const formData = new FormData();
+    formData.append('quote_id', quoteId);
+    formData.append('csrf_token', csrfToken);
+    
+    fetch('?module=quotes&action=duplicate', {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showAlert(data.message || 'Cotización duplicada exitosamente', 'success');
+            
+            // Redirect to edit the new quote if URL provided
+            if (data.redirect_url) {
+                setTimeout(() => {
+                    window.location.href = data.redirect_url;
+                }, 1500);
+            } else {
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            }
+        } else {
+            showAlert(data.error || 'Error al duplicar la cotización', 'danger');
         }
     })
     .catch(error => {

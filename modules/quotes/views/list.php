@@ -17,11 +17,16 @@
                         <h2><?= sanitizeOutput(__('quotes_management')) ?></h2>
                         <p class="text-muted"><?= sanitizeOutput(__('manage_quotes_description')) ?></p>
                     </div>
-                    <?php if ($canCreateQuotes): ?>
-                    <a href="<?= url('quotes', 'create') ?>" class="btn btn-primary">
-                        <i class="bi bi-plus-circle"></i> <?= sanitizeOutput(__('create_quote')) ?>
-                    </a>
-                    <?php endif; ?>
+                    <div class="btn-group">
+                        <a href="<?= url('dashboard', 'index') ?>" class="btn btn-outline-secondary">
+                            <i class="bi bi-house"></i> <?= sanitizeOutput(__('dashboard')) ?>
+                        </a>
+                        <?php if ($canCreateQuotes): ?>
+                        <a href="<?= url('quotes', 'create') ?>" class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i> <?= sanitizeOutput(__('create_quote')) ?>
+                        </a>
+                        <?php endif; ?>
+                    </div>
                 </div>
 
                 <!-- Messages -->
@@ -116,7 +121,9 @@
                                         <?php foreach ($quotes as $quote): ?>
                                             <tr>
                                                 <td>
-                                                    <strong><?= sanitizeOutput($quote['quote_number']) ?></strong>
+                                                    <a href="<?= url('quotes', 'view', ['id' => $quote['quote_id']]) ?>" class="text-decoration-none">
+                                                        <strong><?= sanitizeOutput($quote['quote_number']) ?></strong>
+                                                    </a>
                                                 </td>
                                                 <td><?= sanitizeOutput($quote['client_name']) ?></td>
                                                 <td>
@@ -143,28 +150,78 @@
                                                 <td><?= sanitizeOutput($quote['username']) ?></td>
                                                 <td>
                                                     <div class="btn-group btn-group-sm" role="group">
+                                                        <!-- View button -->
+                                                        <a href="<?= url('quotes', 'view', ['id' => $quote['quote_id']]) ?>" 
+                                                           class="btn btn-outline-info btn-sm" 
+                                                           title="<?= sanitizeOutput(__('view_details')) ?>">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
+                                                        
+                                                        <!-- Edit button for DRAFT quotes -->
+                                                        <?php if ($quote['status'] === 'DRAFT' && $canCreateQuotes): ?>
+                                                            <a href="<?= url('quotes', 'edit', ['id' => $quote['quote_id']]) ?>" 
+                                                               class="btn btn-outline-primary btn-sm" 
+                                                               title="<?= sanitizeOutput(__('edit_quote')) ?>">
+                                                                <i class="bi bi-pencil"></i>
+                                                            </a>
+                                                        <?php endif; ?>
+                                                        
+                                                        <!-- Send button for DRAFT quotes -->
+                                                        <?php if ($quote['status'] === 'DRAFT' && $canCreateQuotes): ?>
+                                                            <a href="<?= url('quotes', 'send', ['id' => $quote['quote_id']]) ?>" 
+                                                               class="btn btn-outline-warning btn-sm" 
+                                                               title="<?= sanitizeOutput(__('send_quote')) ?>">
+                                                                <i class="bi bi-envelope"></i>
+                                                            </a>
+                                                        <?php endif; ?>
+                                                        
+                                                        <!-- PDF download button -->
+                                                        <a href="<?= url('quotes', 'pdf', ['id' => $quote['quote_id']]) ?>" 
+                                                           class="btn btn-outline-secondary btn-sm" 
+                                                           title="<?= sanitizeOutput(__('download_pdf')) ?>" target="_blank">
+                                                            <i class="bi bi-file-pdf"></i>
+                                                        </a>
+                                                        
                                                         <!-- Approve/Reject actions for SENT quotes -->
                                                         <?php if ($quote['status'] === 'SENT' && $canCreateQuotes): ?>
                                                             <button type="button" class="btn btn-success btn-sm approve-quote" 
                                                                     data-quote-id="<?= sanitizeOutput($quote['quote_id']) ?>"
-                                                                    data-quote-number="<?= sanitizeOutput($quote['quote_number']) ?>">
+                                                                    data-quote-number="<?= sanitizeOutput($quote['quote_number']) ?>"
+                                                                    title="<?= sanitizeOutput(__('approve_quote')) ?>">
                                                                 <i class="bi bi-check-lg"></i>
                                                             </button>
                                                             <button type="button" class="btn btn-danger btn-sm reject-quote" 
                                                                     data-quote-id="<?= sanitizeOutput($quote['quote_id']) ?>"
-                                                                    data-quote-number="<?= sanitizeOutput($quote['quote_number']) ?>">
+                                                                    data-quote-number="<?= sanitizeOutput($quote['quote_number']) ?>"
+                                                                    title="<?= sanitizeOutput(__('reject_quote')) ?>">
                                                                 <i class="bi bi-x-lg"></i>
                                                             </button>
                                                         <?php endif; ?>
                                                         
-                                                        <!-- Renew action -->
-                                                        <?php if ($canRenewQuotes && in_array($quote['status'], ['APPROVED', 'REJECTED', 'SENT'])): ?>
-                                                            <a href="<?= url('quotes', 'renew', ['id' => $quote['quote_id']]) ?>" 
-                                                               class="btn btn-outline-primary btn-sm" 
-                                                               title="<?= sanitizeOutput(__('renew_quote')) ?>">
-                                                                <i class="bi bi-arrow-clockwise"></i>
-                                                            </a>
-                                                        <?php endif; ?>
+                                                        <!-- Actions dropdown -->
+                                                        <div class="btn-group" role="group">
+                                                            <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" 
+                                                                    data-bs-toggle="dropdown" title="<?= sanitizeOutput(__('more_actions')) ?>">
+                                                                <i class="bi bi-three-dots"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <!-- Renew action -->
+                                                                <?php if ($canRenewQuotes && in_array($quote['status'], ['APPROVED', 'REJECTED', 'SENT'])): ?>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="<?= url('quotes', 'renew', ['id' => $quote['quote_id']]) ?>">
+                                                                            <i class="bi bi-arrow-clockwise"></i> <?= sanitizeOutput(__('renew_quote')) ?>
+                                                                        </a>
+                                                                    </li>
+                                                                <?php endif; ?>
+                                                                
+                                                                <!-- Duplicate action -->
+                                                                <li>
+                                                                    <a class="dropdown-item" href="<?= url('quotes', 'duplicate', ['id' => $quote['quote_id']]) ?>">
+                                                                        <i class="bi bi-files"></i> <?= sanitizeOutput(__('duplicate_quote')) ?>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -228,6 +285,11 @@
     <!-- Custom JS -->
     <script>
         const csrfToken = '<?= $csrfToken ?? generateCSRFToken() ?>';
+        const translations = {
+            'confirm_approve_quote': '¿Está seguro que desea aprobar la cotización?',
+            'confirm_reject_quote': '¿Está seguro que desea rechazar la cotización?',
+            'confirm_duplicate_quote': '¿Está seguro que desea duplicar la cotización?'
+        };
     </script>
     <script src="assets/js/quotes.js"></script>
 </body>
