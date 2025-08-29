@@ -91,6 +91,22 @@ class QuoteModel {
     }
     
     /**
+     * Get client by ID
+     */
+    public function getClientById($clientId) {
+        $sql = "SELECT * FROM clients WHERE client_id = ? AND deleted_at IS NULL";
+        return $this->db->fetch($sql, [$clientId]);
+    }
+    
+    /**
+     * Get user by ID
+     */
+    public function getUserById($userId) {
+        $sql = "SELECT user_id, username, display_name, email FROM users WHERE user_id = ?";
+        return $this->db->fetch($sql, [$userId]);
+    }
+    
+    /**
      * Get clients for dropdown
      */
     public function getClients() {
@@ -173,17 +189,58 @@ class QuoteModel {
             }
             
             // Log client activity
-            $activitySql = "INSERT INTO client_activities (client_id, quote_id, activity_type, details) 
-                           VALUES (?, ?, 'QUOTE_CREATED', ?)";
-            
-            $this->db->execute($activitySql, [
-                $data['client_id'],
-                $quoteId,
-                json_encode(['total_amount' => $data['total_amount']])
+            $this->logClientActivity($data['client_id'], $quoteId, 'QUOTE_CREATED', [
+                'total_amount' => $data['total_amount']
             ]);
             
             $this->db->commit();
             return $quoteId;
+            
+        } catch (Exception $e) {
+            $this->db->rollback();
+            throw $e;
+        }
+    }
+    
+    /**
+     * Update existing quote with items
+     */
+    public function updateQuote($quoteId, $data, $items) {
+        $this->db->beginTransaction();
+        
+        try {
+            // Update quote
+            $sql = "UPDATE quotes SET client_id = ?, total_amount = ?, expiry_date = ?, 
+                                     updated_at = NOW() WHERE quote_id = ?";
+            
+            $this->db->execute($sql, [
+                $data['client_id'],
+                $data['total_amount'],
+                $data['expiry_date'],
+                $quoteId
+            ]);
+            
+            // Delete existing items
+            $this->db->execute("DELETE FROM quote_items WHERE quote_id = ?", [$quoteId]);
+            
+            // Insert new items
+            $itemSql = "INSERT INTO quote_items (quote_id, product_id, quantity, unit_price, 
+                                               discount, tax_amount, subtotal) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?)";
+            
+            foreach ($items as $item) {
+                $this->db->execute($itemSql, [
+                    $quoteId,
+                    $item['product_id'],
+                    $item['quantity'],
+                    $item['unit_price'],
+                    $item['discount'],
+                    $item['tax_amount'],
+                    $item['subtotal']
+                ]);
+            }
+            
+            $this->db->commit();
             
         } catch (Exception $e) {
             $this->db->rollback();
@@ -280,5 +337,159 @@ class QuoteModel {
             $this->db->rollback();
             throw $e;
         }
+    }
+    
+    /**
+     * Duplicate quote (create exact copy as DRAFT)
+     */
+    public function duplicateQuote($originalQuoteId) {
+        $originalQuote = $this->getQuoteById($originalQuoteId);
+        
+        if (!$originalQuote) {
+            throw new Exception('Quote not found');
+        }
+        
+        $this->db->beginTransaction();
+        
+        try {
+            // Create new quote
+            $newQuoteNumber = $this->generateQuoteNumber();
+            
+            $sql = "INSERT INTO quotes (client_id, user_id, quote_number, status, total_amount, 
+                                      issue_date, expiry_date) 
+                    VALUES (?, ?, ?, 'DRAFT', ?, ?, ?)";
+            
+            $this->db->execute($sql, [
+                $originalQuote['client_id'],
+                getCurrentUser()['user_id'],
+                $newQuoteNumber,
+                $originalQuote['total_amount'],
+                date('Y-m-d'),
+                date('Y-m-d', strtotime('+7 days'))
+            ]);
+            
+            $newQuoteId = $this->db->lastInsertId();
+            
+            // Copy items
+            $itemSql = "INSERT INTO quote_items (quote_id, product_id, quantity, unit_price, 
+                                               discount, tax_amount, subtotal)
+                        SELECT ?, product_id, quantity, unit_price, discount, tax_amount, subtotal
+                        FROM quote_items WHERE quote_id = ?";
+            
+            $this->db->execute($itemSql, [$newQuoteId, $originalQuoteId]);
+            
+            $this->db->commit();
+            return $newQuoteId;
+            
+        } catch (Exception $e) {
+            $this->db->rollback();
+            throw $e;
+        }
+    }
+    
+    /**
+     * Get SMTP settings
+     */
+    public function getSmtpSettings() {
+        $sql = "SELECT setting_key, setting_value FROM settings 
+                WHERE setting_key IN ('smtp_host', 'smtp_port', 'smtp_username', 'smtp_password', 
+                                     'smtp_encryption', 'from_email', 'from_name')";
+        
+        $settings = $this->db->fetchAll($sql);
+        $result = [];
+        
+        foreach ($settings as $setting) {
+            $result[$setting['setting_key']] = $setting['setting_value'];
+        }
+        
+        return empty($result) ? null : $result;
+    }
+    
+    /**
+     * Get company settings for PDF
+     */
+    public function getCompanySettings() {
+        $sql = "SELECT setting_key, setting_value FROM settings 
+                WHERE setting_key IN ('company_display_name', 'company_address', 
+                                     'company_phone', 'company_email')";
+        
+        $settings = $this->db->fetchAll($sql);
+        $result = [];
+        
+        foreach ($settings as $setting) {
+            $result[$setting['setting_key']] = $setting['setting_value'];
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Generate PDF file and return path
+     */
+    public function generateQuotePdf($quoteId) {
+        // This would integrate with the PDF controller logic
+        // For now, return a placeholder path
+        return '/tmp/quote_' . $quoteId . '_' . time() . '.pdf';
+    }
+    
+    /**
+     * Get email template for quote
+     */
+    public function getQuoteEmailTemplate($quote, $client, $customMessage = '') {
+        $template = "
+        <html>
+        <head>
+            <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                .header { background-color: #007bff; color: white; padding: 20px; text-align: center; }
+                .content { padding: 20px; }
+                .footer { background-color: #f8f9fa; padding: 15px; font-size: 12px; color: #6c757d; }
+            </style>
+        </head>
+        <body>
+            <div class='header'>
+                <h1>Cotización #{$quote['quote_number']}</h1>
+            </div>
+            <div class='content'>
+                <p>Estimado/a {$client['contact_name']},</p>
+                
+                <p>Adjunto encontrará la cotización #{$quote['quote_number']} solicitada.</p>
+                
+                " . (!empty($customMessage) ? "<p>{$customMessage}</p>" : "") . "
+                
+                <p><strong>Detalles de la cotización:</strong></p>
+                <ul>
+                    <li>Número: {$quote['quote_number']}</li>
+                    <li>Fecha: " . date('d/m/Y', strtotime($quote['issue_date'])) . "</li>
+                    <li>Válida hasta: " . date('d/m/Y', strtotime($quote['expiry_date'])) . "</li>
+                    <li>Total: $" . number_format($quote['total_amount'], 2) . "</li>
+                </ul>
+                
+                <p>Si tiene alguna pregunta, no dude en contactarnos.</p>
+                
+                <p>Saludos cordiales.</p>
+            </div>
+            <div class='footer'>
+                <p>Este es un mensaje automático. Por favor, no responda a este email.</p>
+            </div>
+        </body>
+        </html>";
+        
+        return $template;
+    }
+    
+    /**
+     * Log client activity
+     */
+    public function logClientActivity($clientId, $quoteId, $activityType, $details = []) {
+        $sql = "INSERT INTO client_activities (client_id, quote_id, activity_type, details) 
+                VALUES (?, ?, ?, ?)";
+        
+        $this->db->execute($sql, [
+            $clientId,
+            $quoteId,
+            $activityType,
+            json_encode($details)
+        ]);
     }
 }
