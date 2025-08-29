@@ -1,7 +1,7 @@
 <?php
 /**
- * Add Product Controller
- * Handles product creation
+ * Edit Product Controller
+ * Handles product editing
  */
 
 require_once __DIR__ . '/../../../core/rbac.php';
@@ -13,6 +13,23 @@ require_once __DIR__ . '/../models/ProductModel.php';
 requireLogin();
 
 $productModel = new ProductModel();
+$productId = (int)($_GET['id'] ?? 0);
+
+if ($productId <= 0) {
+    redirect(url('products', 'list'));
+}
+
+// Get product data
+try {
+    $product = $productModel->getProductById($productId);
+    if (!$product) {
+        redirect(url('products', 'list'));
+    }
+} catch (Exception $e) {
+    $error = __('error_loading_product');
+    logError("Product loading failed: " . $e->getMessage());
+    redirect(url('products', 'list'));
+}
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -38,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors[] = __('sku_required');
         } elseif (!preg_match('/^[a-zA-Z0-9_-]{1,50}$/', $sku)) {
             $errors[] = __('invalid_sku_format');
-        } elseif ($productModel->skuExists($sku)) {
+        } elseif ($productModel->skuExists($sku, $productId)) {
             $errors[] = __('sku_already_exists');
         }
         
@@ -69,12 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'stock_quantity' => $stockQuantity
                 ];
                 
-                $productId = $productModel->createProduct($data);
-                redirect(url('products', 'list') . '&success=' . urlencode(__('product_created_successfully')));
+                $productModel->updateProduct($productId, $data);
+                redirect(url('products', 'list') . '&success=' . urlencode(__('product_updated_successfully')));
                 
             } catch (Exception $e) {
-                $error = __('error_creating_product');
-                logError("Product creation failed: " . $e->getMessage());
+                $error = __('error_updating_product');
+                logError("Product update failed: " . $e->getMessage());
             }
         } else {
             $error = implode('<br>', $errors);
@@ -92,4 +109,4 @@ try {
 }
 
 // Include the view
-require_once __DIR__ . '/../views/add_product.php';
+require_once __DIR__ . '/../views/edit_product.php';
