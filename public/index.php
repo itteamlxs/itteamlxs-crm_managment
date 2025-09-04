@@ -44,6 +44,11 @@ if (empty($module) || empty($action)) {
     }
 }
 
+// Special handling for reports module - default to sales
+if ($module === 'reports' && empty($action)) {
+    $action = 'sales';
+}
+
 // Validate module and action
 if (!isset($allowedModules[$module]) || !in_array($action, $allowedModules[$module])) {
     http_response_code(404);
@@ -176,20 +181,8 @@ try {
             break;
             
         case 'reports':
-            switch ($action) {
-                case 'sales':
-                    require_once $controllerPath . 'sales_reports_controller.php';
-                    break;
-                case 'clients':
-                    require_once $controllerPath . 'client_reports_controller.php';
-                    break;
-                case 'products':
-                    require_once $controllerPath . 'product_reports_controller.php';
-                    break;
-                case 'compliance':
-                    require_once $controllerPath . 'compliance_reports_controller.php';
-                    break;
-            }
+            // All report actions go through sales_reports_controller as main router
+            require_once $controllerPath . 'sales_reports_controller.php';
             break;
             
         case 'settings':
