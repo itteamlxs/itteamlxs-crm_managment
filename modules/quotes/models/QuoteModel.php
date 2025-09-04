@@ -104,11 +104,12 @@ class QuoteModel {
      * @return array
      */
     public function getQuoteItems($quoteId) {
-        $sql = "SELECT quote_item_id, quote_id, quantity, unit_price, discount, 
-                       tax_amount, subtotal, product_name, sku
-                FROM vw_quote_items 
-                WHERE quote_id = ?
-                ORDER BY quote_item_id";
+        $sql = "SELECT qi.quote_item_id, qi.quote_id, qi.product_id, qi.quantity, qi.unit_price, qi.discount, 
+                       qi.tax_amount, qi.subtotal, p.product_name, p.sku
+                FROM quote_items qi
+                JOIN products p ON qi.product_id = p.product_id
+                WHERE qi.quote_id = ?
+                ORDER BY qi.quote_item_id";
         
         return $this->db->fetchAll($sql, [$quoteId]);
     }
@@ -217,13 +218,145 @@ class QuoteModel {
     }
     
     /**
-     * Update quote status
+     * Update existing quote
+     * @param int $quoteId
+     * @param array $quoteData
+     * @param array $items
+     * @return bool
+     */
+    public function updateQuote($quoteId, $quoteData, $items) {
+        try {
+            $this->db->beginTransaction();
+            
+            // Update quote
+            $sql = "UPDATE quotes 
+                    SET client_id = ?, status = ?, total_amount = ?, 
+                        issue_date = ?, expiry_date = ?, updated_at = NOW()
+                    WHERE quote_id = ?";
+            
+            $this->db->execute($sql, [
+                $quoteData['client_id'],
+                $quoteData['status'],
+                $quoteData['total_amount'],
+                $quoteData['issue_date'],
+                $quoteData['expiry_date'],
+                $quoteId
+            ]);
+            
+            // Delete existing items
+            $deleteSql = "DELETE FROM quote_items WHERE quote_id = ?";
+            $this->db->execute($deleteSql, [$quoteId]);
+            
+            // Insert new items
+            foreach ($items as $item) {
+                $itemSql = "INSERT INTO quote_items (quote_id, product_id, quantity, 
+                                                   unit_price, discount, tax_amount, subtotal, created_at)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+                
+                $this->db->execute($itemSql, [
+                    $quoteId,
+                    $item['product_id'],
+                    $item['quantity'],
+                    $item['unit_price'],
+                    $item['discount'],
+                    $item['tax_amount'],
+                    $item['subtotal']
+                ]);
+            }
+            
+            $this->db->commit();
+            return true;
+            
+        } catch (Exception $e) {
+            $this->db->rollback();
+            logError("Error updating quote: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Approve quote with manual stock update and activity logging
+     * @param int $quoteId
+     * @return bool
+     */
+    public function approveQuote($quoteId) {
+        try {
+            $this->db->beginTransaction();
+            
+            // Get quote data
+            $quote = $this->getQuoteById($quoteId);
+            if (!$quote) {
+                throw new Exception("Quote not found");
+            }
+            
+            // Get quote items
+            $items = $this->getQuoteItems($quoteId);
+            
+            // Update stock for each item
+            foreach ($items as $item) {
+                $updateStockSql = "UPDATE products 
+                                  SET stock_quantity = stock_quantity - ? 
+                                  WHERE product_id = ? AND stock_quantity >= ?";
+                
+                $this->db->execute($updateStockSql, [
+                    $item['quantity'],
+                    $item['product_id'],
+                    $item['quantity']
+                ]);
+            }
+            
+            // Update quote status and mark stock as updated
+            $updateQuoteSql = "UPDATE quotes 
+                              SET status = 'APPROVED', stock_updated = TRUE, updated_at = NOW()
+                              WHERE quote_id = ?";
+            
+            $this->db->execute($updateQuoteSql, [$quoteId]);
+            
+            // Log client activity
+            $activitySql = "INSERT INTO client_activities (client_id, quote_id, activity_type, activity_date, details)
+                           VALUES (?, ?, 'QUOTE_APPROVED', NOW(), ?)";
+            
+            $this->db->execute($activitySql, [
+                $quote['client_id'],
+                $quoteId,
+                json_encode(['total_amount' => $quote['total_amount']])
+            ]);
+            
+            // Log audit entry
+            $auditSql = "INSERT INTO audit_logs (user_id, action, entity_type, entity_id, old_value, new_value, ip_address, created_at)
+                        VALUES (?, 'APPROVE_QUOTE', 'QUOTE', ?, ?, ?, ?, NOW())";
+            
+            $this->db->execute($auditSql, [
+                getCurrentUser()['user_id'],
+                $quoteId,
+                json_encode(['status' => 'SENT']),
+                json_encode(['status' => 'APPROVED', 'stock_updated' => true]),
+                getClientIP()
+            ]);
+            
+            $this->db->commit();
+            return true;
+            
+        } catch (Exception $e) {
+            $this->db->rollback();
+            logError("Error approving quote: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Update quote status (for non-approval status changes)
      * @param int $quoteId
      * @param string $status
      * @return bool
      */
     public function updateQuoteStatus($quoteId, $status) {
         try {
+            // For approval, use the specialized method
+            if ($status === 'APPROVED') {
+                return $this->approveQuote($quoteId);
+            }
+            
             $sql = "UPDATE quotes 
                     SET status = ?, updated_at = NOW()
                     WHERE quote_id = ?";
