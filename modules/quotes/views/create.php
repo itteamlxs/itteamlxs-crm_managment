@@ -247,9 +247,6 @@
             const noItemsMessage = document.getElementById('noItemsMessage');
             const template = document.getElementById('itemTemplate');
             
-            // Add first item automatically
-            addItem();
-            
             addItemBtn.addEventListener('click', addItem);
             
             function addItem() {
