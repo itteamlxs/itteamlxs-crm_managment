@@ -98,7 +98,20 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <h5 class="card-title"><?= __('low_stock_products') ?></h5>
-                                        <h3 class="mb-0"><?= count($lowStockProducts) ?></h3>
+                                        <h3 class="mb-0">
+                                            <?php 
+                                            // Count products with low stock based on productPerformance data
+                                            $lowStockCount = 0;
+                                            if (!empty($productPerformance)) {
+                                                foreach ($productPerformance as $product) {
+                                                    if ((int)$product['stock_quantity'] <= 10) {
+                                                        $lowStockCount++;
+                                                    }
+                                                }
+                                            }
+                                            echo $lowStockCount;
+                                            ?>
+                                        </h3>
                                     </div>
                                     <div class="align-self-center">
                                         <i class="bi bi-exclamation-triangle display-4"></i>
@@ -193,6 +206,17 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                 </div>
 
                 <!-- Low Stock Alert -->
+                <?php 
+                // Create low stock products array from productPerformance
+                $lowStockProducts = [];
+                if (!empty($productPerformance)) {
+                    foreach ($productPerformance as $product) {
+                        if ((int)$product['stock_quantity'] <= 10) {
+                            $lowStockProducts[] = $product;
+                        }
+                    }
+                }
+                ?>
                 <?php if (!empty($lowStockProducts)): ?>
                 <div class="card border-warning">
                     <div class="card-header bg-warning text-dark">

@@ -18,7 +18,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h1 class="h3 mb-0">
-                        <i class="bi bi-people"></i> <?= __('reports') ?>
+                        <i class="bi bi-people"></i> <?= __('client_reports') ?>
                     </h1>
                     <div>
                         <button id="refreshReports" class="btn btn-outline-primary">
@@ -56,11 +56,11 @@ require_once __DIR__ . '/../../../core/url_helper.php';
 
                 <div id="loadingSpinner" class="text-center py-4" style="display: none;">
                     <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                        <span class="visually-hidden"><?= __('loading') ?></span>
                     </div>
                 </div>
 
-                <!-- Top Clients Section -->
+                <!-- Top Clients Table -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5 class="card-title mb-0">
@@ -68,44 +68,38 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                         </h5>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <canvas id="clientActivityChart" height="300"></canvas>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="table-responsive">
-                                    <table class="table table-sm report-table">
-                                        <thead>
+                        <div class="table-responsive">
+                            <table class="table table-hover report-table">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th><?= __('rank') ?></th>
+                                        <th><?= __('company_name') ?></th>
+                                        <th><?= __('total_spend') ?></th>
+                                        <th><?= __('purchase_count') ?></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($topClients)): ?>
+                                        <?php foreach ($topClients as $client): ?>
                                             <tr>
-                                                <th><?= __('rank') ?></th>
-                                                <th><?= __('company_name') ?></th>
-                                                <th><?= __('total_spend') ?></th>
-                                                <th><?= __('purchase_count') ?></th>
+                                                <td>
+                                                    <span class="badge bg-primary"><?= $client['rank'] ?></span>
+                                                </td>
+                                                <td class="fw-medium"><?= sanitizeOutput($client['company_name']) ?></td>
+                                                <td class="text-success fw-bold"><?= formatCurrency($client['total_spend']) ?></td>
+                                                <td><?= number_format($client['purchase_count']) ?></td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php if (!empty($topClients)): ?>
-                                                <?php foreach ($topClients as $client): ?>
-                                                    <tr>
-                                                        <td>
-                                                            <span class="badge bg-primary"><?= $client['rank'] ?></span>
-                                                        </td>
-                                                        <td><?= sanitizeOutput($client['company_name']) ?></td>
-                                                        <td><?= formatCurrency($client['total_spend']) ?></td>
-                                                        <td><?= number_format($client['purchase_count']) ?></td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            <?php else: ?>
-                                                <tr>
-                                                    <td colspan="4" class="text-center text-muted">
-                                                        <?= __('no_data_available') ?>
-                                                    </td>
-                                                </tr>
-                                            <?php endif; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted py-5">
+                                                <i class="bi bi-inbox display-4 d-block mb-3"></i>
+                                                <?= __('no_data_available') ?>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -173,7 +167,6 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                         <th><?= __('total_spend') ?></th>
                                         <th><?= __('purchase_count') ?></th>
                                         <th><?= __('last_purchase_date') ?></th>
-                                        <th><?= __('last_updated') ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -190,7 +183,6 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                                                         <span class="text-muted"><?= __('never') ?></span>
                                                     <?php endif; ?>
                                                 </td>
-                                                <td><?= formatDate($pattern['last_updated'], 'Y-m-d H:i') ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php else: ?>
@@ -211,8 +203,39 @@ require_once __DIR__ . '/../../../core/url_helper.php';
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Pass PHP data to JavaScript
-        const clientActivityData = <?= json_encode($topClients) ?>;
+        // Refresh functionality
+        document.getElementById('refreshReports').addEventListener('click', function() {
+            const spinner = document.getElementById('loadingSpinner');
+            const button = this;
+            
+            spinner.style.display = 'block';
+            button.disabled = true;
+            
+            fetch(window.location.href, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({action: 'refresh'})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Failed to refresh reports: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while refreshing reports');
+            })
+            .finally(() => {
+                spinner.style.display = 'none';
+                button.disabled = false;
+            });
+        });
     </script>
     <script src="/crm-project/public/assets/js/reports.js"></script>
 </body>
