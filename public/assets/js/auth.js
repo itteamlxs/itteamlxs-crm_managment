@@ -332,6 +332,5 @@ function smoothScrollTo(target, duration = 800) {
 
 // Export for use in other modules
 window.AuthEffects = {
-    smoothScrollTo,
-    enhanceInputs: enhanceInputs
+    smoothScrollTo
 };

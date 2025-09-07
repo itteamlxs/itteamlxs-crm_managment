@@ -12,11 +12,11 @@
             --left-secondary: #00060c;
             --left-accent: #00060c;
             
-            /* Right Panel Colors */
-            --right-primary: #002fff;
-            --right-secondary: #07006e;
-            --right-light: #00060c;
-            --right-accent: #00060c;
+            /* Right Panel Colors - CUSTOMIZE THESE */
+            --right-primary: #0003ccff;      /* Color principal del gradiente */
+            --right-secondary: #000ecc;    /* Color medio del gradiente */
+            --right-light: #00013aff;        /* Color claro del gradiente */
+            --right-accent: #000113ff;       /* Color final del gradiente */
             
             /* Button & Interactive Elements */
             --button-color: #0400ff;

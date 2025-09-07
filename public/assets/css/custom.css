@@ -17,41 +17,49 @@
     100% { background-position: 0% 50%; }
 }
 
-/* Parallax Image Effect */
+/* Smooth Auto-Pan and Zoom Image Effect */
 .parallax-container {
     overflow: hidden;
     cursor: pointer;
 }
 
 .parallax-image {
-    transform: scale(1.1);
+    transform: scale(1.05);
     transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    animation: breathe 12s ease-in-out infinite;
+    animation: smoothPanZoom 20s ease-in-out infinite;
     filter: brightness(0.9) contrast(1.1);
+    transform-origin: center center;
 }
 
 .parallax-container:hover .parallax-image {
-    transform: scale(1.15);
     filter: brightness(1) contrast(1.2);
+    animation-play-state: paused;
+    transform: scale(1.1);
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Subtle breathing animation */
-@keyframes breathe {
-    0%, 100% { 
-        transform: scale(1.1) translateY(0px);
+/* Smooth pan and zoom animation */
+@keyframes smoothPanZoom {
+    0% { 
+        transform: scale(1.05) translate(0px, 0px);
         filter: brightness(0.9) contrast(1.1);
     }
-    50% { 
-        transform: scale(1.12) translateY(-5px);
+    25% { 
+        transform: scale(1.08) translate(-10px, -5px);
         filter: brightness(0.95) contrast(1.15);
     }
-}
-
-/* Mouse move parallax effect */
-.parallax-active .parallax-image {
-    transition: transform 0.2s ease-out !important;
-    animation-play-state: paused;
+    50% { 
+        transform: scale(1.1) translate(5px, -8px);
+        filter: brightness(1) contrast(1.2);
+    }
+    75% { 
+        transform: scale(1.07) translate(8px, 3px);
+        filter: brightness(0.95) contrast(1.15);
+    }
+    100% { 
+        transform: scale(1.05) translate(0px, 0px);
+        filter: brightness(0.9) contrast(1.1);
+    }
 }
 
 /* Panel hover effect */
@@ -63,7 +71,7 @@
     transform: translateX(2px);
 }
 
-/* Ensure text doesn't block mouse events */
+/* Ensure text doesn't block interactions */
 .left-panel > div:last-child {
     pointer-events: none;
     position: relative;
