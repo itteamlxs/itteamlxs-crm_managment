@@ -129,16 +129,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
             
-            // Handle profile picture upload
+            // Handle profile picture upload - FIXED
             if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['size'] > 0) {
                 $uploadResult = validateFileUpload($_FILES['profile_picture'], ['jpg', 'jpeg', 'png']);
                 
                 if (!$uploadResult['valid']) {
                     $errors[] = $uploadResult['error'];
                 } else {
-                    $uploadPath = UPLOAD_DIR . $uploadResult['filename'];
+                    // Ensure upload directory exists
+                    $uploadsDir = __DIR__ . '/../../../public/uploads/';
+                    if (!is_dir($uploadsDir)) {
+                        mkdir($uploadsDir, 0755, true);
+                    }
+                    
+                    $uploadPath = $uploadsDir . $uploadResult['filename'];
+                    
                     if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $uploadPath)) {
-                        $formData['profile_picture'] = 'uploads/' . $uploadResult['filename'];
+                        // Store relative path from project root for web access
+                        $formData['profile_picture'] = 'crm-project/public/uploads/' . $uploadResult['filename'];
+                        
+                        // Delete old profile picture if exists and is different
+                        if (!empty($user['profile_picture']) && $user['profile_picture'] !== $formData['profile_picture']) {
+                            // Extract filename from old path
+                            $oldFilename = basename($user['profile_picture']);
+                            $oldImagePath = $uploadsDir . $oldFilename;
+                            if (file_exists($oldImagePath)) {
+                                unlink($oldImagePath);
+                            }
+                        }
                     } else {
                         $errors[] = __('file_upload_failed');
                     }
@@ -242,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             // Update form data for redisplay
             $user = array_merge($user, $formData);
-        } // <-- ESTE es el cierre correcto del else grande
+        }
     }
 }
 

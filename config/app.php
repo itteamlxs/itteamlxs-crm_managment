@@ -33,10 +33,15 @@ define('SESSION_TIMEOUT', (int)($_ENV['SESSION_TIMEOUT'] ?? 3600)); // 1 hour
 define('CSRF_TOKEN_EXPIRY', (int)($_ENV['CSRF_TOKEN_EXPIRY'] ?? 3600));
 define('MAX_LOGIN_ATTEMPTS', (int)($_ENV['MAX_LOGIN_ATTEMPTS'] ?? 3));
 
-// File Upload Configuration
+// File Upload Configuration - FIXED
 define('UPLOAD_MAX_SIZE', (int)($_ENV['UPLOAD_MAX_SIZE'] ?? 2097152)); // 2MB
-define('UPLOAD_DIR', __DIR__ . '/../uploads/');
+define('UPLOAD_DIR', __DIR__ . '/../public/uploads/'); // Fixed path
 define('ALLOWED_EXTENSIONS', ['jpg', 'jpeg', 'png', 'gif']);
+
+// Create upload directory if it doesn't exist
+if (!is_dir(UPLOAD_DIR)) {
+    mkdir(UPLOAD_DIR, 0755, true);
+}
 
 // Error Reporting
 if (APP_DEBUG) {
