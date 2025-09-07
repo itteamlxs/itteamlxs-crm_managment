@@ -7,3 +7,45 @@
 [2025-09-07 12:58:18] [SECURITY] SECURITY_EVENT: {"event":"USER_UPDATED","user_id":3,"username":"janderson","ip_address":"::1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36","timestamp":"2025-09-07 12:58:18","details":{"target_user_id":3}}
 [2025-09-07 12:58:35] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":3,"username":"janderson","ip_address":"::1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36","timestamp":"2025-09-07 12:58:35","details":{"user_id":3,"username":"janderson"}}
 [2025-09-07 12:59:01] [SECURITY] SECURITY_EVENT: {"event":"USER_UPDATED","user_id":2,"username":"aleon","ip_address":"::1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36","timestamp":"2025-09-07 12:59:01","details":{"target_user_id":5}}
+[2025-09-07 14:31:14] [DEBUG] DEBUG - getAuditLogs called with: page=50, limit=0, startDate=, endDate=, entityType=, action=
+[2025-09-07 14:31:14] [DEBUG] DEBUG - WHERE clause: 
+[2025-09-07 14:31:14] [DEBUG] DEBUG - Filter params: []
+[2025-09-07 14:31:14] [DEBUG] DEBUG - Total count query result: 432
+[2025-09-07 14:31:14] [DEBUG] DEBUG - Final query params: [1,49]
+[2025-09-07 14:31:14] [DEBUG] DEBUG - LIMIT: 1, OFFSET: 49
+[2025-09-07 14:31:14] [DEBUG] DEBUG - Retrieved 1 logs
+[2025-09-07 14:31:17] [DEBUG] DEBUG - getAuditLogs called with: page=50, limit=0, startDate=, endDate=, entityType=, action=
+[2025-09-07 14:31:17] [DEBUG] DEBUG - WHERE clause: 
+[2025-09-07 14:31:17] [DEBUG] DEBUG - Filter params: []
+[2025-09-07 14:31:17] [DEBUG] DEBUG - Total count query result: 432
+[2025-09-07 14:31:17] [DEBUG] DEBUG - Final query params: [1,49]
+[2025-09-07 14:31:17] [DEBUG] DEBUG - LIMIT: 1, OFFSET: 49
+[2025-09-07 14:31:17] [DEBUG] DEBUG - Retrieved 1 logs
+[2025-09-07 14:31:33] [DEBUG] DEBUG - getAuditLogs called with: page=50, limit=0, startDate=, endDate=, entityType=, action=
+[2025-09-07 14:31:33] [DEBUG] DEBUG - WHERE clause: 
+[2025-09-07 14:31:33] [DEBUG] DEBUG - Filter params: []
+[2025-09-07 14:31:33] [DEBUG] DEBUG - Total count query result: 432
+[2025-09-07 14:31:33] [DEBUG] DEBUG - Final query params: [1,49]
+[2025-09-07 14:31:33] [DEBUG] DEBUG - LIMIT: 1, OFFSET: 49
+[2025-09-07 14:31:33] [DEBUG] DEBUG - Retrieved 1 logs
+[2025-09-07 14:33:59] [DEBUG] DEBUG - getAuditLogs called with: page=50, limit=0, startDate=, endDate=, entityType=, action=
+[2025-09-07 14:33:59] [DEBUG] DEBUG - WHERE clause: 
+[2025-09-07 14:33:59] [DEBUG] DEBUG - Filter params: []
+[2025-09-07 14:33:59] [DEBUG] DEBUG - Total count query result: 432
+[2025-09-07 14:33:59] [DEBUG] DEBUG - Final query params: [1,49]
+[2025-09-07 14:33:59] [DEBUG] DEBUG - LIMIT: 1, OFFSET: 49
+[2025-09-07 14:33:59] [DEBUG] DEBUG - Retrieved 1 logs
+[2025-09-07 14:34:06] [DEBUG] DEBUG - getAuditLogs called with: page=50, limit=0, startDate=, endDate=, entityType=, action=
+[2025-09-07 14:34:06] [DEBUG] DEBUG - WHERE clause: 
+[2025-09-07 14:34:06] [DEBUG] DEBUG - Filter params: []
+[2025-09-07 14:34:06] [DEBUG] DEBUG - Total count query result: 432
+[2025-09-07 14:34:06] [DEBUG] DEBUG - Final query params: [1,49]
+[2025-09-07 14:34:06] [DEBUG] DEBUG - LIMIT: 1, OFFSET: 49
+[2025-09-07 14:34:06] [DEBUG] DEBUG - Retrieved 1 logs
+[2025-09-07 14:34:48] [DEBUG] DEBUG - getAuditLogs called with: page=50, limit=0, startDate=, endDate=, entityType=, action=
+[2025-09-07 14:34:48] [DEBUG] DEBUG - WHERE clause: 
+[2025-09-07 14:34:48] [DEBUG] DEBUG - Filter params: []
+[2025-09-07 14:34:48] [DEBUG] DEBUG - Total count query result: 432
+[2025-09-07 14:34:48] [DEBUG] DEBUG - Final query params: [1,49]
+[2025-09-07 14:34:48] [DEBUG] DEBUG - LIMIT: 1, OFFSET: 49
+[2025-09-07 14:34:48] [DEBUG] DEBUG - Retrieved 1 logs
