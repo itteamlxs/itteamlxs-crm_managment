@@ -1,11 +1,21 @@
 <?php
 /**
- * Spanish translations - Updated with User Management and Role Management
+ * Spanish translations - Complete with Login additions
  */
 return [
+    // App branding
+    'app_name' => 'Athena CRM',
+    'everything_you_need_to_grow' => 'Todo lo que necesitas para Crecer',
+    'powered_by_entropic' => 'Desarrollado por <strong>Entropic Networks</strong>.',
+    'manage_customers_boost_business' => 'Gestiona clientes e impulsa tu negocio',
+    
     // Login page
-    'app_name' => 'Sistema CRM',
     'please_sign_in' => 'Por favor inicie sesión',
+    'login_your_account' => 'Ingresa a tu cuenta',
+    'welcome_back' => '¡Bienvenido de vuelta!',
+    'enter_email_password' => 'Ingresa tu email y contraseña',
+    'enter_username_email' => 'Ingresa tu usuario o email',
+    'enter_password' => 'Ingresa tu contraseña',
     'username_or_email' => 'Usuario o Email',
     'password' => 'Contraseña',
     'sign_in' => 'Iniciar Sesión',
@@ -31,6 +41,9 @@ return [
     'password_reset_not_available' => 'Restablecimiento de Contraseña No Disponible',
     'contact_admin_password' => 'Si necesita restablecer su contraseña, por favor contacte a su administrador del sistema.',
     'back_to_login' => 'Volver al Login',
+    'password_assistance' => 'Asistencia de contraseña',
+    'password_reset_help' => 'Ayuda para restablecer contraseña',  
+    'contact_admin_for_help' => 'Contacte a su administrador para obtener ayuda',
     
     // User Management
     'users_management' => 'Gestión de Usuarios',
