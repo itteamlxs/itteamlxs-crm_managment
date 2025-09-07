@@ -2,6 +2,9 @@
 require_once __DIR__ . '/../../../core/helpers.php';
 require_once __DIR__ . '/../../../core/url_helper.php';
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="<?= sanitizeOutput(getUserLanguage()) ?>">
 <head>
@@ -27,36 +30,6 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                         <a href="<?= dashboardUrl() ?>" class="btn btn-outline-secondary">
                             <i class="bi bi-house"></i> <?= __('back_to_dashboard') ?>
                         </a>
-                    </div>
-                </div>
-
-                <!-- Reports Navigation Tabs -->
-                <ul class="nav nav-tabs mb-4">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= url('reports', 'sales') ?>">
-                            <i class="bi bi-graph-up"></i> <?= __('sales_reports') ?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= url('reports', 'clients') ?>">
-                            <i class="bi bi-people"></i> <?= __('client_reports') ?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="<?= url('reports', 'products') ?>">
-                            <i class="bi bi-box"></i> <?= __('product_reports') ?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= url('reports', 'compliance') ?>">
-                            <i class="bi bi-shield-check"></i> <?= __('compliance_reports') ?>
-                        </a>
-                    </li>
-                </ul>
-
-                <div id="loadingSpinner" class="text-center py-4" style="display: none;">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
 

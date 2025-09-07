@@ -143,14 +143,60 @@ try {
                     </div>
                     <?php endif; ?>
 
-                    <?php if (canAccessModule('reports')): ?>
+                    <!-- Reports Cards - Individual cards for each report type -->
+                    <?php if (hasPermission('view_compliance_reports')): ?>
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100 border-secondary">
                             <div class="card-body text-center">
-                                <i class="bi bi-graph-up text-secondary" style="font-size: 2rem;"></i>
-                                <h6 class="card-title mt-2"><?php echo __('reports') ?: 'Reports'; ?></h6>
-                                <p class="card-text small"><?php echo __('view_reports_description') ?: 'View sales and compliance reports'; ?></p>
-                                <a href="<?php echo url('reports', 'sales'); ?>" class="btn btn-secondary btn-sm">
+                                <i class="bi bi-shield-check text-secondary" style="font-size: 2rem;"></i>
+                                <h6 class="card-title mt-2"><?php echo __('compliance_reports') ?: 'Compliance Reports'; ?></h6>
+                                <p class="card-text small"><?php echo __('view_compliance_reports_description') ?: 'View compliance and audit reports'; ?></p>
+                                <a href="<?php echo url('reports', 'compliance'); ?>" class="btn btn-secondary btn-sm">
+                                    <i class="bi bi-arrow-right"></i> <?php echo __('access') ?: 'Access'; ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if (hasPermission('view_sales_reports')): ?>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-primary">
+                            <div class="card-body text-center">
+                                <i class="bi bi-graph-up text-primary" style="font-size: 2rem;"></i>
+                                <h6 class="card-title mt-2"><?php echo __('sales_reports') ?: 'Sales Reports'; ?></h6>
+                                <p class="card-text small"><?php echo __('view_sales_reports_description') ?: 'View sales performance reports'; ?></p>
+                                <a href="<?php echo url('reports', 'sales'); ?>" class="btn btn-primary btn-sm">
+                                    <i class="bi bi-arrow-right"></i> <?php echo __('access') ?: 'Access'; ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if (hasPermission('view_client_reports')): ?>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-success">
+                            <div class="card-body text-center">
+                                <i class="bi bi-people text-success" style="font-size: 2rem;"></i>
+                                <h6 class="card-title mt-2"><?php echo __('client_reports') ?: 'Client Reports'; ?></h6>
+                                <p class="card-text small"><?php echo __('view_client_reports_description') ?: 'View client activity reports'; ?></p>
+                                <a href="<?php echo url('reports', 'clients'); ?>" class="btn btn-success btn-sm">
+                                    <i class="bi bi-arrow-right"></i> <?php echo __('access') ?: 'Access'; ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if (hasPermission('view_product_reports')): ?>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-warning">
+                            <div class="card-body text-center">
+                                <i class="bi bi-box text-warning" style="font-size: 2rem;"></i>
+                                <h6 class="card-title mt-2"><?php echo __('product_reports') ?: 'Product Reports'; ?></h6>
+                                <p class="card-text small"><?php echo __('view_product_reports_description') ?: 'View product performance reports'; ?></p>
+                                <a href="<?php echo url('reports', 'products'); ?>" class="btn btn-warning btn-sm">
                                     <i class="bi bi-arrow-right"></i> <?php echo __('access') ?: 'Access'; ?>
                                 </a>
                             </div>

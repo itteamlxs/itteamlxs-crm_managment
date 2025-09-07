@@ -15,7 +15,7 @@ class QuoteModel {
     }
     
     /**
-     * Get quotes list using vw_quotes view
+     * Get quotes list using direct table queries for filtering
      * @param array $params
      * @return array
      */
@@ -33,38 +33,46 @@ class QuoteModel {
         $bindParams = [];
         
         if (!empty($search)) {
-            $where[] = "(quote_number LIKE ? OR client_name LIKE ?)";
+            $where[] = "(q.quote_number LIKE ? OR c.company_name LIKE ?)";
             $bindParams[] = "%{$search}%";
             $bindParams[] = "%{$search}%";
         }
         
         if (!empty($status)) {
-            $where[] = "status = ?";
+            $where[] = "q.status = ?";
             $bindParams[] = $status;
         }
         
         if (!empty($client_id)) {
-            $where[] = "client_id = ?";
+            $where[] = "q.client_id = ?";
             $bindParams[] = $client_id;
         }
         
         if (!empty($user_id)) {
-            $where[] = "user_id = ?";
+            $where[] = "q.user_id = ?";
             $bindParams[] = $user_id;
         }
         
         $whereClause = empty($where) ? '' : 'WHERE ' . implode(' AND ', $where);
         
-        // Count total records
-        $countSql = "SELECT COUNT(*) as total FROM vw_quotes {$whereClause}";
+        // Count total records using direct tables
+        $countSql = "SELECT COUNT(*) as total 
+                     FROM quotes q
+                     JOIN clients c ON q.client_id = c.client_id
+                     JOIN users u ON q.user_id = u.user_id
+                     {$whereClause}";
+        
         $totalResult = $this->db->fetch($countSql, $bindParams);
         $total = $totalResult['total'] ?? 0;
         
-        // Get records
-        $sql = "SELECT quote_id, quote_number, status, total_amount, issue_date, expiry_date, client_name, username
-                FROM vw_quotes 
+        // Get records using direct tables
+        $sql = "SELECT q.quote_id, q.quote_number, q.status, q.total_amount, q.issue_date, q.expiry_date, 
+                       c.company_name as client_name, u.username
+                FROM quotes q
+                JOIN clients c ON q.client_id = c.client_id
+                JOIN users u ON q.user_id = u.user_id
                 {$whereClause}
-                ORDER BY issue_date DESC
+                ORDER BY q.issue_date DESC
                 LIMIT ? OFFSET ?";
         
         $bindParams[] = $pagination['limit'];

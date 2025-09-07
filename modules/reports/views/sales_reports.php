@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/../../../core/helpers.php';
 require_once __DIR__ . '/../../../core/url_helper.php';
+
+// Define current report action for navigation
+$reportAction = $_GET['action'] ?? 'sales';
 ?>
 <!DOCTYPE html>
 <html lang="<?= sanitizeOutput(getUserLanguage()) ?>">
@@ -30,29 +33,11 @@ require_once __DIR__ . '/../../../core/url_helper.php';
                     </div>
                 </div>
 
-                <!-- Reports Navigation Tabs -->
-                <ul class="nav nav-tabs mb-4">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="<?= url('reports', 'sales') ?>">
-                            <i class="bi bi-graph-up"></i> <?= __('sales_reports') ?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= url('reports', 'clients') ?>">
-                            <i class="bi bi-people"></i> <?= __('client_reports') ?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= url('reports', 'products') ?>">
-                            <i class="bi bi-box"></i> <?= __('product_reports') ?>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= url('reports', 'compliance') ?>">
-                            <i class="bi bi-shield-check"></i> <?= __('compliance_reports') ?>
-                        </a>
-                    </li>
-                </ul>
+                <!-- Page Header Only - No Navigation Tabs -->
+                <div class="mb-4">
+                    <h2 class="h4 text-primary"><?= __('sales_reports') ?></h2>
+                    <p class="text-muted"><?= __('sales_reports_description') ?: 'Analyze sales performance and trends' ?></p>
+                </div>
 
                 <div id="loadingSpinner" class="text-center py-4" style="display: none;">
                     <div class="spinner-border text-primary" role="status">
