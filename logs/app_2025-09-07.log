@@ -49,3 +49,7 @@
 [2025-09-07 14:34:48] [DEBUG] DEBUG - Final query params: [1,49]
 [2025-09-07 14:34:48] [DEBUG] DEBUG - LIMIT: 1, OFFSET: 49
 [2025-09-07 14:34:48] [DEBUG] DEBUG - Retrieved 1 logs
+[2025-09-07 15:17:40] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"::1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36","timestamp":"2025-09-07 15:17:40","details":{"user_id":2,"username":"aleon"}}
+[2025-09-07 15:24:58] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"::1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36","timestamp":"2025-09-07 15:24:58","details":{"user_id":2,"username":"aleon"}}
+[2025-09-07 15:29:04] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"::1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36","timestamp":"2025-09-07 15:29:04","details":{"user_id":2,"username":"aleon"}}
+[2025-09-07 15:35:33] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"::1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/138.0.0.0 Safari\/537.36","timestamp":"2025-09-07 15:35:33","details":{"user_id":2,"username":"aleon"}}
