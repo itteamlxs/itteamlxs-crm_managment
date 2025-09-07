@@ -123,21 +123,33 @@ class ReportModel {
     }
     
     // Compliance Reports
-    public function getAuditLogs($limit = 100, $offset = 0, $startDate = '', $endDate = '') {
+    public function getAuditLogs($limit = 100, $offset = 0, $filters = []) {
         try {
-            // Use the audit_logs table directly since view has issues
-            $sql = "SELECT al.audit_id, al.user_id, al.action, al.entity_type, al.entity_id, 
-                           al.ip_address, al.created_at
-                    FROM audit_logs al";
+            $filters = $filters ?: [];
+            $sql = "SELECT * FROM vw_audit_logs WHERE 1=1";
             $params = [];
             
-            if (!empty($startDate) && !empty($endDate)) {
-                $sql .= " WHERE al.created_at BETWEEN ? AND ?";
-                $params[] = $startDate . ' 00:00:00';
-                $params[] = $endDate . ' 23:59:59';
+            if (!empty($filters['entity_type'] ?? '')) {
+                $sql .= " AND entity_type = ?";
+                $params[] = $filters['entity_type'];
             }
             
-            $sql .= " ORDER BY al.created_at DESC LIMIT ? OFFSET ?";
+            if (!empty($filters['action'] ?? '')) {
+                $sql .= " AND action = ?";
+                $params[] = $filters['action'];
+            }
+            
+            if (!empty($filters['start_date'] ?? '')) {
+                $sql .= " AND created_at >= ?";
+                $params[] = $filters['start_date'] . ' 00:00:00';
+            }
+            
+            if (!empty($filters['end_date'] ?? '')) {
+                $sql .= " AND created_at <= ?";
+                $params[] = $filters['end_date'] . ' 23:59:59';
+            }
+            
+            $sql .= " ORDER BY created_at DESC LIMIT ? OFFSET ?";
             $params[] = $limit;
             $params[] = $offset;
             
@@ -148,21 +160,73 @@ class ReportModel {
         }
     }
     
+    public function getAuditLogsCount($filters = []) {
+        try {
+            $filters = $filters ?: [];
+            $sql = "SELECT COUNT(*) as total FROM vw_audit_logs WHERE 1=1";
+            $params = [];
+            
+            if (!empty($filters['entity_type'] ?? '')) {
+                $sql .= " AND entity_type = ?";
+                $params[] = $filters['entity_type'];
+            }
+            
+            if (!empty($filters['action'] ?? '')) {
+                $sql .= " AND action = ?";
+                $params[] = $filters['action'];
+            }
+            
+            if (!empty($filters['start_date'] ?? '')) {
+                $sql .= " AND created_at >= ?";
+                $params[] = $filters['start_date'] . ' 00:00:00';
+            }
+            
+            if (!empty($filters['end_date'] ?? '')) {
+                $sql .= " AND created_at <= ?";
+                $params[] = $filters['end_date'] . ' 23:59:59';
+            }
+            
+            $result = $this->db->fetch($sql, $params);
+            return $result['total'] ?? 0;
+        } catch (Exception $e) {
+            logError("Get audit logs count failed: " . $e->getMessage());
+            return 0;
+        }
+    }
+    
+    public function getEntityTypes() {
+        try {
+            $sql = "SELECT DISTINCT entity_type FROM vw_audit_logs ORDER BY entity_type";
+            return $this->db->fetchAll($sql);
+        } catch (Exception $e) {
+            logError("Get entity types failed: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    public function getActions() {
+        try {
+            $sql = "SELECT DISTINCT action FROM vw_audit_logs ORDER BY action";
+            return $this->db->fetchAll($sql);
+        } catch (Exception $e) {
+            logError("Get actions failed: " . $e->getMessage());
+            return [];
+        }
+    }
+    
     public function getSecurityPosture() {
         try {
-            // Query directo sin depender de la vista problemática
             $sql = "SELECT 
                         COALESCE(SUM(u.failed_login_attempts), 0) AS failed_login_count,
                         COALESCE(COUNT(CASE WHEN u.locked_until IS NOT NULL AND u.locked_until > NOW() THEN 1 END), 0) AS locked_accounts,
                         COALESCE(COUNT(CASE WHEN u.is_active = 0 THEN 1 END), 0) AS inactive_accounts,
-                        COALESCE((SELECT COUNT(*) FROM audit_logs WHERE action IN ('PERMISSION_CHANGE', 'ROLE_UPDATE')), 0) AS permission_changes,
-                        COALESCE((SELECT COUNT(*) FROM audit_logs), 0) AS audit_log_count,
-                        (SELECT MAX(created_at) FROM audit_logs) AS last_security_event
+                        COALESCE((SELECT COUNT(*) FROM vw_audit_logs WHERE action IN ('PERMISSION_CHANGE', 'ROLE_UPDATE')), 0) AS permission_changes,
+                        COALESCE((SELECT COUNT(*) FROM vw_audit_logs), 0) AS audit_log_count,
+                        (SELECT MAX(created_at) FROM vw_audit_logs) AS last_security_event
                     FROM users u";
                     
             $result = $this->db->fetch($sql);
             
-            // Asegurar que todos los valores sean enteros
             if ($result) {
                 $result['failed_login_count'] = (int)$result['failed_login_count'];
                 $result['locked_accounts'] = (int)$result['locked_accounts'];
@@ -195,11 +259,10 @@ class ReportModel {
     
     public function getUserActivities() {
         try {
-            $sql = "SELECT u.username, COUNT(a.audit_id) as action_count, MAX(a.created_at) as last_activity
-                    FROM users u
-                    LEFT JOIN audit_logs a ON u.user_id = a.user_id
-                    GROUP BY u.user_id, u.username
-                    HAVING action_count > 0
+            $sql = "SELECT username, COUNT(audit_id) as action_count, MAX(created_at) as last_activity
+                    FROM vw_audit_logs
+                    WHERE username IS NOT NULL
+                    GROUP BY username
                     ORDER BY action_count DESC
                     LIMIT 20";
             

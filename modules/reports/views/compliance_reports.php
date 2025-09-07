@@ -2,16 +2,19 @@
 require_once __DIR__ . '/../../../core/helpers.php';
 require_once __DIR__ . '/../../../core/url_helper.php';
 
-// Initialize variables to avoid warnings
+// Initialize variables to avoid warnings - FIXED
 $isAdmin = $isAdmin ?? false;
 $securityPosture = $securityPosture ?? [];
 $userActivities = $userActivities ?? [];
 $auditLogs = $auditLogs ?? [];
-$startDate = $startDate ?? '';
-$endDate = $endDate ?? '';
-$pageTitle = $pageTitle ?? 'Reportes de Cumplimiento';
-$page = $page ?? 1;
-$limit = $limit ?? 50;
+$entityTypes = $entityTypes ?? [];
+$actions = $actions ?? [];
+$filters = $filters ?? [];
+$pagination = $pagination ?? ['current_page' => 1, 'total_pages' => 0, 'total_records' => 0];
+$totalRecords = $pagination['total_records'] ?? 0;
+$pageTitle = $pageTitle ?? __('compliance_reports');
+$page = $pagination['current_page'] ?? 1;
+$limit = $pagination['limit'] ?? 15;
 ?>
 <!DOCTYPE html>
 <html lang="<?= sanitizeOutput(getUserLanguage()) ?>">
@@ -140,8 +143,8 @@ $limit = $limit ?? 50;
                                     <?php foreach ($userActivities as $activity): ?>
                                     <tr>
                                         <td><?= sanitizeOutput($activity['username'] ?? 'Sistema') ?></td>
-                                        <td><span class="badge bg-secondary"><?= number_format($activity['action_count']) ?></span></td>
-                                        <td><small class="text-muted"><?= formatDate($activity['last_activity'], 'Y-m-d H:i:s') ?></small></td>
+                                        <td><span class="badge bg-secondary"><?= number_format($activity['action_count'] ?? 0) ?></span></td>
+                                        <td><small class="text-muted"><?= formatDate($activity['last_activity'] ?? '', 'Y-m-d H:i:s') ?></small></td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -158,7 +161,7 @@ $limit = $limit ?? 50;
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">
-                        <i class="bi bi-list-ul"></i> Logs de Auditoría
+                        <i class="bi bi-list-ul"></i> Logs de Auditoría (<?= number_format($totalRecords) ?> registros)
                     </h5>
                     <div>
                         <button id="exportCSV" class="btn btn-sm btn-outline-primary">
@@ -171,6 +174,60 @@ $limit = $limit ?? 50;
                 <div id="loadingSpinner" class="loading-spinner text-center py-3">
                     <div class="spinner-border text-primary" role="status">
                         <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+
+                <!-- Filtros -->
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label class="form-label">Tipo Entidad</label>
+                        <select class="form-select form-select-sm" id="entityTypeFilter">
+                            <option value="">Todos</option>
+                            <?php foreach ($entityTypes as $type): ?>
+                                <option value="<?= sanitizeOutput($type['entity_type']) ?>" 
+                                        <?= ($filters['entity_type'] ?? '') === $type['entity_type'] ? 'selected' : '' ?>>
+                                    <?= sanitizeOutput($type['entity_type']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Acción</label>
+                        <select class="form-select form-select-sm" id="actionFilter">
+                            <option value="">Todas</option>
+                            <?php foreach ($actions as $actionItem): ?>
+                                <option value="<?= sanitizeOutput($actionItem['action']) ?>"
+                                        <?= ($filters['action'] ?? '') === $actionItem['action'] ? 'selected' : '' ?>>
+                                    <?= sanitizeOutput($actionItem['action']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Desde</label>
+                        <input type="date" class="form-control form-control-sm" id="startDate" 
+                               value="<?= sanitizeOutput($filters['start_date'] ?? '') ?>">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Hasta</label>
+                        <input type="date" class="form-control form-control-sm" id="endDate"
+                               value="<?= sanitizeOutput($filters['end_date'] ?? '') ?>">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Por Página</label>
+                        <select class="form-select form-select-sm" id="limitFilter">
+                            <option value="25" <?= $limit == 25 ? 'selected' : '' ?>>25</option>
+                            <option value="50" <?= $limit == 50 ? 'selected' : '' ?>>50</option>
+                            <option value="100" <?= $limit == 100 ? 'selected' : '' ?>>100</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="button" class="btn btn-primary btn-sm me-2" onclick="applyFilters()">
+                            <i class="bi bi-funnel"></i> Filtrar
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="clearFilters()">
+                            <i class="bi bi-x-circle"></i> Limpiar
+                        </button>
                     </div>
                 </div>
 
@@ -193,18 +250,21 @@ $limit = $limit ?? 50;
                                 <?php foreach ($auditLogs as $log): ?>
                                     <tr>
                                         <td>
-                                            <small><?= formatDate($log['created_at'], 'Y-m-d H:i:s') ?></small>
+                                            <small><?= formatDate($log['created_at'] ?? '', 'Y-m-d H:i:s') ?></small>
                                         </td>
                                         <td>
-                                            <?php if ($log['user_id']): ?>
-                                                <span class="badge bg-primary">Usuario #<?= $log['user_id'] ?></span>
+                                            <?php if (($log['username'] ?? '') && $log['username'] !== 'SYSTEM'): ?>
+                                                <span class="badge bg-primary"><?= sanitizeOutput($log['username']) ?></span>
+                                                <?php if (!empty($log['display_name'])): ?>
+                                                    <br><small class="text-muted"><?= sanitizeOutput($log['display_name']) ?></small>
+                                                <?php endif; ?>
                                             <?php else: ?>
                                                 <span class="badge bg-secondary">Sistema</span>
                                             <?php endif; ?>
                                         </td>
                                         <td>
                                             <?php 
-                                            $actionClass = match($log['action']) {
+                                            $actionClass = match($log['action'] ?? '') {
                                                 'INSERT' => 'success',
                                                 'UPDATE' => 'warning', 
                                                 'DELETE' => 'danger',
@@ -214,13 +274,13 @@ $limit = $limit ?? 50;
                                                 default => 'light'
                                             };
                                             ?>
-                                            <span class="badge bg-<?= $actionClass ?> badge-action"><?= sanitizeOutput($log['action']) ?></span>
+                                            <span class="badge bg-<?= $actionClass ?> badge-action"><?= sanitizeOutput($log['action'] ?? 'N/A') ?></span>
                                         </td>
                                         <td>
-                                            <code class="small"><?= sanitizeOutput($log['entity_type']) ?></code>
+                                            <code class="small"><?= sanitizeOutput($log['entity_type'] ?? 'N/A') ?></code>
                                         </td>
                                         <td>
-                                            <small><?= number_format($log['entity_id']) ?></small>
+                                            <small><?= number_format($log['entity_id'] ?? 0) ?></small>
                                         </td>
                                         <?php if ($isAdmin): ?>
                                         <td>
@@ -228,40 +288,94 @@ $limit = $limit ?? 50;
                                         </td>
                                         <?php endif; ?>
                                     </tr>
+                                    <!-- Fila expandible con detalles de cambios -->
+                                    <?php if (($log['action'] ?? '') === 'UPDATE' && (!empty($log['old_value']) || !empty($log['new_value']))): ?>
+                                    <tr class="table-info">
+                                        <td colspan="<?= $isAdmin ? '6' : '5' ?>" class="p-2">
+                                            <small class="text-muted">
+                                                <strong>Cambios realizados:</strong>
+                                                <div class="row mt-1">
+                                                    <?php 
+                                                    $oldValues = json_decode($log['old_value'] ?? '{}', true) ?? [];
+                                                    $newValues = json_decode($log['new_value'] ?? '{}', true) ?? [];
+                                                    $allFields = array_unique(array_merge(array_keys($oldValues), array_keys($newValues)));
+                                                    ?>
+                                                    <?php foreach ($allFields as $field): ?>
+                                                        <?php 
+                                                        $oldVal = $oldValues[$field] ?? 'N/A';
+                                                        $newVal = $newValues[$field] ?? 'N/A';
+                                                        if ($oldVal !== $newVal):
+                                                        ?>
+                                                        <div class="col-md-4 mb-1">
+                                                            <strong><?= sanitizeOutput(ucfirst(str_replace('_', ' ', $field))) ?>:</strong><br>
+                                                            <span class="text-danger">Antes: <?= sanitizeOutput($oldVal) ?></span><br>
+                                                            <span class="text-success">Ahora: <?= sanitizeOutput($newVal) ?></span>
+                                                        </div>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            </small>
+                                        </td>
+                                    </tr>
+                                    <?php endif; ?>
+                                    
+                                    <!-- Fila para inserts con datos nuevos -->
+                                    <?php if (($log['action'] ?? '') === 'INSERT' && !empty($log['new_value'])): ?>
+                                    <tr class="table-success">
+                                        <td colspan="<?= $isAdmin ? '6' : '5' ?>" class="p-2">
+                                            <small class="text-muted">
+                                                <strong>Datos creados:</strong>
+                                                <div class="row mt-1">
+                                                    <?php 
+                                                    $newValues = json_decode($log['new_value'] ?? '{}', true) ?? [];
+                                                    ?>
+                                                    <?php foreach ($newValues as $field => $value): ?>
+                                                        <div class="col-md-3 mb-1">
+                                                            <strong><?= sanitizeOutput(ucfirst(str_replace('_', ' ', $field))) ?>:</strong>
+                                                            <span class="text-success"><?= sanitizeOutput($value) ?></span>
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            </small>
+                                        </td>
+                                    </tr>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
 
-                    <!-- Pagination -->
+                    <!-- Paginación -->
+                    <?php if ($pagination['total_pages'] > 1): ?>
                     <nav aria-label="Paginación de logs de auditoría" class="mt-3">
                         <ul class="pagination justify-content-center">
-                            <?php if ($page > 1): ?>
+                            <?php if ($pagination['current_page'] > 1): ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => $page - 1])) ?>">
+                                    <a class="page-link" href="<?= url('reports', 'compliance', array_merge($filters, ['page' => $pagination['current_page'] - 1, 'limit' => $limit])) ?>">
                                         <i class="bi bi-chevron-left"></i> Anterior
                                     </a>
                                 </li>
                             <?php endif; ?>
                             
                             <li class="page-item active">
-                                <span class="page-link">Página <?= $page ?></span>
+                                <span class="page-link">Página <?= $pagination['current_page'] ?> de <?= $pagination['total_pages'] ?></span>
                             </li>
                             
-                            <?php if (count($auditLogs) >= $limit): ?>
+                            <?php if ($pagination['current_page'] < $pagination['total_pages']): ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => $page + 1])) ?>">
+                                    <a class="page-link" href="<?= url('reports', 'compliance', array_merge($filters, ['page' => $pagination['current_page'] + 1, 'limit' => $limit])) ?>">
                                         Siguiente <i class="bi bi-chevron-right"></i>
                                     </a>
                                 </li>
                             <?php endif; ?>
                         </ul>
                     </nav>
+                    <?php endif; ?>
                 <?php else: ?>
                     <div class="text-center py-5">
                         <i class="bi bi-journal-text display-1 text-muted"></i>
                         <h5 class="text-muted mt-3">No hay logs de auditoría disponibles</h5>
-                        <?php if ($startDate || $endDate): ?>
+                        <?php if ($filters['start_date'] || $filters['end_date']): ?>
                         <p class="text-muted">Pruebe con un rango de fechas diferente</p>
                         <?php endif; ?>
                     </div>
@@ -271,6 +385,34 @@ $limit = $limit ?? 50;
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= url() ?>/assets/js/reports.js"></script>
+    <script>
+    function applyFilters() {
+        const entityType = document.getElementById('entityTypeFilter').value;
+        const action = document.getElementById('actionFilter').value;
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+        const limit = document.getElementById('limitFilter').value;
+        
+        const params = new URLSearchParams();
+        params.set('module', 'reports');
+        params.set('action', 'compliance');
+        
+        if (entityType) params.set('entity_type', entityType);
+        if (action) params.set('action', action);
+        if (startDate) params.set('start_date', startDate);
+        if (endDate) params.set('end_date', endDate);
+        if (limit) params.set('limit', limit);
+        
+        window.location.href = '?' + params.toString();
+    }
+
+    function clearFilters() {
+        window.location.href = '?module=reports&action=compliance';
+    }
+
+    document.getElementById('refreshReports').addEventListener('click', function() {
+        window.location.reload();
+    });
+    </script>
 </body>
 </html>
