@@ -280,5 +280,6 @@
             </div>
         </div>
     </div>
+    <script src="assets/js/auth.js"></script>
 </body>
 </html>

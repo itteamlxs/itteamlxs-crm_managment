@@ -1,0 +1,260 @@
+/* Dynamic Login Effects */
+
+/* Animated Gradient Background */
+.animated-gradient {
+    background: linear-gradient(-45deg, 
+        var(--right-primary), 
+        var(--right-secondary), 
+        var(--right-light), 
+        var(--right-accent));
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Parallax Image Effect */
+.parallax-container {
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.parallax-image {
+    transform: scale(1.1);
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: breathe 12s ease-in-out infinite;
+    filter: brightness(0.9) contrast(1.1);
+}
+
+.parallax-container:hover .parallax-image {
+    transform: scale(1.15);
+    filter: brightness(1) contrast(1.2);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Subtle breathing animation */
+@keyframes breathe {
+    0%, 100% { 
+        transform: scale(1.1) translateY(0px);
+        filter: brightness(0.9) contrast(1.1);
+    }
+    50% { 
+        transform: scale(1.12) translateY(-5px);
+        filter: brightness(0.95) contrast(1.15);
+    }
+}
+
+/* Mouse move parallax effect */
+.parallax-active .parallax-image {
+    transition: transform 0.2s ease-out !important;
+    animation-play-state: paused;
+}
+
+/* Panel hover effect */
+.left-panel {
+    transition: all 0.3s ease;
+}
+
+.left-panel:hover {
+    transform: translateX(2px);
+}
+
+/* Ensure text doesn't block mouse events */
+.left-panel > div:last-child {
+    pointer-events: none;
+    position: relative;
+    z-index: 10;
+}
+
+.left-panel > div:last-child * {
+    pointer-events: auto;
+}
+
+/* Floating Elements */
+.floating-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float linear infinite;
+}
+
+.particle:nth-child(1) {
+    width: 4px;
+    height: 4px;
+    left: 10%;
+    animation-duration: 8s;
+    animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+    width: 6px;
+    height: 6px;
+    left: 20%;
+    animation-duration: 10s;
+    animation-delay: 2s;
+}
+
+.particle:nth-child(3) {
+    width: 3px;
+    height: 3px;
+    left: 70%;
+    animation-duration: 12s;
+    animation-delay: 4s;
+}
+
+.particle:nth-child(4) {
+    width: 5px;
+    height: 5px;
+    left: 80%;
+    animation-duration: 9s;
+    animation-delay: 6s;
+}
+
+.particle:nth-child(5) {
+    width: 4px;
+    height: 4px;
+    left: 50%;
+    animation-duration: 11s;
+    animation-delay: 1s;
+}
+
+@keyframes float {
+    0% {
+        opacity: 0;
+        transform: translateY(100vh) scale(0);
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(1);
+    }
+}
+
+/* Enhanced Button Animations */
+.enhanced-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.enhanced-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.enhanced-button:hover::before {
+    left: 100%;
+}
+
+.enhanced-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(4, 0, 255, 0.3);
+}
+
+/* Input Field Enhancements */
+.enhanced-input {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.enhanced-input::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--button-color), var(--button-hover));
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.enhanced-input:focus::before {
+    width: 100%;
+}
+
+/* Text Glow Effect */
+.text-glow {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    animation: textGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+    from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+    to { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.3); }
+}
+
+/* Backdrop Blur Animation */
+.blur-animate {
+    backdrop-filter: blur(0px);
+    animation: blurIn 1s ease forwards;
+}
+
+@keyframes blurIn {
+    to { backdrop-filter: blur(10px); }
+}
+
+/* Loading Spinner for Login */
+.loading-spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 0.5rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading .loading-spinner {
+    display: inline-block;
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+    .particle {
+        display: none;
+    }
+    
+    .parallax-image {
+        animation: none;
+        transform: scale(1.05);
+    }
+}
+
+/* Subtle Pulse for Important Elements */
+.pulse-subtle {
+    animation: pulseSubtle 4s ease-in-out infinite;
+}
+
+@keyframes pulseSubtle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
