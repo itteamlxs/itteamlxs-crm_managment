@@ -1,0 +1,2 @@
+[2025-09-06 19:50:05] [SECURITY] SECURITY_EVENT: {"event":"USER_UPDATED","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-06 19:50:05","details":{"target_user_id":5}}
+[2025-09-06 20:08:11] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-06 20:08:11","details":{"user_id":2,"username":"aleon"}}
