@@ -35,7 +35,71 @@ const chartOptions = {
 document.addEventListener('DOMContentLoaded', function() {
     initializeCharts();
     setupEventListeners();
+    fixFormLabels();
 });
+
+function fixFormLabels() {
+    // Fix label associations for compliance report filters
+    const entityTypeLabel = document.querySelector('label[for="entityTypeFilter"]');
+    if (!entityTypeLabel) {
+        const entityTypeSelect = document.getElementById('entityTypeFilter');
+        if (entityTypeSelect) {
+            const label = entityTypeSelect.previousElementSibling;
+            if (label && label.tagName === 'LABEL') {
+                label.setAttribute('for', 'entityTypeFilter');
+            }
+        }
+    }
+    
+    const actionLabel = document.querySelector('label[for="actionFilter"]');
+    if (!actionLabel) {
+        const actionSelect = document.getElementById('actionFilter');
+        if (actionSelect) {
+            const label = actionSelect.previousElementSibling;
+            if (label && label.tagName === 'LABEL') {
+                label.setAttribute('for', 'actionFilter');
+            }
+        }
+    }
+    
+    const startDateLabel = document.querySelector('label[for="startDate"]');
+    if (!startDateLabel) {
+        const startDateInput = document.getElementById('startDate');
+        if (startDateInput) {
+            const label = startDateInput.previousElementSibling;
+            if (label && label.tagName === 'LABEL') {
+                label.setAttribute('for', 'startDate');
+            }
+        }
+    }
+    
+    const endDateLabel = document.querySelector('label[for="endDate"]');
+    if (!endDateLabel) {
+        const endDateInput = document.getElementById('endDate');
+        if (endDateInput) {
+            const label = endDateInput.previousElementSibling;
+            if (label && label.tagName === 'LABEL') {
+                label.setAttribute('for', 'endDate');
+            }
+        }
+    }
+    
+    // Fix any other form labels that might be missing associations
+    const allLabels = document.querySelectorAll('label:not([for])');
+    allLabels.forEach(label => {
+        const nextElement = label.nextElementSibling;
+        if (nextElement && (nextElement.tagName === 'INPUT' || nextElement.tagName === 'SELECT' || nextElement.tagName === 'TEXTAREA')) {
+            if (nextElement.id) {
+                label.setAttribute('for', nextElement.id);
+            } else {
+                // Generate an ID if one doesn't exist
+                const fieldId = 'field_' + Math.random().toString(36).substr(2, 9);
+                nextElement.id = fieldId;
+                label.setAttribute('for', fieldId);
+            }
+        }
+    });
+}
 
 function initializeCharts() {
     // Sales Performance Chart
@@ -252,6 +316,57 @@ function setupEventListeners() {
             refreshReports();
         });
     }
+    
+    // Compliance report filters
+    setupComplianceFilters();
+}
+
+function setupComplianceFilters() {
+    // Entity type filter
+    const entityTypeFilter = document.getElementById('entityTypeFilter');
+    if (entityTypeFilter) {
+        entityTypeFilter.addEventListener('change', function() {
+            // Optional: Auto-apply filter on change
+            // applyFilters();
+        });
+    }
+    
+    // Action filter
+    const actionFilter = document.getElementById('actionFilter');
+    if (actionFilter) {
+        actionFilter.addEventListener('change', function() {
+            // Optional: Auto-apply filter on change
+            // applyFilters();
+        });
+    }
+    
+    // Date filters
+    const startDateInput = document.getElementById('startDate');
+    const endDateInput = document.getElementById('endDate');
+    
+    if (startDateInput) {
+        startDateInput.addEventListener('change', function() {
+            validateDateRange();
+        });
+    }
+    
+    if (endDateInput) {
+        endDateInput.addEventListener('change', function() {
+            validateDateRange();
+        });
+    }
+}
+
+function validateDateRange() {
+    const startDate = document.getElementById('startDate');
+    const endDate = document.getElementById('endDate');
+    
+    if (startDate && endDate && startDate.value && endDate.value) {
+        if (new Date(startDate.value) > new Date(endDate.value)) {
+            alert('La fecha de inicio no puede ser posterior a la fecha de fin');
+            startDate.value = '';
+        }
+    }
 }
 
 function applyDateFilter() {
@@ -300,49 +415,86 @@ function setupExportButtons() {
 
 function exportToCSV() {
     const table = document.querySelector('.report-table');
-    if (!table) return;
-    
-    let csv = [];
-    const rows = table.querySelectorAll('tr');
-    
-    for (let i = 0; i < rows.length; i++) {
-        const row = [];
-        const cols = rows[i].querySelectorAll('td, th');
-        
-        for (let j = 0; j < cols.length; j++) {
-            row.push('"' + cols[j].innerText + '"');
-        }
-        
-        csv.push(row.join(','));
+    if (!table) {
+        alert('No hay tabla disponible para exportar');
+        return;
     }
     
-    downloadCSV(csv.join('\n'), 'report_' + new Date().toISOString().split('T')[0] + '.csv');
+    try {
+        let csv = [];
+        const rows = table.querySelectorAll('tr');
+        
+        for (let i = 0; i < rows.length; i++) {
+            const row = [];
+            const cols = rows[i].querySelectorAll('td, th');
+            
+            for (let j = 0; j < cols.length; j++) {
+                // Clean text content and escape quotes
+                let cellText = cols[j].innerText || cols[j].textContent || '';
+                cellText = cellText.replace(/"/g, '""'); // Escape quotes
+                row.push('"' + cellText.trim() + '"');
+            }
+            
+            if (row.length > 0) {
+                csv.push(row.join(','));
+            }
+        }
+        
+        if (csv.length > 0) {
+            downloadCSV(csv.join('\n'), 'report_' + new Date().toISOString().split('T')[0] + '.csv');
+        } else {
+            alert('No hay datos para exportar');
+        }
+    } catch (error) {
+        console.error('Error exporting CSV:', error);
+        alert('Error al exportar CSV: ' + error.message);
+    }
 }
 
 function downloadCSV(csv, filename) {
-    const csvFile = new Blob([csv], { type: 'text/csv' });
-    const downloadLink = document.createElement('a');
-    
-    downloadLink.download = filename;
-    downloadLink.href = window.URL.createObjectURL(csvFile);
-    downloadLink.style.display = 'none';
-    
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+    try {
+        // Add BOM for UTF-8 compatibility
+        const BOM = '\uFEFF';
+        const csvFile = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8' });
+        const downloadLink = document.createElement('a');
+        
+        downloadLink.download = filename;
+        downloadLink.href = window.URL.createObjectURL(csvFile);
+        downloadLink.style.display = 'none';
+        
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        
+        // Clean up object URL
+        window.URL.revokeObjectURL(downloadLink.href);
+    } catch (error) {
+        console.error('Error downloading CSV:', error);
+        alert('Error al descargar el archivo CSV');
+    }
 }
 
 function exportToPDF() {
     showLoading(true);
     
-    // Get current page parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set('export', 'pdf');
-    
-    // Open PDF in new window
-    window.open(window.location.pathname + '?' + urlParams.toString(), '_blank');
-    
-    showLoading(false);
+    try {
+        // Get current page parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.set('export', 'pdf');
+        
+        // Open PDF in new window
+        const pdfWindow = window.open(window.location.pathname + '?' + urlParams.toString(), '_blank');
+        
+        if (!pdfWindow) {
+            alert('Por favor permita las ventanas emergentes para descargar el PDF');
+        }
+        
+        showLoading(false);
+    } catch (error) {
+        console.error('Error exporting PDF:', error);
+        alert('Error al exportar PDF: ' + error.message);
+        showLoading(false);
+    }
 }
 
 function refreshReports() {
@@ -356,18 +508,23 @@ function refreshReports() {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.status);
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.success) {
             location.reload();
         } else {
-            alert('Failed to refresh reports: ' + data.error);
+            alert('Failed to refresh reports: ' + (data.error || 'Unknown error'));
             showLoading(false);
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred while refreshing reports');
+        alert('An error occurred while refreshing reports: ' + error.message);
         showLoading(false);
     });
 }
@@ -378,12 +535,49 @@ function showLoading(show) {
         spinner.style.display = show ? 'block' : 'none';
     }
     
-    // Disable buttons during loading
+    // Disable/enable buttons during loading
     const buttons = document.querySelectorAll('button, .btn');
     buttons.forEach(btn => {
-        btn.disabled = show;
+        if (show) {
+            btn.disabled = true;
+            btn.classList.add('loading');
+        } else {
+            btn.disabled = false;
+            btn.classList.remove('loading');
+        }
     });
 }
+
+// Global functions for compliance filters (called from HTML)
+window.applyFilters = function() {
+    const entityType = document.getElementById('entityTypeFilter')?.value || '';
+    const action = document.getElementById('actionFilter')?.value || '';
+    const startDate = document.getElementById('startDate')?.value || '';
+    const endDate = document.getElementById('endDate')?.value || '';
+    
+    // Validate date range
+    if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+        alert('La fecha de inicio no puede ser posterior a la fecha de fin');
+        return;
+    }
+    
+    const params = new URLSearchParams();
+    params.set('module', 'reports');
+    params.set('action', 'compliance');
+    
+    if (entityType) params.set('entity_type', entityType);
+    if (action) params.set('action', action);
+    if (startDate) params.set('start_date', startDate);
+    if (endDate) params.set('end_date', endDate);
+    
+    showLoading(true);
+    window.location.href = '?' + params.toString();
+};
+
+window.clearFilters = function() {
+    showLoading(true);
+    window.location.href = '?module=reports&action=compliance';
+};
 
 // Utility functions for data formatting
 function formatCurrency(amount) {
