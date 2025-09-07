@@ -22,46 +22,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isAjaxRequest() && isset($_GET['act
     jsonResponse(['success' => $refreshResult]);
 }
 
-// Get filters from URL
-$filters = [
-    'start_date' => $_GET['start_date'] ?? '',
-    'end_date' => $_GET['end_date'] ?? '',
-    'entity_type' => $_GET['entity_type'] ?? '',
-    'action' => $_GET['action'] ?? '',
-    'page' => max(1, (int)($_GET['page'] ?? 1))
-];
-
 // Pagination
-$page = $filters['page'];
+$page = max(1, (int)($_GET['page'] ?? 1));
 $limit = 50;
+$offset = ($page - 1) * $limit;
 
 // Get report data with proper error handling
 try {
-    // Use updated getAuditLogs method with filters
-    $auditData = $reportModel->getAuditLogs(
-        $page,
-        $limit,
-        $filters['start_date'],
-        $filters['end_date'],
-        $filters['entity_type'],
-        $filters['action']
-    );
-    
-    $auditLogs = $auditData['logs'];
-    $pagination = $auditData['pagination'];
-    
-    // Get filter options
-    $entityTypes = $reportModel->getUniqueEntityTypes();
-    $actions = $reportModel->getUniqueActions();
-    
+    $auditLogs = $reportModel->getAuditLogs($limit, $offset);
     $securityPosture = $reportModel->getSecurityPosture();
     $userActivities = $reportModel->getUserActivities();
 } catch (Exception $e) {
     logError("Error loading compliance reports: " . $e->getMessage());
     $auditLogs = [];
-    $pagination = ['current_page' => 1, 'total_pages' => 0];
-    $entityTypes = [];
-    $actions = [];
     $securityPosture = [];
     $userActivities = [];
 }

@@ -7,10 +7,6 @@ $isAdmin = $isAdmin ?? false;
 $securityPosture = $securityPosture ?? [];
 $userActivities = $userActivities ?? [];
 $auditLogs = $auditLogs ?? [];
-$entityTypes = $entityTypes ?? [];  // AGREGADO
-$actions = $actions ?? [];          // AGREGADO
-$filters = $filters ?? [];          // AGREGADO
-$pagination = $pagination ?? ['current_page' => 1, 'total_pages' => 0]; // AGREGADO
 $startDate = $startDate ?? '';
 $endDate = $endDate ?? '';
 $pageTitle = $pageTitle ?? 'Reportes de Cumplimiento';
@@ -120,7 +116,7 @@ $limit = $limit ?? 50;
         </div>
         <?php endif; ?>
 
-        <!-- User Activity Summary (Admin Only) - CORREGIDO -->
+        <!-- User Activity Summary (Admin Only) -->
         <?php if ($isAdmin && !empty($userActivities)): ?>
         <div class="row mb-4">
             <div class="col-12">
@@ -136,16 +132,16 @@ $limit = $limit ?? 50;
                                 <thead>
                                     <tr>
                                         <th>Usuario</th>
-                                        <th>Total Cotizaciones</th>
-                                        <th>Total Ventas</th>
+                                        <th>Total Acciones</th>
+                                        <th>Última Actividad</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($userActivities as $activity): ?>
                                     <tr>
                                         <td><?= sanitizeOutput($activity['username'] ?? 'Sistema') ?></td>
-                                        <td><span class="badge bg-secondary"><?= number_format($activity['quote_count'] ?? 0) ?></span></td>
-                                        <td><span class="badge bg-success"><?= formatCurrency($activity['total_sales'] ?? 0) ?></span></td>
+                                        <td><span class="badge bg-secondary"><?= number_format($activity['action_count']) ?></span></td>
+                                        <td><small class="text-muted"><?= formatDate($activity['last_activity'], 'Y-m-d H:i:s') ?></small></td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -178,52 +174,6 @@ $limit = $limit ?? 50;
                     </div>
                 </div>
 
-                <!-- FILTROS AGREGADOS -->
-                <div class="row mb-3">
-                    <div class="col-md-2">
-                        <label class="form-label">Tipo Entidad</label>
-                        <select class="form-select form-select-sm" id="entityTypeFilter">
-                            <option value="">Todos</option>
-                            <?php foreach ($entityTypes as $type): ?>
-                                <option value="<?= sanitizeOutput($type['entity_type']) ?>" 
-                                        <?= ($filters['entity_type'] ?? '') === $type['entity_type'] ? 'selected' : '' ?>>
-                                    <?= sanitizeOutput($type['entity_type']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">Acción</label>
-                        <select class="form-select form-select-sm" id="actionFilter">
-                            <option value="">Todas</option>
-                            <?php foreach ($actions as $actionItem): ?>
-                                <option value="<?= sanitizeOutput($actionItem['action']) ?>"
-                                        <?= ($filters['action'] ?? '') === $actionItem['action'] ? 'selected' : '' ?>>
-                                    <?= sanitizeOutput($actionItem['action']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">Desde</label>
-                        <input type="date" class="form-control form-control-sm" id="startDate" 
-                               value="<?= sanitizeOutput($filters['start_date'] ?? '') ?>">
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">Hasta</label>
-                        <input type="date" class="form-control form-control-sm" id="endDate"
-                               value="<?= sanitizeOutput($filters['end_date'] ?? '') ?>">
-                    </div>
-                    <div class="col-md-4 d-flex align-items-end">
-                        <button type="button" class="btn btn-primary btn-sm me-2" onclick="applyFilters()">
-                            <i class="bi bi-funnel"></i> Filtrar
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="clearFilters()">
-                            <i class="bi bi-x-circle"></i> Limpiar
-                        </button>
-                    </div>
-                </div>
-
                 <?php if (!empty($auditLogs)): ?>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover audit-table report-table">
@@ -243,21 +193,18 @@ $limit = $limit ?? 50;
                                 <?php foreach ($auditLogs as $log): ?>
                                     <tr>
                                         <td>
-                                            <small><?= formatDate($log['created_at'] ?? '', 'Y-m-d H:i:s') ?></small>
+                                            <small><?= formatDate($log['created_at'], 'Y-m-d H:i:s') ?></small>
                                         </td>
                                         <td>
-                                            <?php if (($log['username'] ?? '') && $log['username'] !== 'SYSTEM'): ?>
-                                                <span class="badge bg-primary"><?= sanitizeOutput($log['username']) ?></span>
-                                                <?php if (!empty($log['display_name'])): ?>
-                                                    <br><small class="text-muted"><?= sanitizeOutput($log['display_name']) ?></small>
-                                                <?php endif; ?>
+                                            <?php if ($log['user_id']): ?>
+                                                <span class="badge bg-primary">Usuario #<?= $log['user_id'] ?></span>
                                             <?php else: ?>
                                                 <span class="badge bg-secondary">Sistema</span>
                                             <?php endif; ?>
                                         </td>
                                         <td>
                                             <?php 
-                                            $actionClass = match($log['action'] ?? '') {
+                                            $actionClass = match($log['action']) {
                                                 'INSERT' => 'success',
                                                 'UPDATE' => 'warning', 
                                                 'DELETE' => 'danger',
@@ -267,13 +214,13 @@ $limit = $limit ?? 50;
                                                 default => 'light'
                                             };
                                             ?>
-                                            <span class="badge bg-<?= $actionClass ?> badge-action"><?= sanitizeOutput($log['action'] ?? 'N/A') ?></span>
+                                            <span class="badge bg-<?= $actionClass ?> badge-action"><?= sanitizeOutput($log['action']) ?></span>
                                         </td>
                                         <td>
-                                            <code class="small"><?= sanitizeOutput($log['entity_type'] ?? 'N/A') ?></code>
+                                            <code class="small"><?= sanitizeOutput($log['entity_type']) ?></code>
                                         </td>
                                         <td>
-                                            <small><?= number_format($log['entity_id'] ?? 0) ?></small>
+                                            <small><?= number_format($log['entity_id']) ?></small>
                                         </td>
                                         <?php if ($isAdmin): ?>
                                         <td>
@@ -286,24 +233,24 @@ $limit = $limit ?? 50;
                         </table>
                     </div>
 
-                    <!-- PAGINACIÓN CORREGIDA -->
+                    <!-- Pagination -->
                     <nav aria-label="Paginación de logs de auditoría" class="mt-3">
                         <ul class="pagination justify-content-center">
-                            <?php if (($pagination['current_page'] ?? 1) > 1): ?>
+                            <?php if ($page > 1): ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="<?= url('reports', 'compliance', array_merge($filters, ['page' => $pagination['current_page'] - 1])) ?>">
+                                    <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => $page - 1])) ?>">
                                         <i class="bi bi-chevron-left"></i> Anterior
                                     </a>
                                 </li>
                             <?php endif; ?>
                             
                             <li class="page-item active">
-                                <span class="page-link">Página <?= $pagination['current_page'] ?? 1 ?></span>
+                                <span class="page-link">Página <?= $page ?></span>
                             </li>
                             
-                            <?php if (($pagination['current_page'] ?? 1) < ($pagination['total_pages'] ?? 1)): ?>
+                            <?php if (count($auditLogs) >= $limit): ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="<?= url('reports', 'compliance', array_merge($filters, ['page' => $pagination['current_page'] + 1])) ?>">
+                                    <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => $page + 1])) ?>">
                                         Siguiente <i class="bi bi-chevron-right"></i>
                                     </a>
                                 </li>
@@ -325,28 +272,5 @@ $limit = $limit ?? 50;
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="<?= url() ?>/assets/js/reports.js"></script>
-    <script>
-    function applyFilters() {
-        const entityType = document.getElementById('entityTypeFilter').value;
-        const action = document.getElementById('actionFilter').value;
-        const startDate = document.getElementById('startDate').value;
-        const endDate = document.getElementById('endDate').value;
-        
-        const params = new URLSearchParams();
-        params.set('module', 'reports');
-        params.set('action', 'compliance');
-        
-        if (entityType) params.set('entity_type', entityType);
-        if (action) params.set('action', action);
-        if (startDate) params.set('start_date', startDate);
-        if (endDate) params.set('end_date', endDate);
-        
-        window.location.href = '?' + params.toString();
-    }
-
-    function clearFilters() {
-        window.location.href = '?module=reports&action=compliance';
-    }
-    </script>
 </body>
 </html>
