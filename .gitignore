@@ -1,6 +1,5 @@
 #Ignorar archivos pesados#
 .env
-.env
 vendor
 prompts.txt
 create_admin.php
