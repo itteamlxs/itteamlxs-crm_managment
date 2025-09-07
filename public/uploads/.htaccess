@@ -1,0 +1,24 @@
+# Security for uploads directory
+# Prevent execution of scripts in uploads folder
+
+# Deny access to PHP and other executable files
+<Files ~ "\.(php|php3|php4|php5|phtml|pl|py|jsp|asp|sh|cgi)$">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Only allow image files
+<FilesMatch "\.(jpg|jpeg|png|gif)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Prevent directory browsing
+Options -Indexes
+
+# Prevent hotlinking (optional - replace yourdomain.com with your actual domain)
+RewriteEngine on
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?localhost [NC]
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?127.0.0.1 [NC]
+RewriteRule \.(jpg|jpeg|png|gif)$ - [NC,F,L]
