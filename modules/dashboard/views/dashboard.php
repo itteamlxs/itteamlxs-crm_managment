@@ -29,14 +29,13 @@ try {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>    
-    <div class="container mt-5">
+<body>
+    <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
+    
+    <div class="container mt-4">
         <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3><?php echo __('dashboard') ?: 'Dashboard'; ?></h3>
-                <a href="<?php echo logoutUrl(); ?>" class="btn btn-danger btn-sm">
-                    <i class="bi bi-box-arrow-right"></i> <?php echo __('logout') ?: 'Logout'; ?>
-                </a>
+            <div class="card-header">
+                <h3><i class="bi bi-speedometer2"></i> <?php echo __('dashboard') ?: 'Dashboard'; ?></h3>
             </div>
             <div class="card-body">
                 <div class="row mb-4">

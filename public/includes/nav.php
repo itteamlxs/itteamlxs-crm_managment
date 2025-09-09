@@ -1,6 +1,6 @@
 <?php
 /**
- * Universal Navigation Component
+ * Universal Lateral Navigation Component
  * Include this in all views for consistent navigation
  */
 
@@ -25,7 +25,7 @@ $navItems = [
         'action' => 'index',
         'icon' => 'bi-speedometer2',
         'label' => __('dashboard'),
-        'permission' => null, // Always visible
+        'permission' => null,
         'active' => $currentModule === 'dashboard'
     ],
     [
@@ -150,22 +150,18 @@ foreach ($adminItems as $admin) {
 }
 
 function checkNavAccess($item, $currentUser) {
-    // Admin only items
     if (isset($item['admin_only']) && $item['admin_only'] && !$currentUser['is_admin']) {
         return false;
     }
     
-    // Admin override (admin or specific permission)
     if (isset($item['admin_override']) && $item['admin_override']) {
         return $currentUser['is_admin'] || hasPermission($item['permission']);
     }
     
-    // Check module access
     if (isset($item['check_module']) && $item['check_module']) {
         return canAccessModule($item['module']);
     }
     
-    // Check specific permission
     if (isset($item['permission']) && $item['permission']) {
         return hasPermission($item['permission']);
     }
@@ -175,138 +171,345 @@ function checkNavAccess($item, $currentUser) {
 ?>
 
 <style>
-.navbar-brand img {
-    height: 32px;
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
 }
+
+.sidebar.collapsed {
+    transform: translateX(-100%);
+}
+
+.sidebar-brand {
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.sidebar-brand:hover {
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+}
+
+.sidebar-nav {
+    padding: 1rem 0;
+}
+
+.nav-item {
+    margin: 0.25rem 1rem;
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.nav-link:hover {
+    color: white;
+    background: rgba(255,255,255,0.1);
+    text-decoration: none;
+    transform: translateX(5px);
+}
+
 .nav-link.active {
-    background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
-    color: var(--bs-primary) !important;
-    border-radius: 0.375rem;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-weight: 500;
 }
-.dropdown-item.active {
-    background-color: rgba(var(--bs-primary-rgb), 0.1);
-    color: var(--bs-primary);
+
+.nav-link i {
+    width: 24px;
+    margin-right: 12px;
+    text-align: center;
 }
+
+.nav-section {
+    margin: 1.5rem 0 0.5rem;
+    padding: 0 1rem;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.user-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.2);
+    padding: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
 .user-avatar {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
     object-fit: cover;
+}
+
+.user-avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(4, 0, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.main-content {
+    margin-left: 280px;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+    padding: 2rem;
+}
+
+.main-content.expanded {
+    margin-left: 0;
+}
+
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001;
+    background: #0400ff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    background: #0104c5;
+    transform: scale(1.05);
+}
+
+.sidebar-toggle.active {
+    left: 300px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+        padding-top: 80px;
+    }
+    
+    .sidebar-toggle {
+        display: flex;
+    }
+    
+    .sidebar-toggle.active {
+        left: 20px;
+        background: #dc3545;
+    }
+}
+
+.dropdown-menu {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.submenu {
+    margin-left: 1rem;
+    border-left: 2px solid rgba(255,255,255,0.1);
+    padding-left: 0.5rem;
+}
+
+.submenu .nav-link {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
 }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
-    <div class="container-fluid">
-        <!-- Brand -->
-        <a class="navbar-brand d-flex align-items-center" href="<?php echo url('dashboard', 'index'); ?>">
-            <i class="bi bi-diamond-fill me-2"></i>
-            <strong><?php echo sanitizeOutput(__('app_name') ?: APP_NAME); ?></strong>
-        </a>
-
-        <!-- Mobile toggle -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Navigation -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <?php foreach ($navItems as $item): ?>
-                    <?php if (checkNavAccess($item, $currentUser)): ?>
-                        <li class="nav-item">
-                            <a class="nav-link <?php echo $item['active'] ? 'active' : ''; ?>" 
-                               href="<?php echo url($item['module'], $item['action']); ?>">
-                                <i class="<?php echo $item['icon']; ?> me-1"></i>
-                                <?php echo $item['label']; ?>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-
-                <!-- Reports Dropdown 2 -->
-                <?php if ($hasReports): ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle <?php echo $currentModule === 'reports' ? 'active' : ''; ?>" 
-                           href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-bar-chart me-1"></i>
-                            <?php echo __('reports') ?: 'Reports'; ?>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <?php foreach ($reportItems as $report): ?>
-                                <?php if (hasPermission($report['permission'])): ?>
-                                    <li>
-                                        <a class="dropdown-item <?php echo $currentModule === 'reports' && $currentAction === $report['action'] ? 'active' : ''; ?>" 
-                                           href="<?php echo url($report['module'], $report['action']); ?>">
-                                            <i class="<?php echo $report['icon']; ?> me-2"></i>
-                                            <?php echo $report['label']; ?>
-                                        </a>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </ul>
-                    </li>
-                <?php endif; ?>
-
-                <!-- Admin Dropdown -->
-                <?php if ($hasAdmin): ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-tools me-1"></i>
-                            <?php echo __('administration') ?: 'Admin'; ?>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <?php foreach ($adminItems as $admin): ?>
-                                <?php if (hasPermission($admin['permission'])): ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?php echo url($admin['module'], $admin['action']); ?>">
-                                            <i class="<?php echo $admin['icon']; ?> me-2"></i>
-                                            <?php echo $admin['label']; ?>
-                                        </a>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </ul>
-                    </li>
-                <?php endif; ?>
-            </ul>
-
-            <!-- User Menu -->
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
-                        <?php if (!empty($currentUser['profile_picture'])): ?>
-                            <img src="/<?php echo sanitizeOutput($currentUser['profile_picture']); ?>" 
-                                 alt="Profile" class="rounded-circle user-avatar me-2">
-                        <?php else: ?>
-                            <div class="bg-light rounded-circle user-avatar me-2 d-flex align-items-center justify-content-center">
-                                <i class="bi bi-person text-primary"></i>
-                            </div>
-                        <?php endif; ?>
-                        <span class="d-none d-md-inline"><?php echo sanitizeOutput($currentUser['display_name']); ?></span>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <!-- Brand -->
+    <a href="<?php echo url('dashboard', 'index'); ?>" class="sidebar-brand">
+        <i class="bi bi-diamond-fill me-2"></i>
+        <?php echo sanitizeOutput(__('app_name') ?: APP_NAME); ?>
+    </a>
+    
+    <!-- Navigation -->
+    <nav class="sidebar-nav">
+        <!-- Main Navigation -->
+        <?php foreach ($navItems as $item): ?>
+            <?php if (checkNavAccess($item, $currentUser)): ?>
+                <div class="nav-item">
+                    <a href="<?php echo url($item['module'], $item['action']); ?>" 
+                       class="nav-link <?php echo $item['active'] ? 'active' : ''; ?>">
+                        <i class="<?php echo $item['icon']; ?>"></i>
+                        <?php echo $item['label']; ?>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <div class="dropdown-header">
-                                <strong><?php echo sanitizeOutput($currentUser['display_name']); ?></strong><br>
-                                <small class="text-muted"><?php echo sanitizeOutput($currentUser['role_name'] ?? getUserRole()); ?></small>
-                            </div>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item" href="<?php echo userEditUrl($currentUser['user_id']); ?>">
-                                <i class="bi bi-person-gear me-2"></i>
-                                <?php echo __('my_profile') ?: 'My Profile'; ?>
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item text-danger" href="<?php echo logoutUrl(); ?>">
-                                <i class="bi bi-box-arrow-right me-2"></i>
-                                <?php echo __('logout') ?: 'Logout'; ?>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+
+        <!-- Reports Section -->
+        <?php if ($hasReports): ?>
+            <div class="nav-section"><?php echo __('reports') ?: 'Reports'; ?></div>
+            <?php foreach ($reportItems as $report): ?>
+                <?php if (hasPermission($report['permission'])): ?>
+                    <div class="nav-item">
+                        <a href="<?php echo url($report['module'], $report['action']); ?>" 
+                           class="nav-link <?php echo $currentModule === 'reports' && $currentAction === $report['action'] ? 'active' : ''; ?>">
+                            <i class="<?php echo $report['icon']; ?>"></i>
+                            <?php echo $report['label']; ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <!-- Admin Section -->
+        <?php if ($hasAdmin): ?>
+            <div class="nav-section"><?php echo __('administration') ?: 'Administration'; ?></div>
+            <?php foreach ($adminItems as $admin): ?>
+                <?php if (hasPermission($admin['permission'])): ?>
+                    <div class="nav-item">
+                        <a href="<?php echo url($admin['module'], $admin['action']); ?>" class="nav-link">
+                            <i class="<?php echo $admin['icon']; ?>"></i>
+                            <?php echo $admin['label']; ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </nav>
+
+    <!-- User Info -->
+    <div class="user-info">
+        <div class="d-flex align-items-center mb-2">
+            <?php if (!empty($currentUser['profile_picture'])): ?>
+                <img src="/<?php echo sanitizeOutput($currentUser['profile_picture']); ?>" 
+                     alt="Profile" class="user-avatar me-3">
+            <?php else: ?>
+                <div class="user-avatar-placeholder me-3">
+                    <i class="bi bi-person"></i>
+                </div>
+            <?php endif; ?>
+            <div class="flex-grow-1">
+                <div class="text-white fw-bold small">
+                    <?php echo sanitizeOutput($currentUser['display_name']); ?>
+                </div>
+                <div class="text-white-50 small">
+                    <?php echo sanitizeOutput($currentUser['role_name'] ?? getUserRole()); ?>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="<?php echo userEditUrl($currentUser['user_id']); ?>" 
+               class="btn btn-outline-light btn-sm flex-fill">
+                <i class="bi bi-person-gear"></i> <?php echo __('profile') ?: 'Profile'; ?>
+            </a>
+            <a href="<?php echo logoutUrl(); ?>" 
+               class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-box-arrow-right"></i>
+            </a>
         </div>
     </div>
-</nav>
+</div>
+
+<!-- Sidebar Toggle Button -->
+<button class="sidebar-toggle" id="sidebarToggle">
+    <i class="bi bi-list"></i>
+</button>
+
+<!-- Overlay for mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('sidebar');
+    const toggle = document.getElementById('sidebarToggle');
+    const overlay = document.getElementById('sidebarOverlay');
+    const mainContent = document.querySelector('.main-content');
+    
+    toggle.addEventListener('click', function() {
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            sidebar.classList.toggle('show');
+            toggle.classList.toggle('active');
+            
+            if (sidebar.classList.contains('show')) {
+                overlay.style.display = 'block';
+                toggle.innerHTML = '<i class="bi bi-x"></i>';
+            } else {
+                overlay.style.display = 'none';
+                toggle.innerHTML = '<i class="bi bi-list"></i>';
+            }
+        } else {
+            sidebar.classList.toggle('collapsed');
+            if (mainContent) {
+                mainContent.classList.toggle('expanded');
+            }
+            
+            toggle.classList.toggle('active');
+            if (sidebar.classList.contains('collapsed')) {
+                toggle.innerHTML = '<i class="bi bi-arrow-right"></i>';
+            } else {
+                toggle.innerHTML = '<i class="bi bi-arrow-left"></i>';
+            }
+        }
+    });
+    
+    overlay.addEventListener('click', function() {
+        sidebar.classList.remove('show');
+        toggle.classList.remove('active');
+        overlay.style.display = 'none';
+        toggle.innerHTML = '<i class="bi bi-list"></i>';
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            overlay.style.display = 'none';
+            sidebar.classList.remove('show');
+            toggle.classList.remove('active');
+            toggle.innerHTML = '<i class="bi bi-list"></i>';
+        }
+    });
+});
+</script>
