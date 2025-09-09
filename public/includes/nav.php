@@ -222,7 +222,7 @@ function checkNavAccess($item, $currentUser) {
                     <?php endif; ?>
                 <?php endforeach; ?>
 
-                <!-- Reports Dropdown -->
+                <!-- Reports Dropdown 2 -->
                 <?php if ($hasReports): ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle <?php echo $currentModule === 'reports' ? 'active' : ''; ?>" 
