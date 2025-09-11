@@ -182,6 +182,8 @@ function checkNavAccess($item, $currentUser) {
     z-index: 1000;
     overflow-y: auto;
     transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar.collapsed {
@@ -197,6 +199,7 @@ function checkNavAccess($item, $currentUser) {
     align-items: center;
     font-size: 1.25rem;
     font-weight: bold;
+    flex-shrink: 0;
 }
 
 .sidebar-brand:hover {
@@ -206,6 +209,8 @@ function checkNavAccess($item, $currentUser) {
 
 .sidebar-nav {
     padding: 1rem 0;
+    flex: 1;
+    overflow-y: auto;
 }
 
 .nav-item {
@@ -254,13 +259,10 @@ function checkNavAccess($item, $currentUser) {
 }
 
 .user-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
     background: rgba(15, 23, 42, 0.8);
     padding: 1rem;
     border-top: 1px solid rgba(59, 130, 246, 0.2);
+    flex-shrink: 0;
 }
 
 .user-avatar {
@@ -362,6 +364,63 @@ function checkNavAccess($item, $currentUser) {
     font-size: 0.85rem;
     padding: 0.5rem 1rem;
 }
+
+/* Dropdown styles for reports */
+.reports-dropdown {
+    position: relative;
+}
+
+.reports-dropdown-content {
+    display: none;
+    margin-left: 1.5rem;
+    border-left: 2px solid rgba(59, 130, 246, 0.3);
+    padding-left: 0.5rem;
+}
+
+.reports-dropdown.active .reports-dropdown-content {
+    display: block;
+}
+
+.reports-dropdown-toggle {
+    cursor: pointer;
+    position: relative;
+}
+
+.reports-dropdown-toggle::after {
+    content: '';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    border: solid rgba(255,255,255,0.8);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: translateY(-50%) rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+.reports-dropdown.active .reports-dropdown-toggle::after {
+    transform: translateY(-50%) rotate(-135deg);
+}
+
+/* Compact user info for mobile */
+@media (max-width: 768px) {
+    .user-info {
+        padding: 0.75rem;
+    }
+    
+    .user-avatar, 
+    .user-avatar-placeholder {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .user-info .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+    }
+}
 </style>
 
 <!-- Sidebar -->
@@ -387,20 +446,28 @@ function checkNavAccess($item, $currentUser) {
             <?php endif; ?>
         <?php endforeach; ?>
 
-        <!-- Reports Section -->
+        <!-- Reports Section as Dropdown -->
         <?php if ($hasReports): ?>
             <div class="nav-section"><?php echo __('reports'); ?></div>
-            <?php foreach ($reportItems as $report): ?>
-                <?php if (hasPermission($report['permission'])): ?>
-                    <div class="nav-item">
-                        <a href="<?php echo url($report['module'], $report['action']); ?>" 
-                           class="nav-link <?php echo $currentModule === 'reports' && $currentAction === $report['action'] ? 'active' : ''; ?>">
-                            <i class="<?php echo $report['icon']; ?>"></i>
-                            <?php echo $report['label']; ?>
-                        </a>
-                    </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
+            <div class="nav-item reports-dropdown" id="reportsDropdown">
+                <div class="nav-link reports-dropdown-toggle <?php echo $currentModule === 'reports' ? 'active' : ''; ?>">
+                    <i class="bi bi-graph-up"></i>
+                    <?php echo __('reports'); ?>
+                </div>
+                <div class="reports-dropdown-content">
+                    <?php foreach ($reportItems as $report): ?>
+                        <?php if (hasPermission($report['permission'])): ?>
+                            <div class="nav-item">
+                                <a href="<?php echo url($report['module'], $report['action']); ?>" 
+                                   class="nav-link submenu-link <?php echo $currentModule === 'reports' && $currentAction === $report['action'] ? 'active' : ''; ?>">
+                                    <i class="<?php echo $report['icon']; ?>"></i>
+                                    <?php echo $report['label']; ?>
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         <?php endif; ?>
 
         <!-- Admin Section -->
@@ -468,51 +535,48 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggle = document.getElementById('sidebarToggle');
     const overlay = document.getElementById('sidebarOverlay');
     const mainContent = document.querySelector('.main-content');
+    const reportsDropdown = document.getElementById('reportsDropdown');
     
-    toggle.addEventListener('click', function() {
-        const isMobile = window.innerWidth <= 768;
-        
-        if (isMobile) {
-            sidebar.classList.toggle('show');
-            toggle.classList.toggle('active');
-            
-            if (sidebar.classList.contains('show')) {
-                overlay.style.display = 'block';
-                toggle.innerHTML = '<i class="bi bi-x"></i>';
-            } else {
-                overlay.style.display = 'none';
-                toggle.innerHTML = '<i class="bi bi-list"></i>';
-            }
+    // Reports dropdown functionality
+    if (reportsDropdown) {
+        const reportsToggle = reportsDropdown.querySelector('.reports-dropdown-toggle');
+        reportsToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            reportsDropdown.classList.toggle('active');
+        });
+    }
+    
+    // Toggle sidebar on mobile
+    function toggleSidebar() {
+        sidebar.classList.toggle('show');
+        toggle.classList.toggle('active');
+        overlay.style.display = sidebar.classList.contains('show') ? 'block' : 'none';
+    }
+    
+    toggle.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+    
+    // Auto-collapse on mobile when clicking a link
+    if (window.innerWidth <= 768) {
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (sidebar.classList.contains('show')) {
+                    toggleSidebar();
+                }
+            });
+        });
+    }
+    
+    // Adjust main content padding based on window size
+    function adjustLayout() {
+        if (window.innerWidth <= 768) {
+            mainContent.classList.add('expanded');
         } else {
-            sidebar.classList.toggle('collapsed');
-            if (mainContent) {
-                mainContent.classList.toggle('expanded');
-            }
-            
-            toggle.classList.toggle('active');
-            if (sidebar.classList.contains('collapsed')) {
-                toggle.innerHTML = '<i class="bi bi-arrow-right"></i>';
-            } else {
-                toggle.innerHTML = '<i class="bi bi-arrow-left"></i>';
-            }
+            mainContent.classList.remove('expanded');
         }
-    });
+    }
     
-    overlay.addEventListener('click', function() {
-        sidebar.classList.remove('show');
-        toggle.classList.remove('active');
-        overlay.style.display = 'none';
-        toggle.innerHTML = '<i class="bi bi-list"></i>';
-    });
-    
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            overlay.style.display = 'none';
-            sidebar.classList.remove('show');
-            toggle.classList.remove('active');
-            toggle.innerHTML = '<i class="bi bi-list"></i>';
-        }
-    });
+    window.addEventListener('resize', adjustLayout);
+    adjustLayout(); // Initial call
 });
 </script>
