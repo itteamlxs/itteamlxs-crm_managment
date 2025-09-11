@@ -369,7 +369,7 @@ function checkNavAccess($item, $currentUser) {
     <!-- Brand -->
     <a href="<?php echo url('dashboard', 'index'); ?>" class="sidebar-brand">
         <i class="bi bi-diamond-fill me-2"></i>
-        <?php echo sanitizeOutput(__('app_name') ?: APP_NAME); ?>
+        <?php echo sanitizeOutput(__('app_name')); ?>
     </a>
     
     <!-- Navigation -->
@@ -389,7 +389,7 @@ function checkNavAccess($item, $currentUser) {
 
         <!-- Reports Section -->
         <?php if ($hasReports): ?>
-            <div class="nav-section"><?php echo __('reports') ?: 'Reports'; ?></div>
+            <div class="nav-section"><?php echo __('reports'); ?></div>
             <?php foreach ($reportItems as $report): ?>
                 <?php if (hasPermission($report['permission'])): ?>
                     <div class="nav-item">
@@ -405,7 +405,7 @@ function checkNavAccess($item, $currentUser) {
 
         <!-- Admin Section -->
         <?php if ($hasAdmin): ?>
-            <div class="nav-section"><?php echo __('administration') ?: 'Administration'; ?></div>
+            <div class="nav-section"><?php echo __('administration'); ?></div>
             <?php foreach ($adminItems as $admin): ?>
                 <?php if (hasPermission($admin['permission'])): ?>
                     <div class="nav-item">
@@ -425,7 +425,7 @@ function checkNavAccess($item, $currentUser) {
         <div class="d-flex align-items-center mb-2">
             <?php if (!empty($currentUser['profile_picture'])): ?>
                 <img src="/<?php echo sanitizeOutput($currentUser['profile_picture']); ?>" 
-                     alt="Profile" class="user-avatar me-3">
+                     alt="<?php echo __('profile'); ?>" class="user-avatar me-3">
             <?php else: ?>
                 <div class="user-avatar-placeholder me-3">
                     <i class="bi bi-person"></i>
@@ -443,10 +443,11 @@ function checkNavAccess($item, $currentUser) {
         <div class="d-flex gap-2">
             <a href="<?php echo userEditUrl($currentUser['user_id']); ?>" 
                class="btn btn-outline-light btn-sm flex-fill">
-                <i class="bi bi-person-gear"></i> <?php echo __('profile') ?: 'Profile'; ?>
+                <i class="bi bi-person-gear"></i> <?php echo __('profile'); ?>
             </a>
             <a href="<?php echo logoutUrl(); ?>" 
-               class="btn btn-outline-danger btn-sm">
+               class="btn btn-outline-danger btn-sm"
+               title="<?php echo __('logout'); ?>">
                 <i class="bi bi-box-arrow-right"></i>
             </a>
         </div>
@@ -454,7 +455,7 @@ function checkNavAccess($item, $currentUser) {
 </div>
 
 <!-- Sidebar Toggle Button -->
-<button class="sidebar-toggle" id="sidebarToggle">
+<button class="sidebar-toggle" id="sidebarToggle" title="<?php echo __('toggle_menu'); ?>">
     <i class="bi bi-list"></i>
 </button>
 
