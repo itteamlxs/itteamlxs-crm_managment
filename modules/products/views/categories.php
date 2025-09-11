@@ -1,3 +1,13 @@
+<?php
+require_once __DIR__ . '/../../../config/app.php';
+require_once __DIR__ . '/../../../core/helpers.php';
+require_once __DIR__ . '/../../../core/security.php';
+require_once __DIR__ . '/../../../core/rbac.php';
+require_once __DIR__ . '/../../../core/url_helper.php';
+
+requireLogin();
+$user = getCurrentUser();
+?>
 <!DOCTYPE html>
 <html lang="<?= getUserLanguage() ?>">
 <head>
@@ -5,10 +15,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= __('categories') ?> - <?= APP_NAME ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="<?= url() ?>/assets/css/custom.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid py-4">
+    <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
+    
+    <div class="main-content">
         <!-- Success Messages -->
         <?php if (isset($success)): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -28,9 +41,12 @@
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h1><?= __('categories') ?></h1>
+                <h1><i class="bi bi-tags"></i> <?= __('categories') ?></h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="<?= dashboardUrl() ?>"><i class="bi bi-house"></i> <?= __('dashboard') ?></a>
+                        </li>
                         <li class="breadcrumb-item">
                             <a href="<?= url('products', 'list') ?>"><?= __('products') ?></a>
                         </li>

@@ -1,10 +1,13 @@
 <?php
+require_once __DIR__ . '/../../../config/app.php';
 require_once __DIR__ . '/../../../core/helpers.php';
+require_once __DIR__ . '/../../../core/security.php';
+require_once __DIR__ . '/../../../core/rbac.php';
 require_once __DIR__ . '/../../../core/url_helper.php';
+
+requireLogin();
+requirePermission('view_product_reports');
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="<?= sanitizeOutput(getUserLanguage()) ?>">
 <head>
@@ -13,219 +16,242 @@ require_once __DIR__ . '/../../../core/url_helper.php';
     <title><?= sanitizeOutput($pageTitle) ?> - <?= APP_NAME ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/crm-project/public/assets/css/custom.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container-fluid py-4">
-        <div class="row">
-            <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="h3 mb-0">
-                        <i class="bi bi-box"></i> <?= __('reports') ?>
+    <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
+    
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Header with Breadcrumbs -->
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div>
+                    <h1 class="h2">
+                        <i class="bi bi-box"></i> <?= __('product_reports') ?>
                     </h1>
-                    <div>
-                        <button id="refreshReports" class="btn btn-outline-primary">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="<?= url('dashboard', 'index') ?>">
+                                    <i class="bi bi-house-door"></i> <?= __('dashboard') ?>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="<?= url('reports', 'sales') ?>">
+                                    <i class="bi bi-graph-up"></i> <?= __('reports') ?>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <i class="bi bi-box"></i> <?= __('product_reports') ?>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <button id="refreshReports" class="btn btn-outline-primary btn-sm">
                             <i class="bi bi-arrow-clockwise"></i> <?= __('refresh') ?>
                         </button>
-                        <a href="<?= dashboardUrl() ?>" class="btn btn-outline-secondary">
+                        <a href="<?= dashboardUrl() ?>" class="btn btn-outline-secondary btn-sm">
                             <i class="bi bi-house"></i> <?= __('back_to_dashboard') ?>
                         </a>
                     </div>
                 </div>
+            </div>
 
-                <!-- Summary Cards Row -->
-                <div class="row mb-4">
-                    <div class="col-lg-4 mb-3">
-                        <div class="card bg-primary text-white">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h5 class="card-title"><?= __('total_products') ?></h5>
-                                        <h3 class="mb-0"><?= count($productPerformance) ?></h3>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <i class="bi bi-box-seam display-4"></i>
-                                    </div>
+            <!-- Summary Cards Row -->
+            <div class="row mb-4">
+                <div class="col-lg-4 mb-3">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title"><?= __('total_products') ?></h5>
+                                    <h3 class="mb-0"><?= count($productPerformance) ?></h3>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="bi bi-box-seam display-4"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 mb-3">
-                        <div class="card bg-success text-white">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h5 class="card-title"><?= __('categories') ?></h5>
-                                        <h3 class="mb-0"><?= count($categorySummary) ?></h3>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <i class="bi bi-tags display-4"></i>
-                                    </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title"><?= __('categories') ?></h5>
+                                    <h3 class="mb-0"><?= count($categorySummary) ?></h3>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="bi bi-tags display-4"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 mb-3">
-                        <div class="card bg-warning text-dark">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h5 class="card-title"><?= __('low_stock_products') ?></h5>
-                                        <h3 class="mb-0">
-                                            <?php 
-                                            // Count products with low stock based on productPerformance data
-                                            $lowStockCount = 0;
-                                            if (!empty($productPerformance)) {
-                                                foreach ($productPerformance as $product) {
-                                                    if ((int)$product['stock_quantity'] <= 10) {
-                                                        $lowStockCount++;
-                                                    }
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <div class="card bg-warning text-dark">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title"><?= __('low_stock_products') ?></h5>
+                                    <h3 class="mb-0">
+                                        <?php 
+                                        // Count products with low stock based on productPerformance data
+                                        $lowStockCount = 0;
+                                        if (!empty($productPerformance)) {
+                                            foreach ($productPerformance as $product) {
+                                                if ((int)$product['stock_quantity'] <= 10) {
+                                                    $lowStockCount++;
                                                 }
                                             }
-                                            echo $lowStockCount;
-                                            ?>
-                                        </h3>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <i class="bi bi-exclamation-triangle display-4"></i>
-                                    </div>
+                                        }
+                                        echo $lowStockCount;
+                                        ?>
+                                    </h3>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="bi bi-exclamation-triangle display-4"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Charts Row -->
-                <div class="row mb-4">
-                    <div class="col-lg-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">
-                                    <i class="bi bi-graph-up"></i> <?= __('product_performance') ?>
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="productPerformanceChart" height="300"></canvas>
-                            </div>
+            <!-- Charts Row -->
+            <div class="row mb-4">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-graph-up"></i> <?= __('product_performance') ?>
+                            </h5>
                         </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">
-                                    <i class="bi bi-pie-chart"></i> <?= __('category_summary') ?>
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <canvas id="categorySummaryChart" height="300"></canvas>
-                            </div>
+                        <div class="card-body">
+                            <canvas id="productPerformanceChart" height="300"></canvas>
                         </div>
                     </div>
                 </div>
-
-                <!-- Product Performance Table -->
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">
-                            <i class="bi bi-table"></i> <?= __('product_performance_details') ?>
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped report-table">
-                                <thead>
-                                    <tr>
-                                        <th><?= __('product_name') ?></th>
-                                        <th><?= __('sku') ?></th>
-                                        <th><?= __('category') ?></th>
-                                        <th><?= __('total_sold') ?></th>
-                                        <th><?= __('stock_quantity') ?></th>
-                                        <th><?= __('status') ?></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if (!empty($productPerformance)): ?>
-                                        <?php foreach ($productPerformance as $product): ?>
-                                            <tr>
-                                                <td><?= sanitizeOutput($product['product_name']) ?></td>
-                                                <td><code><?= sanitizeOutput($product['sku']) ?></code></td>
-                                                <td><?= sanitizeOutput($product['category_name']) ?></td>
-                                                <td><?= number_format($product['total_sold'] ?? 0) ?></td>
-                                                <td><?= number_format($product['stock_quantity']) ?></td>
-                                                <td>
-                                                    <?php 
-                                                    $stockLevel = (int)$product['stock_quantity'];
-                                                    if ($stockLevel <= 10): ?>
-                                                        <span class="badge bg-danger"><?= __('low_stock') ?></span>
-                                                    <?php elseif ($stockLevel <= 50): ?>
-                                                        <span class="badge bg-warning"><?= __('medium_stock') ?></span>
-                                                    <?php else: ?>
-                                                        <span class="badge bg-success"><?= __('high_stock') ?></span>
-                                                    <?php endif; ?>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
-                                        <tr>
-                                            <td colspan="6" class="text-center text-muted">
-                                                <?= __('no_data_available') ?>
-                                            </td>
-                                        </tr>
-                                    <?php endif; ?>
-                                </tbody>
-                            </table>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-pie-chart"></i> <?= __('category_summary') ?>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="categorySummaryChart" height="300"></canvas>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Low Stock Alert -->
-                <?php 
-                // Create low stock products array from productPerformance
-                $lowStockProducts = [];
-                if (!empty($productPerformance)) {
-                    foreach ($productPerformance as $product) {
-                        if ((int)$product['stock_quantity'] <= 10) {
-                            $lowStockProducts[] = $product;
-                        }
-                    }
-                }
-                ?>
-                <?php if (!empty($lowStockProducts)): ?>
-                <div class="card border-warning">
-                    <div class="card-header bg-warning text-dark">
-                        <h5 class="card-title mb-0">
-                            <i class="bi bi-exclamation-triangle"></i> <?= __('low_stock_alert') ?>
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th><?= __('product_name') ?></th>
-                                        <th><?= __('sku') ?></th>
-                                        <th><?= __('category') ?></th>
-                                        <th><?= __('stock_quantity') ?></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($lowStockProducts as $product): ?>
+            <!-- Product Performance Table -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-table"></i> <?= __('product_performance_details') ?>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped report-table">
+                            <thead>
+                                <tr>
+                                    <th><?= __('product_name') ?></th>
+                                    <th><?= __('sku') ?></th>
+                                    <th><?= __('category') ?></th>
+                                    <th><?= __('total_sold') ?></th>
+                                    <th><?= __('stock_quantity') ?></th>
+                                    <th><?= __('status') ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($productPerformance)): ?>
+                                    <?php foreach ($productPerformance as $product): ?>
                                         <tr>
                                             <td><?= sanitizeOutput($product['product_name']) ?></td>
                                             <td><code><?= sanitizeOutput($product['sku']) ?></code></td>
                                             <td><?= sanitizeOutput($product['category_name']) ?></td>
+                                            <td><?= number_format($product['total_sold'] ?? 0) ?></td>
+                                            <td><?= number_format($product['stock_quantity']) ?></td>
                                             <td>
-                                                <span class="badge bg-danger"><?= number_format($product['stock_quantity']) ?></span>
+                                                <?php 
+                                                $stockLevel = (int)$product['stock_quantity'];
+                                                if ($stockLevel <= 10): ?>
+                                                    <span class="badge bg-danger"><?= __('low_stock') ?></span>
+                                                <?php elseif ($stockLevel <= 50): ?>
+                                                    <span class="badge bg-warning"><?= __('medium_stock') ?></span>
+                                                <?php else: ?>
+                                                    <span class="badge bg-success"><?= __('high_stock') ?></span>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted">
+                                            <?= __('no_data_available') ?>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <?php endif; ?>
             </div>
+
+            <!-- Low Stock Alert -->
+            <?php 
+            // Create low stock products array from productPerformance
+            $lowStockProducts = [];
+            if (!empty($productPerformance)) {
+                foreach ($productPerformance as $product) {
+                    if ((int)$product['stock_quantity'] <= 10) {
+                        $lowStockProducts[] = $product;
+                    }
+                }
+            }
+            ?>
+            <?php if (!empty($lowStockProducts)): ?>
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-exclamation-triangle"></i> <?= __('low_stock_alert') ?>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th><?= __('product_name') ?></th>
+                                    <th><?= __('sku') ?></th>
+                                    <th><?= __('category') ?></th>
+                                    <th><?= __('stock_quantity') ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($lowStockProducts as $product): ?>
+                                    <tr>
+                                        <td><?= sanitizeOutput($product['product_name']) ?></td>
+                                        <td><code><?= sanitizeOutput($product['sku']) ?></code></td>
+                                        <td><?= sanitizeOutput($product['category_name']) ?></td>
+                                        <td>
+                                            <span class="badge bg-danger"><?= number_format($product['stock_quantity']) ?></span>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 

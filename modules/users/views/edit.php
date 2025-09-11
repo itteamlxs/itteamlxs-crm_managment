@@ -1,3 +1,16 @@
+<?php
+// Prevenir acceso directo
+if (!defined('APP_NAME')) {
+    require_once __DIR__ . '/../../../config/app.php';
+    require_once __DIR__ . '/../../../core/helpers.php';
+    require_once __DIR__ . '/../../../core/rbac.php';
+}
+
+// Cargar dependencias necesarias para nav.php
+require_once __DIR__ . '/../../../core/url_helper.php';
+require_once __DIR__ . '/../../../core/security.php';
+require_once __DIR__ . '/../../../config/db.php';
+?>
 <!DOCTYPE html>
 <html lang="<?php echo sanitizeOutput(getUserLanguage()); ?>">
 <head>
@@ -10,7 +23,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-4">
+    <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
+    
+    <div class="main-content">
         <!-- Header -->
         <div class="row">
             <div class="col-12">

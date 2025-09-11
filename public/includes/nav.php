@@ -177,7 +177,7 @@ function checkNavAccess($item, $currentUser) {
     left: 0;
     height: 100vh;
     width: 280px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
     box-shadow: 2px 0 15px rgba(0,0,0,0.1);
     z-index: 1000;
     overflow-y: auto;
@@ -225,15 +225,16 @@ function checkNavAccess($item, $currentUser) {
 
 .nav-link:hover {
     color: white;
-    background: rgba(255,255,255,0.1);
+    background: rgba(59, 130, 246, 0.2);
     text-decoration: none;
     transform: translateX(5px);
 }
 
 .nav-link.active {
-    background: rgba(255,255,255,0.2);
+    background: rgba(59, 130, 246, 0.3);
     color: white;
     font-weight: 500;
+    border-left: 3px solid #3b82f6;
 }
 
 .nav-link i {
@@ -257,16 +258,16 @@ function checkNavAccess($item, $currentUser) {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0,0,0,0.2);
+    background: rgba(15, 23, 42, 0.8);
     padding: 1rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .user-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.3);
+    border: 2px solid rgba(59, 130, 246, 0.5);
     object-fit: cover;
 }
 
@@ -274,7 +275,7 @@ function checkNavAccess($item, $currentUser) {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(4, 0, 255, 0.3);
+    background: rgba(59, 130, 246, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -297,7 +298,7 @@ function checkNavAccess($item, $currentUser) {
     top: 20px;
     left: 20px;
     z-index: 1001;
-    background: #0400ff;
+    background: #1e3a8a;
     color: white;
     border: none;
     border-radius: 50%;
@@ -311,7 +312,7 @@ function checkNavAccess($item, $currentUser) {
 }
 
 .sidebar-toggle:hover {
-    background: #0104c5;
+    background: #1e40af;
     transform: scale(1.05);
 }
 
@@ -353,7 +354,7 @@ function checkNavAccess($item, $currentUser) {
 
 .submenu {
     margin-left: 1rem;
-    border-left: 2px solid rgba(255,255,255,0.1);
+    border-left: 2px solid rgba(59, 130, 246, 0.3);
     padding-left: 0.5rem;
 }
 
@@ -408,7 +409,8 @@ function checkNavAccess($item, $currentUser) {
             <?php foreach ($adminItems as $admin): ?>
                 <?php if (hasPermission($admin['permission'])): ?>
                     <div class="nav-item">
-                        <a href="<?php echo url($admin['module'], $admin['action']); ?>" class="nav-link">
+                        <a href="<?php echo url($admin['module'], $admin['action']); ?>" 
+                           class="nav-link <?php echo $currentModule === $admin['module'] ? 'active' : ''; ?>">
                             <i class="<?php echo $admin['icon']; ?>"></i>
                             <?php echo $admin['label']; ?>
                         </a>

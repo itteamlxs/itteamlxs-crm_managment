@@ -1,3 +1,12 @@
+<?php
+require_once __DIR__ . '/../../../config/app.php';
+require_once __DIR__ . '/../../../core/helpers.php';
+require_once __DIR__ . '/../../../core/security.php';
+require_once __DIR__ . '/../../../core/rbac.php';
+require_once __DIR__ . '/../../../core/url_helper.php';
+
+requireLogin();
+?>
 <!DOCTYPE html>
 <html lang="<?= getUserLanguage() ?>">
 <head>
@@ -6,9 +15,12 @@
     <title><?= __('quotes_management') ?> - <?= __('app_name') ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="<?php echo url(); ?>/../public/assets/css/custom.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid mt-4">
+    <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
+    
+    <div class="main-content">
         <!-- Page Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>

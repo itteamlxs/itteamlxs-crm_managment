@@ -1,3 +1,12 @@
+<?php
+require_once __DIR__ . '/../../../config/app.php';
+require_once __DIR__ . '/../../../core/helpers.php';
+require_once __DIR__ . '/../../../core/security.php';
+require_once __DIR__ . '/../../../core/rbac.php';
+require_once __DIR__ . '/../../../core/url_helper.php';
+
+requireLogin();
+?>
 <!DOCTYPE html>
 <html lang="<?php echo getUserLanguage(); ?>">
 <head>
@@ -6,13 +15,26 @@
     <title><?php echo __('renew_quote'); ?> - <?php echo APP_NAME; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="<?php echo url(); ?>/../public/assets/css/custom.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid py-4">
+    <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
+    
+    <div class="main-content">
         <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="h3 mb-0"><?php echo __('renew_quote'); ?></h1>
+                    <div>
+                        <h1 class="h3 mb-0"><?php echo __('renew_quote'); ?></h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="<?php echo url('dashboard', 'index'); ?>"><?php echo __('dashboard'); ?></a></li>
+                                <li class="breadcrumb-item"><a href="<?php echo url('quotes', 'list'); ?>"><?php echo __('quotes'); ?></a></li>
+                                <li class="breadcrumb-item"><a href="<?php echo url('quotes', 'view', ['id' => $originalQuoteId]); ?>"><?php echo sanitizeOutput($originalQuote['quote_number']); ?></a></li>
+                                <li class="breadcrumb-item active"><?php echo __('renew'); ?></li>
+                            </ol>
+                        </nav>
+                    </div>
                     <a href="<?php echo url('quotes', 'view', ['id' => $originalQuoteId]); ?>" class="btn btn-outline-secondary">
                         <i class="bi bi-arrow-left"></i> <?php echo __('back_to_original_quote'); ?>
                     </a>

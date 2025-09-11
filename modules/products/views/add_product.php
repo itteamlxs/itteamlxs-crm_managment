@@ -1,3 +1,18 @@
+<?php
+/**
+ * Add Product View with Navigation Integration
+ */
+
+require_once __DIR__ . '/../../../config/app.php';
+require_once __DIR__ . '/../../../core/helpers.php';
+require_once __DIR__ . '/../../../core/security.php';
+require_once __DIR__ . '/../../../core/rbac.php';
+require_once __DIR__ . '/../../../core/url_helper.php';
+require_once __DIR__ . '/../../../config/db.php';
+
+requireLogin();
+$user = getCurrentUser();
+?>
 <!DOCTYPE html>
 <html lang="<?= getUserLanguage() ?>">
 <head>
@@ -8,7 +23,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid py-4">
+    <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
+    
+    <div class="main-content">
         <!-- Error Messages -->
         <?php if (isset($error)): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -23,6 +40,9 @@
                 <h1><?= __('add_product') ?></h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="<?= url('dashboard', 'index') ?>"><?= __('dashboard') ?></a>
+                        </li>
                         <li class="breadcrumb-item">
                             <a href="<?= url('products', 'list') ?>"><?= __('products') ?></a>
                         </li>

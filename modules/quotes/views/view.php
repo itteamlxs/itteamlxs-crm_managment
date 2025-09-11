@@ -1,3 +1,26 @@
+<?php
+require_once __DIR__ . '/../../../config/app.php';
+require_once __DIR__ . '/../../../core/helpers.php';
+require_once __DIR__ . '/../../../core/security.php';
+require_once __DIR__ . '/../../../core/rbac.php';
+require_once __DIR__ . '/../../../core/url_helper.php';
+
+requireLogin();
+$user = getCurrentUser();
+
+/**
+ * Helper function for quote status colors
+ */
+function getQuoteStatusColor($status) {
+    switch($status) {
+        case 'DRAFT': return 'secondary';
+        case 'SENT': return 'primary';
+        case 'APPROVED': return 'success';
+        case 'REJECTED': return 'danger';
+        default: return 'secondary';
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="<?= getUserLanguage() ?>">
 <head>
@@ -5,7 +28,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= __('quote_details') ?> - <?= sanitizeOutput($quote['quote_number']) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="<?= url() ?>/assets/css/custom.css" rel="stylesheet">
     <style>
         .status-badge {
             font-size: 0.9rem;
@@ -23,7 +47,9 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid mt-4">
+    <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
+    
+    <div class="main-content">
         <!-- Success Message -->
         <?php if (!empty($successMessage)): ?>
             <div class="alert alert-success alert-dismissible fade show">
@@ -43,7 +69,18 @@
         <!-- Page Header -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h2><?= __('quote') ?> #<?= sanitizeOutput($quote['quote_number']) ?></h2>
+                <h1><i class="bi bi-file-earmark-text"></i> <?= __('quote') ?> #<?= sanitizeOutput($quote['quote_number']) ?></h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="<?= dashboardUrl() ?>"><i class="bi bi-house"></i> <?= __('dashboard') ?></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="<?= url('quotes', 'list') ?>"><?= __('quotes') ?></a>
+                        </li>
+                        <li class="breadcrumb-item active"><?= sanitizeOutput($quote['quote_number']) ?></li>
+                    </ol>
+                </nav>
                 <p class="text-muted mb-0"><?= __('created_by') ?>: <?= sanitizeOutput($quote['created_by_name']) ?></p>
             </div>
             <span class="badge status-badge bg-<?= getQuoteStatusColor($quote['status']) ?>">
@@ -363,18 +400,3 @@
     </script>
 </body>
 </html>
-
-<?php
-/**
- * Helper function for quote status colors
- */
-function getQuoteStatusColor($status) {
-    switch($status) {
-        case 'DRAFT': return 'secondary';
-        case 'SENT': return 'primary';
-        case 'APPROVED': return 'success';
-        case 'REJECTED': return 'danger';
-        default: return 'secondary';
-    }
-}
-?>
