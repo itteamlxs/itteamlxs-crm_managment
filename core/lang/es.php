@@ -651,6 +651,7 @@ return [
     'notification_settings' => 'Configuración de Notificaciones',
     'email_notifications' => 'Notificaciones por Email',
     'alert_notifications' => 'Alertas del Sistema',
+    'settings_updated_successfully' => 'Configuración actualizada exitosamente', 
 
     // Textos de integraciones
     'integration_settings' => 'Configuración de Integraciones',
