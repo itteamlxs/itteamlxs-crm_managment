@@ -4,3 +4,4 @@ vendor
 prompts.txt
 create_admin.php
 composer.lock
+crm_historic_changes
