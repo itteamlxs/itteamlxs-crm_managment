@@ -427,7 +427,7 @@ function checkNavAccess($item, $currentUser) {
 <div class="sidebar" id="sidebar">
     <!-- Brand -->
     <a href="<?php echo url('dashboard', 'index'); ?>" class="sidebar-brand">
-        <i class="bi bi-diamond-fill me-2"></i>
+        <i class=""></i>
         <?php echo sanitizeOutput(__('app_name')); ?>
     </a>
     
