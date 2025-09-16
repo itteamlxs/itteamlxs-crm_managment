@@ -21,6 +21,152 @@ require_once __DIR__ . '/../../../config/db.php';
     </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --azul-marino: #1a237e;
+            --azul-oscuro: #0d47a1;
+            --azul-intermedio: #1565c0;
+            --gris-claro: #f5f7fa;
+            --gris-bordes: #e1e5eb;
+        }
+        
+        body {
+            background-color: var(--gris-claro);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .main-content {
+            padding: 20px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: var(--azul-marino);
+            color: white;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 15px 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--azul-oscuro);
+            border-color: var(--azul-oscuro);
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--azul-marino);
+            border-color: var(--azul-marino);
+            transform: scale(1.02);
+        }
+        
+        .btn-outline-primary {
+            color: var(--azul-oscuro);
+            border-color: var(--azul-oscuro);
+            transition: all 0.2s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--azul-oscuro);
+            color: white;
+            transform: scale(1.02);
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--azul-intermedio);
+            box-shadow: 0 0 0 0.25rem rgba(13, 71, 161, 0.25);
+        }
+        
+        h2 {
+            color: var(--azul-marino);
+            font-weight: 600;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--azul-oscuro);
+            font-weight: 500;
+        }
+        
+        .alert {
+            border: none;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-picture-container {
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-picture-container:hover {
+            transform: scale(1.05);
+        }
+        
+        .profile-picture-btn {
+            background-color: var(--azul-oscuro);
+            border: 2px solid white;
+            transition: all 0.2s ease;
+        }
+        
+        .profile-picture-btn:hover {
+            background-color: var(--azul-marino);
+            transform: scale(1.1);
+        }
+        
+        hr {
+            border-top: 1px solid var(--gris-bordes);
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--azul-oscuro);
+            border-color: var(--azul-oscuro);
+        }
+        
+        .form-check-input:focus {
+            border-color: var(--azul-intermedio);
+            box-shadow: 0 0 0 0.25rem rgba(13, 71, 161, 0.25);
+        }
+        
+        .btn-warning {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-warning:hover {
+            transform: scale(1.02);
+        }
+        
+        .btn-danger {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-danger:hover {
+            transform: scale(1.02);
+        }
+        
+        .text-warning {
+            color: var(--azul-oscuro) !important;
+        }
+    </style>
 </head>
 <body>
     <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
@@ -89,7 +235,7 @@ require_once __DIR__ . '/../../../config/db.php';
                             
                             <!-- Profile Picture -->
                             <div class="text-center mb-4">
-                                <div class="position-relative d-inline-block">
+                                <div class="position-relative d-inline-block profile-picture-container">
                                     <?php if (!empty($user['profile_picture'])): ?>
                                         <img id="profilePreview" 
                                              src="/<?php echo sanitizeOutput($user['profile_picture']); ?>" 
@@ -104,7 +250,7 @@ require_once __DIR__ . '/../../../config/db.php';
                                         </div>
                                     <?php endif; ?>
                                     <button type="button" 
-                                            class="btn btn-primary btn-sm position-absolute bottom-0 end-0 rounded-circle"
+                                            class="btn btn-primary btn-sm position-absolute bottom-0 end-0 rounded-circle profile-picture-btn"
                                             onclick="document.getElementById('profilePicture').click()">
                                         <i class="bi bi-camera"></i>
                                     </button>

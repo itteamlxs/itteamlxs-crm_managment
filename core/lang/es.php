@@ -96,6 +96,8 @@ return [
 // Configuración del sistema
 'settings' => 'Configuración',
 'manage_settings_description' => 'Gestionar configuraciones del sistema',
+'setting_quote_expiry_notification_days ' => 'configurar los días de vencimiento de la cotización',
+'setting_quote_expiry_days ' => 'configurar los días de notificación de vencimiento de la cotización',
 
 // Acceso general
 'access' => 'Acceder',

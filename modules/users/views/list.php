@@ -19,6 +19,141 @@ require_once __DIR__ . '/../../../config/db.php';
     <title><?php echo sanitizeOutput(__('users_management') ?: 'Users Management'); ?> - <?php echo sanitizeOutput(APP_NAME); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --azul-marino: #1a237e;
+            --azul-oscuro: #0d47a1;
+            --azul-intermedio: #1565c0;
+            --gris-claro: #f5f7fa;
+            --gris-bordes: #e1e5eb;
+        }
+        
+        body {
+            background-color: var(--gris-claro);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .main-content {
+            padding: 20px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: var(--azul-marino);
+            color: white;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 15px 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--azul-oscuro);
+            border-color: var(--azul-oscuro);
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--azul-marino);
+            border-color: var(--azul-marino);
+            transform: scale(1.02);
+        }
+        
+        .btn-outline-primary {
+            color: var(--azul-oscuro);
+            border-color: var(--azul-oscuro);
+            transition: all 0.2s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--azul-oscuro);
+            color: white;
+            transform: scale(1.02);
+        }
+        
+        .table th {
+            background-color: var(--azul-intermedio);
+            color: white;
+            border-top: none;
+            font-weight: 500;
+        }
+        
+        .table-hover tbody tr {
+            transition: background-color 0.2s ease;
+        }
+        
+        .table-hover tbody tr:hover {
+            background-color: rgba(13, 71, 161, 0.05);
+        }
+        
+        .badge.bg-info {
+            background-color: var(--azul-intermedio) !important;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--azul-oscuro);
+            font-weight: 500;
+        }
+        
+        .alert {
+            border: none;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pagination .page-item.active .page-link {
+            background-color: var(--azul-oscuro);
+            border-color: var(--azul-oscuro);
+        }
+        
+        .pagination .page-link {
+            color: var(--azul-oscuro);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        
+        .pagination .page-link:hover {
+            background-color: var(--azul-oscuro);
+            color: white;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--azul-intermedio);
+            box-shadow: 0 0 0 0.25rem rgba(13, 71, 161, 0.25);
+        }
+        
+        h2 {
+            color: var(--azul-marino);
+            font-weight: 600;
+        }
+        
+        .btn-group .btn {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-group .btn:hover {
+            transform: translateY(-1px);
+        }
+    </style>
 </head>
 <body>
     <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
@@ -177,101 +312,100 @@ require_once __DIR__ . '/../../../config/db.php';
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                                                                            <div class="btn-group btn-group-sm" role="group">
-                                                    <!-- Edit Button -->
-                                                    <?php if ($userItem['user_id'] === getCurrentUser()['user_id'] || 
-                                                             hasPermission('reset_user_password') || 
-                                                             getCurrentUser()['is_admin']): ?>
-                                                        <a href="/crm-project/public/?module=users&action=edit&id=<?php echo $userItem['user_id']; ?>" 
-                                                           class="btn btn-outline-primary" 
-                                                           title="<?php echo __('edit') ?: 'Edit'; ?>">
-                                                            <i class="bi bi-pencil"></i>
-                                                        </a>
-                                                    <?php endif; ?>
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <!-- Edit Button -->
+                                                <?php if ($userItem['user_id'] === getCurrentUser()['user_id'] || 
+                                                         hasPermission('reset_user_password') || 
+                                                         getCurrentUser()['is_admin']): ?>
+                                                    <a href="/crm-project/public/?module=users&action=edit&id=<?php echo $userItem['user_id']; ?>" 
+                                                       class="btn btn-outline-primary" 
+                                                       title="<?php echo __('edit') ?: 'Edit'; ?>">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                <?php endif; ?>
+                                                
+                                                <!-- Admin Actions -->
+                                                <?php if ((hasPermission('reset_user_password') || getCurrentUser()['is_admin']) && 
+                                                         $userItem['user_id'] !== getCurrentUser()['user_id']): ?>
                                                     
-                                                    <!-- Admin Actions -->
-                                                    <?php if ((hasPermission('reset_user_password') || getCurrentUser()['is_admin']) && 
-                                                             $userItem['user_id'] !== getCurrentUser()['user_id']): ?>
-                                                        
-                                                        <!-- Reset Password Button -->
+                                                    <!-- Reset Password Button -->
+                                                    <button type="button" 
+                                                            class="btn btn-outline-warning" 
+                                                            title="<?php echo __('reset_password') ?: 'Reset Password'; ?>"
+                                                            onclick="resetPassword(<?php echo $userItem['user_id']; ?>, '<?php echo sanitizeOutput($userItem['username']); ?>')">
+                                                        <i class="bi bi-key"></i>
+                                                    </button>
+                                                    
+                                                    <!-- Deactivate Button -->
+                                                    <?php if ($userItem['is_active']): ?>
                                                         <button type="button" 
-                                                                class="btn btn-outline-warning" 
-                                                                title="<?php echo __('reset_password') ?: 'Reset Password'; ?>"
-                                                                onclick="resetPassword(<?php echo $userItem['user_id']; ?>, '<?php echo sanitizeOutput($userItem['username']); ?>')">
-                                                            <i class="bi bi-key"></i>
+                                                                class="btn btn-outline-danger" 
+                                                                title="<?php echo __('deactivate') ?: 'Deactivate'; ?>"
+                                                                onclick="deactivateUser(<?php echo $userItem['user_id']; ?>, '<?php echo sanitizeOutput($userItem['username']); ?>')">
+                                                            <i class="bi bi-person-x"></i>
                                                         </button>
-                                                        
-                                                        <!-- Deactivate Button -->
-                                                        <?php if ($userItem['is_active']): ?>
-                                                            <button type="button" 
-                                                                    class="btn btn-outline-danger" 
-                                                                    title="<?php echo __('deactivate') ?: 'Deactivate'; ?>"
-                                                                    onclick="deactivateUser(<?php echo $userItem['user_id']; ?>, '<?php echo sanitizeOutput($userItem['username']); ?>')">
-                                                                <i class="bi bi-person-x"></i>
-                                                            </button>
-                                                        <?php endif; ?>
                                                     <?php endif; ?>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <!-- Pagination -->
-                        <?php if ($totalPages > 1): ?>
-                            <nav aria-label="Users pagination" class="mt-4">
-                                <ul class="pagination justify-content-center">
-                                    <!-- Previous -->
-                                    <?php if ($pagination['page'] > 1): ?>
-                                        <li class="page-item">
-                                            <a class="page-link" href="/crm-project/public/?module=users&action=list&page=<?php echo $pagination['page'] - 1; ?>&limit=<?php echo $pagination['limit']; ?>&search=<?php echo urlencode($search); ?>">
-                                                <i class="bi bi-chevron-left"></i> <?php echo __('previous') ?: 'Previous'; ?>
-                                            </a>
-                                        </li>
-                                    <?php endif; ?>
-                                    
-                                    <!-- Page Numbers -->
-                                    <?php
-                                    $startPage = max(1, $pagination['page'] - 2);
-                                    $endPage = min($totalPages, $pagination['page'] + 2);
-                                    
-                                    for ($i = $startPage; $i <= $endPage; $i++):
-                                    ?>
-                                        <li class="page-item <?php echo $i === $pagination['page'] ? 'active' : ''; ?>">
-                                            <a class="page-link" href="/crm-project/public/?module=users&action=list&page=<?php echo $i; ?>&limit=<?php echo $pagination['limit']; ?>&search=<?php echo urlencode($search); ?>">
-                                                <?php echo $i; ?>
-                                            </a>
-                                        </li>
-                                    <?php endfor; ?>
-                                    
-                                    <!-- Next -->
-                                    <?php if ($pagination['page'] < $totalPages): ?>
-                                        <li class="page-item">
-                                            <a class="page-link" href="/crm-project/public/?module=users&action=list&page=<?php echo $pagination['page'] + 1; ?>&limit=<?php echo $pagination['limit']; ?>&search=<?php echo urlencode($search); ?>">
-                                                <?php echo __('next') ?: 'Next'; ?> <i class="bi bi-chevron-right"></i>
-                                            </a>
-                                        </li>
-                                    <?php endif; ?>
-                                </ul>
-                            </nav>
-                        <?php endif; ?>
-                        
-                    <?php else: ?>
-                        <div class="text-center py-5">
-                            <i class="bi bi-people display-1 text-muted"></i>
-                            <h4 class="mt-3"><?php echo __('no_users_found') ?: 'No users found'; ?></h4>
-                            <p class="text-muted">
-                                <?php if (!empty($search)): ?>
-                                    <?php echo __('no_users_match_search') ?: 'No users match your search criteria.'; ?>
-                                <?php else: ?>
-                                    <?php echo __('no_users_available') ?: 'No users are currently available.'; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <?php if ($totalPages > 1): ?>
+                        <nav aria-label="Users pagination" class="mt-4">
+                            <ul class="pagination justify-content-center">
+                                <!-- Previous -->
+                                <?php if ($pagination['page'] > 1): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="/crm-project/public/?module=users&action=list&page=<?php echo $pagination['page'] - 1; ?>&limit=<?php echo $pagination['limit']; ?>&search=<?php echo urlencode($search); ?>">
+                                            <i class="bi bi-chevron-left"></i> <?php echo __('previous') ?: 'Previous'; ?>
+                                        </a>
+                                    </li>
                                 <?php endif; ?>
-                            </p>
-                        </div>
+                                
+                                <!-- Page Numbers -->
+                                <?php
+                                $startPage = max(1, $pagination['page'] - 2);
+                                $endPage = min($totalPages, $pagination['page'] + 2);
+                                
+                                for ($i = $startPage; $i <= $endPage; $i++):
+                                ?>
+                                    <li class="page-item <?php echo $i === $pagination['page'] ? 'active' : ''; ?>">
+                                        <a class="page-link" href="/crm-project/public/?module=users&action=list&page=<?php echo $i; ?>&limit=<?php echo $pagination['limit']; ?>&search=<?php echo urlencode($search); ?>">
+                                            <?php echo $i; ?>
+                                        </a>
+                                    </li>
+                                <?php endfor; ?>
+                                
+                                <!-- Next -->
+                                <?php if ($pagination['page'] < $totalPages): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="/crm-project/public/?module=users&action=list&page=<?php echo $pagination['page'] + 1; ?>&limit=<?php echo $pagination['limit']; ?>&search=<?php echo urlencode($search); ?>">
+                                            <?php echo __('next') ?: 'Next'; ?> <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </nav>
                     <?php endif; ?>
-                </div>
+                    
+                <?php else: ?>
+                    <div class="text-center py-5">
+                        <i class="bi bi-people display-1 text-muted"></i>
+                        <h4 class="mt-3"><?php echo __('no_users_found') ?: 'No users found'; ?></h4>
+                        <p class="text-muted">
+                            <?php if (!empty($search)): ?>
+                                <?php echo __('no_users_match_search') ?: 'No users match your search criteria.'; ?>
+                            <?php else: ?>
+                                <?php echo __('no_users_available') ?: 'No users are currently available.'; ?>
+                            <?php endif; ?>
+                        </p>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
 
