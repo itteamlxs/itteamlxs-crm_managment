@@ -1,0 +1,17 @@
+[2025-09-16 19:51:42] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-16 19:51:42","details":{"user_id":2,"username":"aleon"}}
+[2025-09-16 20:01:02] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":3,"username":"janderson","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-16 20:01:02","details":{"user_id":3,"username":"janderson"}}
+[2025-09-16 20:39:45] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 20:41:25] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 20:45:28] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 20:45:36] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 20:45:39] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 20:45:44] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 21:00:11] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-16 21:00:11","details":{"user_id":2,"username":"aleon"}}
+[2025-09-16 21:19:24] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":3,"username":"janderson","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-16 21:19:24","details":{"user_id":3,"username":"janderson"}}
+[2025-09-16 21:21:25] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 21:22:04] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 21:22:14] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 21:22:24] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 21:28:50] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 21:30:21] [ERROR] Get audit logs failed: Database operation failed
+[2025-09-16 21:54:35] [SECURITY] SECURITY_EVENT: {"event":"USER_DEACTIVATED","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-16 21:54:35","details":{"target_user_id":5}}
