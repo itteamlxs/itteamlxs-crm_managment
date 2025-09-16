@@ -891,4 +891,66 @@ return [
 // Textos de marca
 'app_name' => 'Athenea',
 
+// Traducciones adicionales dashboard
+
+'quick_actions' => 'Acciones Rápidas',
+'new_quote' => 'Nueva Cotización',
+'new_client' => 'Nuevo Cliente',
+'new_product' => 'Nuevo Producto',
+'world_time' => 'Hora Mundial',
+'alerts' => 'Alertas',
+'expiring_quotes' => 'Cotizaciones por Vencer',
+'days' => 'días',
+'no_alerts' => 'No hay alertas en este momento',
+'recent_activity' => 'Actividad Reciente',
+'activity' => 'Actividad',
+'user' => 'Usuario',
+'date' => 'Fecha',
+'created' => 'Creado',
+'updated' => 'Actualizado',
+'deleted' => 'Eliminado',
+'no_recent_activity' => 'No hay actividad reciente',
+'top_clients' => 'Mejores Clientes',
+'client' => 'Cliente',
+'total' => 'Total',
+'orders' => 'Pedidos',
+'no_client_data' => 'No hay datos de clientes disponibles',
+'sales_trends' => 'Tendencias de Ventas',
+'sales' => 'Ventas',
+'last_6_months' => 'Últimos 6 meses',
+'last_12_months' => 'Últimos 12 meses',
+'monthly_revenue' => 'Ingresos Mensuales',
+'active_clients' => 'Clientes Activos',
+
+// Traducciones para primer login
+'change_password_required' => 'Cambio de Contraseña Requerido',
+'first_login_message' => 'Este es tu primer acceso. Por favor elige una nueva contraseña segura.',
+'all_fields_required' => 'Todos los campos son obligatorios',
+'password_too_short' => 'La contraseña debe tener al menos 8 caracteres',
+'current_password_incorrect' => 'La contraseña actual es incorrecta',
+'password_changed_successfully' => 'Contraseña cambiada exitosamente',
+'password_change_failed' => 'Error al cambiar la contraseña',
+
+// Traducciones para conversor de zonas horarias
+'timezone_converter' => 'Conversor de Zonas Horarias',
+'source_time' => 'Hora de Origen',
+'from_timezone' => 'Zona Horaria de Origen',
+'to_timezone' => 'Zona Horaria de Destino',
+'convert' => 'Convertir',
+'converted_time' => 'Hora Convertida',
+'please_enter_time_and_date' => 'Por favor ingresa la hora y fecha',
+'conversion_error' => 'Error en la conversión de tiempo',
+
+// Traducciones para perfil
+'profile_updated_successfully' => 'Perfil actualizado exitosamente',
+'profile_update_failed' => 'Error al actualizar el perfil',
+'username_or_email_already_exists' => 'El usuario o email ya existe',
+'invalid_username_format' => 'Formato de usuario inválido',
+'failed_to_load_user_data' => 'Error al cargar datos del usuario',
+
+// Traducciones generales adicionales
+'close' => 'Cerrar',
+'refresh' => 'Actualizar',
+'network_error' => 'Error de red'
+
 ];
