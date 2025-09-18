@@ -1,7 +1,7 @@
 <?php
 /**
- * User Profile Controller
- * Handles profile editing and first-time password changes
+ * Dashboard Controller
+ * Handles dashboard data loading and profile editing
  */
 
 require_once __DIR__ . '/../../../config/app.php';
@@ -12,7 +12,18 @@ require_once __DIR__ . '/../../../core/rbac.php';
 requireLogin();
 $user = getCurrentUser();
 
-// Handle AJAX password change request (for first login)
+// Initialize dashboard variables
+$forcePasswordChange = $user['force_password_change'] ?? false;
+$salesTrends = [];
+$statusDistribution = [];
+$companyName = 'CRM System';
+$dashboardStats = [];
+$recentActivity = [];
+$expiringQuotes = [];
+$topClients = [];
+$topProducts = [];
+
+// Handle AJAX password change request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isAjaxRequest()) {
     $action = $_POST['action'] ?? '';
     
@@ -23,22 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isAjaxRequest()) {
                 jsonResponse(['error' => __('invalid_security_token')], 400);
             }
             
-            $currentPassword = $_POST['current_password'] ?? '';
             $newPassword = $_POST['new_password'] ?? '';
             $confirmPassword = $_POST['confirm_password'] ?? '';
             
             // Validate inputs
-            if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+            if (empty($newPassword) || empty($confirmPassword)) {
                 jsonResponse(['error' => __('all_fields_required')], 400);
             }
             
             if ($newPassword !== $confirmPassword) {
                 jsonResponse(['error' => __('passwords_do_not_match')], 400);
-            }
-            
-            // Validate current password
-            if (!verifyPassword($currentPassword, $user['password_hash'])) {
-                jsonResponse(['error' => __('current_password_incorrect')], 400);
             }
             
             // Validate new password strength
@@ -197,6 +202,123 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isAjaxRequest()) {
     }
 }
 
+// Load Dashboard Data
+try {
+    $db = Database::getInstance();
+    
+    // Get company name
+    $result = $db->fetch("SELECT setting_value FROM vw_settings WHERE setting_key = 'company_display_name'");
+    if ($result) {
+        $companyName = $result['setting_value'];
+    }
+    
+    // Dashboard Statistics
+    $statsQueries = [
+        'total_quotes' => "SELECT COUNT(*) as count FROM quotes",
+        'total_clients' => "SELECT COUNT(*) as count FROM vw_clients",
+        'pending_quotes' => "SELECT COUNT(*) as count FROM quotes WHERE status = 'SENT'",
+        'total_revenue' => "SELECT COALESCE(SUM(total_amount), 0) as amount FROM quotes WHERE status = 'APPROVED' AND MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE())",
+        'conversion_rate' => "SELECT ROUND((SELECT COUNT(*) FROM quotes WHERE status = 'APPROVED') * 100.0 / NULLIF((SELECT COUNT(*) FROM quotes WHERE status IN ('SENT', 'APPROVED', 'REJECTED')), 0), 1) as rate",
+        'avg_deal_size' => "SELECT COALESCE(AVG(total_amount), 0) as avg_amount FROM quotes WHERE status = 'APPROVED'"
+    ];
+    
+    foreach ($statsQueries as $key => $query) {
+        $result = $db->fetch($query);
+        $dashboardStats[$key] = $result[array_key_first($result)] ?? 0;
+    }
+    
+    // Recent Activity from audit_logs
+    $recentActivity = $db->fetchAll("
+        SELECT a.action, a.entity_type, a.entity_id, a.created_at, u.username, u.display_name,
+               CASE 
+                   WHEN a.action = 'INSERT' AND a.entity_type = 'QUOTE' THEN 'Nueva cotización creada'
+                   WHEN a.action = 'INSERT' AND a.entity_type = 'USER' THEN 'Nuevo cliente registrado'
+                   WHEN a.action = 'UPDATE' AND a.entity_type = 'QUOTE' THEN 'Cotización actualizada'
+                   WHEN a.action = 'STOCK_UPDATE' THEN 'Stock actualizado'
+                   ELSE CONCAT(a.action, ' en ', a.entity_type)
+               END as activity_description,
+               CASE 
+                   WHEN a.action = 'INSERT' THEN 'success'
+                   WHEN a.action = 'UPDATE' THEN 'primary'
+                   WHEN a.action = 'STOCK_UPDATE' THEN 'warning'
+                   ELSE 'secondary'
+               END as activity_type
+        FROM audit_logs a
+        LEFT JOIN users u ON a.user_id = u.user_id
+        ORDER BY a.created_at DESC
+        LIMIT 10
+    ");
+    
+    // Expiring Quotes
+    $expiringQuotes = $db->fetchAll("
+        SELECT quote_id, quote_number, company_name as client_name, expiry_date,
+               DATEDIFF(expiry_date, CURDATE()) as days_until_expiry
+        FROM vw_expiring_quotes
+        ORDER BY days_until_expiry ASC
+        LIMIT 5
+    ");
+    
+    // Top Clients by total spend
+    $topClients = $db->fetchAll("
+        SELECT client_id, company_name, total_spend, purchase_count
+        FROM vw_top_clients
+        ORDER BY total_spend DESC
+        LIMIT 5
+    ");
+    
+    // Top Products by quantity sold
+    $topProducts = $db->fetchAll("
+        SELECT product_id, product_name, sku, total_sold, 
+               (total_sold * (SELECT AVG(unit_price) FROM quote_items qi WHERE qi.product_id = pp.product_id)) as revenue
+        FROM vw_product_performance pp
+        WHERE total_sold IS NOT NULL
+        ORDER BY total_sold DESC
+        LIMIT 5
+    ");
+    
+    // Sales Trends for chart (last 6 months)
+    $salesTrends = $db->fetchAll("
+        SELECT month, total_amount, total_quotes
+        FROM vw_sales_trends
+        ORDER BY month DESC
+        LIMIT 6
+    ");
+    $salesTrends = array_reverse($salesTrends);
+    
+    // Status Distribution for pie chart
+    $statusDistribution = $db->fetchAll("
+        SELECT status,
+               COUNT(*) as count,
+               CASE 
+                   WHEN status = 'APPROVED' THEN 'Aprobadas'
+                   WHEN status = 'SENT' THEN 'Pendientes'
+                   WHEN status = 'REJECTED' THEN 'Rechazadas'
+                   WHEN status = 'DRAFT' THEN 'Borrador'
+                   ELSE status
+               END as status_label
+        FROM quotes
+        GROUP BY status
+    ");
+    
+} catch (Exception $e) {
+    logError("Dashboard data loading failed: " . $e->getMessage());
+    // Initialize with empty arrays to prevent errors
+    $dashboardStats = [
+        'total_quotes' => 0,
+        'total_clients' => 0,
+        'pending_quotes' => 0,
+        'total_revenue' => 0,
+        'conversion_rate' => 0,
+        'avg_deal_size' => 0
+    ];
+    $recentActivity = [];
+    $expiringQuotes = [];
+    $topClients = [];
+    $topProducts = [];
+    $salesTrends = [];
+    $statusDistribution = [];
+}
+
 // Get user ID from URL for editing (admin function)
 $editUserId = (int)($_GET['id'] ?? $user['user_id']);
 $isEditingOther = $editUserId !== $user['user_id'];
@@ -208,8 +330,6 @@ if ($isEditingOther && !$user['is_admin']) {
 
 // Get user data to edit
 try {
-    $db = Database::getInstance();
-    
     if ($isEditingOther) {
         $editUser = $db->fetch("SELECT * FROM vw_user_profile WHERE user_id = ?", [$editUserId]);
         if (!$editUser) {
