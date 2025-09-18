@@ -508,7 +508,7 @@ function checkNavAccess($item, $currentUser) {
             </div>
         </div>
         <div class="d-flex gap-2">
-            <a href="<?php echo userEditUrl($currentUser['user_id']); ?>" 
+            <a href="/crm-project/public/?module=users&action=edit&id=<?php echo $currentUser['user_id']; ?>" 
                class="btn btn-outline-light btn-sm flex-fill">
                 <i class="bi bi-person-gear"></i> <?php echo __('profile'); ?>
             </a>
@@ -560,7 +560,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.innerWidth <= 768) {
         document.querySelectorAll('.sidebar-nav a').forEach(link => {
             link.addEventListener('click', function() {
-                if (sidebar.classList.contains('show')) {
+                if (sidebar.classList.contains('show') && !link.classList.contains('reports-dropdown-toggle')) {
                     toggleSidebar();
                 }
             });

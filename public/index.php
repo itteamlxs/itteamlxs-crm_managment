@@ -60,12 +60,31 @@ if ($module !== 'auth' && !isLoggedIn()) {
     redirect('/?module=auth&action=login');
 }
 
-// Module access check (except for auth and dashboard)
-if (!in_array($module, ['auth', 'dashboard']) && !canAccessModule($module)) {
-    if (isAjaxRequest()) {
-        jsonResponse(['error' => 'Access denied to module'], 403);
+// Module access check (except for auth and dashboard) - FIXED
+if (!in_array($module, ['auth', 'dashboard'])) {
+    // Special handling for users module - allow profile editing for all users
+    if ($module === 'users' && $action === 'edit') {
+        $targetUserId = (int)($_GET['id'] ?? 0);
+        $currentUser = getCurrentUser();
+        
+        // Allow if editing own profile OR has admin permissions
+        if ($targetUserId === $currentUser['user_id'] || 
+            hasPermission('reset_user_password') || 
+            $currentUser['is_admin']) {
+            // Access granted for profile editing
+        } else {
+            // Deny access - redirect to dashboard
+            redirect('/?module=dashboard&action=index');
+        }
     } else {
-        redirect('/?module=dashboard&action=index');
+        // Standard module access check for other modules/actions
+        if (!canAccessModule($module)) {
+            if (isAjaxRequest()) {
+                jsonResponse(['error' => 'Access denied to module'], 403);
+            } else {
+                redirect('/?module=dashboard&action=index');
+            }
+        }
     }
 }
 

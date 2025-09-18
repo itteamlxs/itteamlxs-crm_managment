@@ -44,16 +44,62 @@ class RoleModel {
     }
     
     /**
-     * Create new role
+     * Get basic permissions that should be assigned to all roles
+     * @return array
+     */
+    private function getBasicPermissions() {
+        try {
+            $basicPermissions = [
+                'edit_own_profile',
+                'request_access'
+            ];
+            
+            $sql = "SELECT permission_id FROM permissions WHERE permission_name IN (" . 
+                   str_repeat('?,', count($basicPermissions) - 1) . "?)";
+            
+            $results = $this->db->fetchAll($sql, $basicPermissions);
+            return array_column($results, 'permission_id');
+        } catch (Exception $e) {
+            logError("Failed to get basic permissions: " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    /**
+     * Create new role with basic permissions
      * @param array $data
      * @return bool
      */
     public function createRole($data) {
         try {
+            $this->db->beginTransaction();
+            
+            // Create the role
             $sql = "INSERT INTO roles (role_name, description, created_at) VALUES (?, ?, NOW())";
             $this->db->execute($sql, [$data['role_name'], $data['description']]);
+            $roleId = $this->db->lastInsertId();
+            
+            // Assign basic permissions automatically
+            $basicPermissions = $this->getBasicPermissions();
+            if (!empty($basicPermissions)) {
+                $sql = "INSERT INTO role_permissions (role_id, permission_id, created_at) VALUES (?, ?, NOW())";
+                foreach ($basicPermissions as $permissionId) {
+                    $this->db->execute($sql, [$roleId, $permissionId]);
+                }
+            }
+            
+            $this->db->commit();
+            
+            // Log the role creation with basic permissions assigned
+            logSecurityEvent('ROLE_CREATED', [
+                'role_id' => $roleId,
+                'role_name' => $data['role_name'],
+                'basic_permissions_assigned' => count($basicPermissions)
+            ]);
+            
             return true;
         } catch (Exception $e) {
+            $this->db->rollback();
             logError("Failed to create role: " . $e->getMessage());
             return false;
         }
@@ -246,4 +292,53 @@ class RoleModel {
             return false;
         }
     }
-} 
+    
+    /**
+     * Ensure existing roles have basic permissions
+     * This method can be called to fix existing roles that don't have basic permissions
+     * @return bool
+     */
+    public function ensureBasicPermissionsForAllRoles() {
+        try {
+            $this->db->beginTransaction();
+            
+            $basicPermissions = $this->getBasicPermissions();
+            if (empty($basicPermissions)) {
+                $this->db->rollback();
+                return false;
+            }
+            
+            // Get all roles
+            $roles = $this->getAllRoles();
+            $updatedRoles = 0;
+            
+            foreach ($roles as $role) {
+                $currentPermissions = $this->getRolePermissionIds($role['role_id']);
+                $missingPermissions = array_diff($basicPermissions, $currentPermissions);
+                
+                if (!empty($missingPermissions)) {
+                    $sql = "INSERT INTO role_permissions (role_id, permission_id, created_at) VALUES (?, ?, NOW())";
+                    foreach ($missingPermissions as $permissionId) {
+                        $this->db->execute($sql, [$role['role_id'], $permissionId]);
+                    }
+                    $updatedRoles++;
+                }
+            }
+            
+            $this->db->commit();
+            
+            if ($updatedRoles > 0) {
+                logSecurityEvent('BASIC_PERMISSIONS_ADDED', [
+                    'updated_roles_count' => $updatedRoles,
+                    'permissions_added' => $basicPermissions
+                ]);
+            }
+            
+            return true;
+        } catch (Exception $e) {
+            $this->db->rollback();
+            logError("Failed to ensure basic permissions for all roles: " . $e->getMessage());
+            return false;
+        }
+    }
+}

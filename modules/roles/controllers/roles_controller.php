@@ -35,6 +35,14 @@ switch ($action) {
 function handleListRoles() {
     global $roleModel;
     
+    // Ensure all existing roles have basic permissions (run once per session)
+    if (!isset($_SESSION['basic_permissions_checked'])) {
+        if ($roleModel->ensureBasicPermissionsForAllRoles()) {
+            $_SESSION['basic_permissions_info'] = __('basic_permissions_ensured_for_existing_roles');
+        }
+        $_SESSION['basic_permissions_checked'] = true;
+    }
+    
     $roles = $roleModel->getAllRoles();
     
     foreach ($roles as &$role) {
@@ -76,7 +84,7 @@ function handleAddRole() {
             
             if (empty($errors)) {
                 if ($roleModel->createRole($formData)) {
-                    $_SESSION['success_message'] = __('role_created_successfully');
+                    $_SESSION['success_message'] = __('role_created_successfully_with_basic_permissions');
                     redirect(url('roles', 'list'));
                 } else {
                     $errors[] = __('error_creating_role');

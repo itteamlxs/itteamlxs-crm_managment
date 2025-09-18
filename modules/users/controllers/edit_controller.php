@@ -26,10 +26,11 @@ if ($targetUserId > 0) {
         redirect('/crm-project/public/?module=users&action=list');
     }
     
-    // Check permissions - can edit own profile or has admin/reset_user_password
-    if ($targetUserId !== $currentUser['user_id'] && 
-        !hasPermission('reset_user_password') && 
-        !$currentUser['is_admin']) {
+    // Check permissions - FIXED: Allow own profile editing for all users
+    if ($targetUserId === $currentUser['user_id']) {
+        // User editing own profile - always allowed
+    } elseif (!hasPermission('reset_user_password') && !$currentUser['is_admin']) {
+        // Other user's profile - requires admin permissions
         redirect('/crm-project/public/?module=dashboard&action=index');
     }
 } else {
@@ -116,8 +117,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $errors[] = __('display_name_required');
             }
             
-            // Admin-only fields
-            if (hasPermission('reset_user_password') || $currentUser['is_admin']) {
+            // Admin-only fields - FIXED: Check if user has admin permissions, not just editing own profile
+            if ((hasPermission('reset_user_password') || $currentUser['is_admin']) && 
+                ($targetUserId !== $currentUser['user_id'] || $currentUser['is_admin'])) {
+                // Only allow admin fields if user has admin permissions AND is not editing own profile
+                // OR if user is admin editing own profile
                 if (isset($_POST['role_id'])) {
                     $formData['role_id'] = (int)$_POST['role_id'];
                 }
