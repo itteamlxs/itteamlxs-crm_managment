@@ -181,6 +181,50 @@ class SettingsModel {
     }
     
     /**
+     * Upload and save company logo
+     * @param array $file $_FILES array element
+     * @return array ['success' => bool, 'filename' => string, 'error' => string]
+     */
+    public function uploadCompanyLogo($file) {
+        $result = ['success' => false, 'filename' => '', 'error' => ''];
+        
+        // Validate file upload
+        $validation = validateFileUpload($file, ['jpg', 'jpeg', 'png', 'gif']);
+        if (!$validation['valid']) {
+            $result['error'] = $validation['error'];
+            return $result;
+        }
+        
+        $uploadDir = __DIR__ . '/../../../public/uploads/';
+        $filename = 'company_logo_' . time() . '.' . strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        $uploadPath = $uploadDir . $filename;
+        
+        // Create upload directory if it doesn't exist
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+        
+        // Remove old logo if exists
+        $currentLogo = $this->getSettingByKey('company_logo');
+        if ($currentLogo && !empty($currentLogo['setting_value'])) {
+            $oldLogoPath = $uploadDir . basename($currentLogo['setting_value']);
+            if (file_exists($oldLogoPath)) {
+                unlink($oldLogoPath);
+            }
+        }
+        
+        // Move uploaded file
+        if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
+            $result['success'] = true;
+            $result['filename'] = $filename;
+        } else {
+            $result['error'] = 'Error al subir el archivo';
+        }
+        
+        return $result;
+    }
+    
+    /**
      * Get available timezones
      * @return array
      */

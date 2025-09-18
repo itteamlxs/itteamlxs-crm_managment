@@ -487,6 +487,9 @@ return [
 'quote_settings' => 'Configuración de Cotizaciones',
 'product_settings' => 'Configuración de Productos',
 'system_settings' => 'Configuración del Sistema',
+'setting_quote_expiry_notification_days' => 'Configuración de notificación de vencimiento de cotización',
+'setting_quote_expiry_notification_days_help' => 'Configurar los días de notificación de vencimiento de la cotización',
+'' => '',
 'other_settings' => 'Otras Configuraciones',
 'settings_management' => 'Gestión de Configuración',
 'save_settings' => 'Guardar Configuración',
@@ -494,6 +497,9 @@ return [
 'leave_blank_keep_current' => 'Dejar en blanco para mantener actual',
 'json_format_example' => 'Ejemplo de formato JSON',
 'last_updated' => 'Última actualización',
+'setting_company_slogan' => 'Establecer el lema de la empresa',
+'company_slogan_help' => 'Ayuda del lema de la empresa',
+'company_slogan_placeholder' => 'Slogan de la compañía',
 
 // Textos de ejemplo para formato JSON
 'json_language_example' => 'Ejemplo: ["es", "en", "fr"]',
@@ -828,8 +834,6 @@ return [
 'data_not_available' => 'Datos no disponibles',
 'access_denied' => 'Acceso denegado',
 'not_found' => 'No encontrado',
-
-// Agregar estas traducciones al archivo es.php
 
 // Navegación y menús
 'dashboard' => 'Panel de Control',

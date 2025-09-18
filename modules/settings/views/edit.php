@@ -70,7 +70,7 @@ requirePermission('manage_settings');
             </div>
             <?php endif; ?>
 
-            <form method="POST" action="<?= url('settings', 'edit') ?>" id="settingsForm">
+            <form method="POST" action="<?= url('settings', 'edit') ?>" id="settingsForm" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
 
                 <!-- Company Settings -->
@@ -84,16 +84,58 @@ requirePermission('manage_settings');
                     </div>
                     <div class="card-body">
                         <div class="row">
+                            <!-- Company Logo Upload -->
+                            <div class="col-12 mb-3">
+                                <label for="company_logo" class="form-label">
+                                    <i class="bi bi-image"></i> <?= __('company_logo') ?>
+                                </label>
+                                <input type="file" class="form-control" id="company_logo" name="company_logo" 
+                                       accept=".jpg,.jpeg,.png,.gif">
+                                <div class="form-text">
+                                    <?= __('allowed_formats') ?>: JPG, JPEG, PNG, GIF. <?= __('max_size') ?>: <?= formatBytes(UPLOAD_MAX_SIZE) ?>
+                                </div>
+                                
+                                <?php 
+                                $currentLogo = null;
+                                foreach ($settingsByCategory['company'] as $setting) {
+                                    if ($setting['setting_key'] === 'company_logo') {
+                                        $currentLogo = $setting['setting_value'];
+                                        break;
+                                    }
+                                }
+                                if ($currentLogo): ?>
+                                <div class="mt-2">
+                                    <label class="form-label"><?= __('current_logo') ?>:</label><br>
+                                    <img src="<?= sanitizeOutput($currentLogo) ?>" alt="Company Logo" 
+                                         style="max-height: 80px; max-width: 200px;" class="img-thumbnail">
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <!-- Other company settings -->
                             <?php foreach ($settingsByCategory['company'] as $setting): ?>
+                            <?php if ($setting['setting_key'] !== 'company_logo'): ?>
                             <div class="col-md-6 mb-3">
                                 <label for="<?= $setting['setting_key'] ?>" class="form-label">
                                     <?= __('setting_' . $setting['setting_key']) ?>
                                 </label>
+                                <?php if ($setting['setting_key'] === 'company_slogan'): ?>
+                                <textarea class="form-control" 
+                                          id="<?= $setting['setting_key'] ?>" 
+                                          name="<?= $setting['setting_key'] ?>" 
+                                          rows="2" 
+                                          placeholder="<?= __('company_slogan_placeholder') ?>"><?= sanitizeOutput($setting['setting_value']) ?></textarea>
+                                <div class="form-text">
+                                    <?= __('company_slogan_help') ?>
+                                </div>
+                                <?php else: ?>
                                 <input type="text" class="form-control" 
                                        id="<?= $setting['setting_key'] ?>" 
                                        name="<?= $setting['setting_key'] ?>" 
                                        value="<?= sanitizeOutput($setting['setting_value']) ?>">
+                                <?php endif; ?>
                             </div>
+                            <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -322,6 +364,26 @@ requirePermission('manage_settings');
             const submitBtn = this.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> <?= __('saving') ?>...';
+        });
+
+        // Preview logo before upload
+        document.getElementById('company_logo').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    let preview = document.getElementById('logo-preview');
+                    if (!preview) {
+                        preview = document.createElement('div');
+                        preview.id = 'logo-preview';
+                        preview.className = 'mt-2';
+                        preview.innerHTML = '<label class="form-label"><?= __('preview') ?>:</label><br>';
+                        document.getElementById('company_logo').parentNode.appendChild(preview);
+                    }
+                    preview.innerHTML = '<label class="form-label"><?= __('preview') ?>:</label><br><img src="' + e.target.result + '" alt="Preview" style="max-height: 80px; max-width: 200px;" class="img-thumbnail">';
+                };
+                reader.readAsDataURL(file);
+            }
         });
 
         function testSmtpConnection() {

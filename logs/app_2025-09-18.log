@@ -2,3 +2,8 @@
 [2025-09-18 21:28:29] [ERROR] Dashboard data loading failed: Database operation failed
 [2025-09-18 21:30:16] [ERROR] Dashboard data loading failed: Database operation failed
 [2025-09-18 21:34:25] [ERROR] Dashboard data loading failed: Database operation failed
+[2025-09-18 23:14:57] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-18 23:14:57","details":{"user_id":2,"username":"aleon"}}
+[2025-09-18 23:15:09] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":3,"username":"janderson","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-18 23:15:09","details":{"user_id":3,"username":"janderson"}}
+[2025-09-18 23:16:21] [SECURITY] SECURITY_EVENT: {"event":"USER_UPDATED","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-18 23:16:21","details":{"target_user_id":6}}
+[2025-09-18 23:16:44] [SECURITY] SECURITY_EVENT: {"event":"USER_UPDATED","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-18 23:16:44","details":{"target_user_id":3}}
+[2025-09-18 23:16:48] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-18 23:16:48","details":{"user_id":2,"username":"aleon"}}

@@ -24,6 +24,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $updates = 0;
         $failed = 0;
         
+        // Handle logo upload first
+        if (isset($_FILES['company_logo']) && $_FILES['company_logo']['error'] !== UPLOAD_ERR_NO_FILE) {
+            $logoUpload = $settingsModel->uploadCompanyLogo($_FILES['company_logo']);
+            if ($logoUpload['success']) {
+                $logoPath = '/crm-project/public/uploads/' . $logoUpload['filename'];
+                if ($settingsModel->updateSetting('company_logo', $logoPath)) {
+                    $updates++;
+                } else {
+                    $errors[] = __('error_updating_logo');
+                    $failed++;
+                }
+            } else {
+                $errors[] = 'Logo: ' . $logoUpload['error'];
+                $failed++;
+            }
+        }
+        
         foreach ($_POST as $key => $value) {
             if ($key === 'csrf_token') continue;
             
