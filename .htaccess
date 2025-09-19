@@ -22,6 +22,11 @@ RewriteBase /crm-project/public/
     Require all denied
 </FilesMatch>
 
+# FIXED: Permitir acceso directo a archivos estáticos (imágenes, CSS, JS) antes de las reglas de rewrite
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|pdf|zip)$ [NC]
+RewriteRule .* - [L]
+
 # Reglas para URLs amigables - preservando el sistema de módulos y acciones
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -50,10 +55,11 @@ RewriteRule ^$ index.php [L]
     ExpiresDefault "access plus 2 days"
 </IfModule>
 
-# Prevenir hotlinking de imágenes
+# Prevenir hotlinking de imágenes - FIXED: Solo aplicar a dominios externos
 <IfModule mod_rewrite.c>
     RewriteCond %{HTTP_REFERER} !^$
-    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?tudominio.com [NC]
+    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?localhost [NC]
+    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?127.0.0.1 [NC]
     RewriteRule \.(jpg|jpeg|png|gif)$ - [NC,F,L]
 </IfModule>
 
