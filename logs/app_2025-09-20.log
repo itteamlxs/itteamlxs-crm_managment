@@ -1,0 +1,16 @@
+[2025-09-20 03:52:15] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 03:52:37] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 03:54:06] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 03:54:14] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 03:54:16] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 03:54:18] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 03:54:30] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 03:55:05] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 04:00:16] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 04:00:31] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 04:02:09] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 04:02:31] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 04:02:31] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 04:02:34] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 04:04:27] [ERROR] Dashboard stats failed: Database operation failed
+[2025-09-20 04:30:57] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-20 04:30:57","details":{"user_id":2,"username":"aleon"}}
