@@ -24,9 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isAjaxRequest() && isset($_GET['act
 
 // Handle CSV export
 if (isset($_GET['export']) && $_GET['export'] === 'csv') {
-    $startDate = $_GET['start_date'] ?? '';
-    $endDate = $_GET['end_date'] ?? '';
-    $actionType = $_GET['action_type'] ?? '';
+    $startDate = sanitizeInput($_GET['start_date'] ?? '');
+    $endDate = sanitizeInput($_GET['end_date'] ?? '');
+    $actionType = sanitizeInput($_GET['action_type'] ?? '');
     
     $auditLogs = $reportModel->getAuditLogs(10000, 0, $startDate, $endDate, $actionType);
     
@@ -58,9 +58,9 @@ $limit = 50;
 $offset = ($page - 1) * $limit;
 
 // Filters
-$startDate = $_GET['start_date'] ?? '';
-$endDate = $_GET['end_date'] ?? '';
-$actionType = $_GET['action_type'] ?? '';
+$startDate = sanitizeInput($_GET['start_date'] ?? '');
+$endDate = sanitizeInput($_GET['end_date'] ?? '');
+$actionType = sanitizeInput($_GET['action_type'] ?? '');
 
 // Get report data with proper error handling
 try {

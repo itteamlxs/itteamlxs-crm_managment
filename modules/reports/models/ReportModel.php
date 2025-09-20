@@ -132,9 +132,15 @@ class ReportModel {
             $params = [];
             
             if (!empty($startDate) && !empty($endDate)) {
-                $sql .= " AND al.created_at BETWEEN ? AND ?";
-                $params[] = $startDate . ' 00:00:00';
-                $params[] = $endDate . ' 23:59:59';
+                $sql .= " AND DATE(al.created_at) BETWEEN ? AND ?";
+                $params[] = $startDate;
+                $params[] = $endDate;
+            } elseif (!empty($startDate)) {
+                $sql .= " AND DATE(al.created_at) >= ?";
+                $params[] = $startDate;
+            } elseif (!empty($endDate)) {
+                $sql .= " AND DATE(al.created_at) <= ?";
+                $params[] = $endDate;
             }
             
             if (!empty($actionType)) {
@@ -159,9 +165,15 @@ class ReportModel {
             $params = [];
             
             if (!empty($startDate) && !empty($endDate)) {
-                $sql .= " AND al.created_at BETWEEN ? AND ?";
-                $params[] = $startDate . ' 00:00:00';
-                $params[] = $endDate . ' 23:59:59';
+                $sql .= " AND DATE(al.created_at) BETWEEN ? AND ?";
+                $params[] = $startDate;
+                $params[] = $endDate;
+            } elseif (!empty($startDate)) {
+                $sql .= " AND DATE(al.created_at) >= ?";
+                $params[] = $startDate;
+            } elseif (!empty($endDate)) {
+                $sql .= " AND DATE(al.created_at) <= ?";
+                $params[] = $endDate;
             }
             
             if (!empty($actionType)) {

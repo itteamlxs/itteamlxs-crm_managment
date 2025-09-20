@@ -69,28 +69,35 @@
                         <input type="hidden" name="module" value="reports">
                         <input type="hidden" name="action" value="compliance">
                         
+                        <?php 
+                        // Set filter variables to avoid undefined warnings
+                        $currentStartDate = $startDate ?? '';
+                        $currentEndDate = $endDate ?? '';
+                        $currentActionType = $actionType ?? '';
+                        ?>
+                        
                         <div class="col-md-3">
                             <label for="startDate" class="form-label">Fecha Inicio</label>
                             <input type="date" id="startDate" name="start_date" class="form-control form-control-sm" 
-                                   value="<?= sanitizeOutput($startDate) ?>">
+                                   value="<?= sanitizeOutput($currentStartDate) ?>">
                         </div>
                         
                         <div class="col-md-3">
                             <label for="endDate" class="form-label">Fecha Fin</label>
                             <input type="date" id="endDate" name="end_date" class="form-control form-control-sm" 
-                                   value="<?= sanitizeOutput($endDate) ?>">
+                                   value="<?= sanitizeOutput($currentEndDate) ?>">
                         </div>
                         
                         <div class="col-md-4">
                             <label for="actionFilter" class="form-label">Tipo de Acción</label>
                             <select id="actionFilter" name="action_type" class="form-select form-select-sm">
                                 <option value="">Todas las acciones</option>
-                                <option value="INSERT" <?= $actionType == 'INSERT' ? 'selected' : '' ?>>INSERT</option>
-                                <option value="UPDATE" <?= $actionType == 'UPDATE' ? 'selected' : '' ?>>UPDATE</option>
-                                <option value="DELETE" <?= $actionType == 'DELETE' ? 'selected' : '' ?>>DELETE</option>
-                                <option value="LOGIN" <?= $actionType == 'LOGIN' ? 'selected' : '' ?>>LOGIN</option>
-                                <option value="LOGOUT" <?= $actionType == 'LOGOUT' ? 'selected' : '' ?>>LOGOUT</option>
-                                <option value="STOCK_UPDATE" <?= $actionType == 'STOCK_UPDATE' ? 'selected' : '' ?>>STOCK_UPDATE</option>
+                                <option value="INSERT" <?= $currentActionType == 'INSERT' ? 'selected' : '' ?>>INSERT</option>
+                                <option value="UPDATE" <?= $currentActionType == 'UPDATE' ? 'selected' : '' ?>>UPDATE</option>
+                                <option value="DELETE" <?= $currentActionType == 'DELETE' ? 'selected' : '' ?>>DELETE</option>
+                                <option value="LOGIN" <?= $currentActionType == 'LOGIN' ? 'selected' : '' ?>>LOGIN</option>
+                                <option value="LOGOUT" <?= $currentActionType == 'LOGOUT' ? 'selected' : '' ?>>LOGOUT</option>
+                                <option value="STOCK_UPDATE" <?= $currentActionType == 'STOCK_UPDATE' ? 'selected' : '' ?>>STOCK_UPDATE</option>
                             </select>
                         </div>
                         
@@ -100,7 +107,7 @@
                             </button>
                         </div>
                         
-                        <?php if (!empty($startDate) || !empty($endDate) || !empty($actionType)): ?>
+                        <?php if (!empty($currentStartDate) || !empty($currentEndDate) || !empty($currentActionType)): ?>
                         <div class="col-12">
                             <a href="<?= url('reports', 'compliance') ?>" class="btn btn-outline-danger btn-sm">
                                 <i class="bi bi-x-circle"></i> Limpiar Filtros
@@ -220,6 +227,9 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">
                             <i class="bi bi-list-ul"></i> Logs de Auditoría
+                            <?php 
+                            $totalLogs = $totalCount ?? $securityPosture['audit_log_count'] ?? 0;
+                            ?>
                             <?php if (!empty($auditLogs)): ?>
                             <span class="badge bg-secondary ms-2"><?= number_format($totalLogs) ?> total</span>
                             <?php endif; ?>
@@ -240,7 +250,6 @@
 
                     <?php if (!empty($auditLogs)): ?>
                         <?php 
-                        $totalLogs = $totalCount ?? $securityPosture['audit_log_count'] ?? 0;
                         $totalPages = ceil($totalLogs / $limit);
                         ?>
                         <div class="table-responsive">
@@ -354,7 +363,7 @@
                         <div class="text-center py-5">
                             <i class="bi bi-journal-text display-1 text-muted"></i>
                             <h5 class="text-muted mt-3">No hay logs de auditoría disponibles</h5>
-                            <?php if (!empty($startDate) || !empty($endDate) || !empty($actionType)): ?>
+                            <?php if (!empty($currentStartDate) || !empty($currentEndDate) || !empty($currentActionType)): ?>
                             <p class="text-muted">Pruebe con un rango de fechas diferente o filtros distintos</p>
                             <?php endif; ?>
                         </div>
