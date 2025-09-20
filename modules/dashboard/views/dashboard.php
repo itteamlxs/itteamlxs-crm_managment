@@ -26,6 +26,18 @@ try {
 } catch (Exception $e) {
     logError("Failed to get sales data: " . $e->getMessage());
 }
+
+// Verificar si el usuario debe cambiar su contraseña
+$forcePasswordChange = false;
+try {
+    $sql = "SELECT force_password_change FROM users WHERE user_id = ?";
+    $result = $db->fetch($sql, [$user['user_id']]);
+    if ($result) {
+        $forcePasswordChange = (bool)$result['force_password_change'];
+    }
+} catch (Exception $e) {
+    logError("Error checking force_password_change: " . $e->getMessage());
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo sanitizeOutput(getUserLanguage()); ?>">
