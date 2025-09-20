@@ -21,11 +21,11 @@ try {
 }
 
 // Obtener datos para la gráfica de tendencia de ventas
+$salesData = [];
 try {
     $salesData = $db->fetchAll("SELECT DATE(issue_date) as date, SUM(total_amount) as total FROM quotes WHERE status = 'APPROVED' AND issue_date >= DATE_SUB(NOW(), INTERVAL 7 DAY) GROUP BY DATE(issue_date) ORDER BY date ASC");
 } catch (Exception $e) {
     logError("Failed to get sales data: " . $e->getMessage());
-    $salesData = [];
 }
 ?>
 <!DOCTYPE html>
@@ -38,7 +38,6 @@ try {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="/crm-project/public/assets/css/dash.css" rel="stylesheet">
     <style>
-        /* Estilos adicionales para la gráfica de tendencia de ventas */
         .sales-trend-container {
             position: relative;
             height: 300px;
@@ -58,48 +57,122 @@ try {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        .sales-trend-tooltip:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid rgba(30, 58, 138, 0.9);
+        .shortcuts-list {
+            font-size: 0.875rem;
+        }
+        
+        .shortcut-key {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .chart-card {
+            margin-bottom: 1.5rem;
+            min-height: 200px;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
     <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
     
+    <!-- Modal de Cambio de Contraseña Obligatorio -->
+    <?php if ($forcePasswordChange): ?>
+    <div class="modal fade" id="forcePasswordChangeModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title">
+                        <i class="bi bi-shield-exclamation me-2"></i>
+                        Cambio de Contraseña Requerido
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning mb-3">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Por seguridad, debes cambiar tu contraseña inicial antes de continuar.
+                    </div>
+                    
+                    <form id="forcePasswordChangeForm">
+                        <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
+                        
+                        <div class="mb-3">
+                            <label for="current_password" class="form-label">
+                                <i class="bi bi-lock me-1"></i>
+                                Contraseña Actual
+                            </label>
+                            <input type="password" class="form-control" id="current_password" name="current_password" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="new_password" class="form-label">
+                                <i class="bi bi-key me-1"></i>
+                                Nueva Contraseña
+                            </label>
+                            <input type="password" class="form-control" id="new_password" name="new_password" required>
+                            <div class="form-text">
+                                Mínimo 8 caracteres, mayúsculas, minúsculas, números y símbolos.
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="confirm_password" class="form-label">
+                                <i class="bi bi-check2-circle me-1"></i>
+                                Confirmar Contraseña
+                            </label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        
+                        <div id="passwordStrength" class="mb-3" style="display: none;">
+                            <label class="form-label">Fortaleza:</label>
+                            <div class="progress">
+                                <div id="strengthBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <small id="strengthText" class="form-text"></small>
+                        </div>
+                        
+                        <div class="alert alert-danger" id="passwordChangeError" style="display: none;">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            <span id="passwordChangeErrorText"></span>
+                        </div>
+                        
+                        <div class="alert alert-success" id="passwordChangeSuccess" style="display: none;">
+                            <i class="bi bi-check-circle me-2"></i>
+                            Contraseña cambiada exitosamente.
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-warning" form="forcePasswordChangeForm" id="changePasswordBtn">
+                        <i class="bi bi-shield-check me-2"></i>
+                        Cambiar Contraseña
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+    
     <div class="main-content">
-        <!-- Dashboard Header -->
         <div class="dashboard-header d-flex justify-content-between align-items-center">
             <div>
-                <h1><i class="bi bi-speedometer2 me-2"></i><?php echo __('dashboard') ?: 'Dashboard'; ?></h1>
-                <p class="mb-0"><?php echo __('welcome') ?: 'Welcome'; ?>, <?php echo sanitizeOutput($user['display_name']); ?>! <?php echo __('role') ?: 'Role'; ?>: <?php echo sanitizeOutput(getUserRole()); ?> | <?php echo __('company') ?: 'Company'; ?>: <?php echo sanitizeOutput($companyName); ?></p>
-            </div>
-            <div class="dashboard-logo">
-                <?php
-                // Get company logo from settings
-                $companyLogo = '';
-                try {
-                    $logoResult = $db->fetch("SELECT setting_value FROM vw_settings WHERE setting_key = 'company_logo'");
-                    if ($logoResult && !empty($logoResult['setting_value'])) {
-                        $companyLogo = $logoResult['setting_value'];
-                    }
-                } catch (Exception $e) {
-                    logError("Failed to get company logo: " . $e->getMessage());
-                }
-                ?>
-                <?php if (!empty($companyLogo)): ?>
-                    <img src="<?php echo sanitizeOutput($companyLogo); ?>" alt="Company Logo" style="max-height: 60px; max-width: 150px;" class="img-fluid">
-                <?php else: ?>
-                    <i class="bi bi-building" style="font-size: 2.5rem; color: #1e3a8a; opacity: 0.7;"></i>
-                <?php endif; ?>
+                <h1><i class="bi bi-speedometer2 me-2"></i>Dashboard</h1>
+                <p class="mb-0">Bienvenido, <?php echo sanitizeOutput($user['display_name']); ?>! Rol: <?php echo sanitizeOutput(getUserRole()); ?></p>
             </div>
         </div>
 
@@ -109,7 +182,7 @@ try {
                 <div class="stat-card-content">
                     <div>
                         <div class="stat-value"><?php echo number_format($stats['total_clients']); ?></div>
-                        <div class="stat-label"><?php echo __('total_clients') ?: 'Total Clients'; ?></div>
+                        <div class="stat-label">Total Clientes</div>
                     </div>
                     <div class="stat-icon">
                         <i class="bi bi-people"></i>
@@ -121,7 +194,7 @@ try {
                 <div class="stat-card-content">
                     <div>
                         <div class="stat-value"><?php echo number_format($stats['total_products']); ?></div>
-                        <div class="stat-label"><?php echo __('total_products') ?: 'Total Products'; ?></div>
+                        <div class="stat-label">Total Productos</div>
                     </div>
                     <div class="stat-icon">
                         <i class="bi bi-box"></i>
@@ -133,7 +206,7 @@ try {
                 <div class="stat-card-content">
                     <div>
                         <div class="stat-value"><?php echo number_format($stats['monthly_quotes']); ?></div>
-                        <div class="stat-label"><?php echo __('monthly_quotes') ?: 'Monthly Quotes'; ?></div>
+                        <div class="stat-label">Cotizaciones del Mes</div>
                     </div>
                     <div class="stat-icon">
                         <i class="bi bi-file-text"></i>
@@ -145,7 +218,7 @@ try {
                 <div class="stat-card-content">
                     <div>
                         <div class="stat-value"><?php echo formatCurrency($stats['monthly_sales']); ?></div>
-                        <div class="stat-label"><?php echo __('monthly_sales') ?: 'Monthly Sales'; ?></div>
+                        <div class="stat-label">Ventas del Mes</div>
                     </div>
                     <div class="stat-icon">
                         <i class="bi bi-graph-up"></i>
@@ -157,7 +230,7 @@ try {
                 <div class="stat-card-content">
                     <div>
                         <div class="stat-value"><?php echo number_format($stats['pending_quotes']); ?></div>
-                        <div class="stat-label"><?php echo __('pending_quotes') ?: 'Pending Quotes'; ?></div>
+                        <div class="stat-label">Cotizaciones Pendientes</div>
                     </div>
                     <div class="stat-icon">
                         <i class="bi bi-clock"></i>
@@ -169,7 +242,7 @@ try {
                 <div class="stat-card-content">
                     <div>
                         <div class="stat-value"><?php echo number_format($stats['low_stock_products']); ?></div>
-                        <div class="stat-label"><?php echo __('low_stock_alerts') ?: 'Low Stock Alerts'; ?></div>
+                        <div class="stat-label">Stock Bajo</div>
                     </div>
                     <div class="stat-icon">
                         <i class="bi bi-exclamation-triangle"></i>
@@ -182,48 +255,34 @@ try {
         <div class="quick-actions">
             <h5 class="quick-actions-title">
                 <i class="bi bi-lightning"></i>
-                <?php echo __('quick_actions') ?: 'Quick Actions'; ?>
+                Acciones Rápidas
             </h5>
             <div class="quick-actions-grid">
                 <?php if (canAccessModule('clients')): ?>
                 <a href="<?php echo url('clients', 'add'); ?>" class="quick-action-btn">
                     <i class="bi bi-person-plus"></i>
-                    <span><?php echo __('add_client') ?: 'Add Client'; ?></span>
+                    <span>Agregar Cliente</span>
                 </a>
                 <?php endif; ?>
 
                 <?php if (canAccessModule('quotes')): ?>
                 <a href="<?php echo url('quotes', 'create'); ?>" class="quick-action-btn">
                     <i class="bi bi-file-plus"></i>
-                    <span><?php echo __('create_quote') ?: 'Create Quote'; ?></span>
+                    <span>Crear Cotización</span>
                 </a>
                 <?php endif; ?>
 
                 <?php if (canAccessModule('products')): ?>
                 <a href="<?php echo url('products', 'add'); ?>" class="quick-action-btn">
                     <i class="bi bi-box-seam"></i>
-                    <span><?php echo __('add_product') ?: 'Add Product'; ?></span>
-                </a>
-                <?php endif; ?>
-
-                <?php if (hasPermission('view_sales_reports')): ?>
-                <a href="<?php echo url('reports', 'sales'); ?>" class="quick-action-btn">
-                    <i class="bi bi-bar-chart"></i>
-                    <span><?php echo __('view_reports') ?: 'View Reports'; ?></span>
+                    <span>Agregar Producto</span>
                 </a>
                 <?php endif; ?>
 
                 <a href="<?php echo url('users', 'edit', ['id' => $user['user_id']]); ?>" class="quick-action-btn">
                     <i class="bi bi-person-gear"></i>
-                    <span><?php echo __('my_profile') ?: 'My Profile'; ?></span>
+                    <span>Mi Perfil</span>
                 </a>
-
-                <?php if (hasPermission('manage_settings')): ?>
-                <a href="<?php echo url('settings', 'edit'); ?>" class="quick-action-btn">
-                    <i class="bi bi-gear"></i>
-                    <span><?php echo __('settings') ?: 'Settings'; ?></span>
-                </a>
-                <?php endif; ?>
             </div>
         </div>
 
@@ -235,23 +294,12 @@ try {
                         <div class="chart-header">
                             <h6 class="chart-title">
                                 <i class="bi bi-graph-up"></i>
-                                <?php echo __('sales_trend') ?: 'Sales Trend (Last 7 Days)'; ?>
+                                Tendencia de Ventas (Últimos 7 Días)
                             </h6>
-                            <div class="chart-actions">
-                                <button class="btn btn-sm btn-outline-primary" id="refreshSalesChart">
-                                    <i class="bi bi-arrow-clockwise"></i> Actualizar
-                                </button>
-                            </div>
                         </div>
                         <div class="sales-trend-container">
                             <canvas id="salesTrendChart"></canvas>
                             <div class="sales-trend-tooltip" id="salesTrendTooltip"></div>
-                        </div>
-                        <div class="chart-footer">
-                            <small class="text-muted">
-                                <i class="bi bi-info-circle"></i>
-                                Muestra las ventas aprobadas de los últimos 7 días. Los datos se actualizan automáticamente.
-                            </small>
                         </div>
                     </div>
                 </div>
@@ -260,7 +308,7 @@ try {
                         <div class="chart-header">
                             <h6 class="chart-title">
                                 <i class="bi bi-pie-chart"></i>
-                                <?php echo __('quote_status') ?: 'Quote Status (This Month)'; ?>
+                                Estado de Cotizaciones
                             </h6>
                         </div>
                         <div class="chart-container">
@@ -273,7 +321,7 @@ try {
                         <div class="chart-header">
                             <h6 class="chart-title">
                                 <i class="bi bi-people"></i>
-                                <?php echo __('top_clients') ?: 'Top 5 Clients'; ?>
+                                Top 5 Clientes
                             </h6>
                         </div>
                         <div class="chart-container">
@@ -283,326 +331,42 @@ try {
                 </div>
             </div>
         </div>
-
-        <!-- Dashboard Grid -->
-        <div class="dashboard-grid">
-            <!-- Left Column - Charts and Activities -->
-            <div>
-                <!-- Recent Activities -->
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <h5 class="chart-title">
-                            <i class="bi bi-activity"></i>
-                            <?php echo __('recent_activities') ?: 'Recent Activities'; ?>
-                        </h5>
-                    </div>
-                    <?php if (!empty($recentActivities)): ?>
-                        <div class="table-responsive">
-                            <table class="table dashboard-table">
-                                <thead>
-                                    <tr>
-                                        <th><?php echo __('activity') ?: 'Activity'; ?></th>
-                                        <th><?php echo __('client') ?: 'Client'; ?></th>
-                                        <th><?php echo __('date') ?: 'Date'; ?></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($recentActivities as $activity): ?>
-                                        <tr>
-                                            <td>
-                                                <span class="activity-icon <?php echo $activity['activity_type'] === 'QUOTE_APPROVED' ? 'success' : 'primary'; ?>">
-                                                    <i class="bi bi-<?php echo $activity['activity_type'] === 'QUOTE_APPROVED' ? 'check-circle' : 'file-text'; ?>"></i>
-                                                </span>
-                                                <?php echo sanitizeOutput($activity['activity_type']); ?>
-                                                <?php if ($activity['quote_number']): ?>
-                                                    - <?php echo sanitizeOutput($activity['quote_number']); ?>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td><?php echo sanitizeOutput($activity['company_name']); ?></td>
-                                            <td><?php echo formatDate($activity['activity_date'], 'M j, Y'); ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    <?php else: ?>
-                        <p class="text-muted"><?php echo __('no_recent_activities') ?: 'No recent activities'; ?></p>
-                    <?php endif; ?>
-                </div>
-
-                <!-- Recent Quotes -->
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <h5 class="chart-title">
-                            <i class="bi bi-file-text"></i>
-                            <?php echo __('recent_quotes') ?: 'Recent Quotes'; ?>
-                        </h5>
-                        <?php if (canAccessModule('quotes')): ?>
-                            <a href="<?php echo url('quotes', 'list'); ?>" class="btn btn-outline-dashboard btn-sm">
-                                <?php echo __('view_all') ?: 'View All'; ?>
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                    <?php if (!empty($recentQuotes)): ?>
-                        <div class="table-responsive">
-                            <table class="table dashboard-table">
-                                <thead>
-                                    <tr>
-                                        <th><?php echo __('quote_number') ?: 'Quote #'; ?></th>
-                                        <th><?php echo __('client') ?: 'Client'; ?></th>
-                                        <th><?php echo __('status') ?: 'Status'; ?></th>
-                                        <th><?php echo __('amount') ?: 'Amount'; ?></th>
-                                        <th><?php echo __('date') ?: 'Date'; ?></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($recentQuotes as $quote): ?>
-                                        <tr>
-                                            <td>
-                                                <?php if (canAccessModule('quotes')): ?>
-                                                    <a href="<?php echo url('quotes', 'view', ['id' => $quote['quote_id']]); ?>">
-                                                        <?php echo sanitizeOutput($quote['quote_number']); ?>
-                                                    </a>
-                                                <?php else: ?>
-                                                    <?php echo sanitizeOutput($quote['quote_number']); ?>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td><?php echo sanitizeOutput($quote['client_name']); ?></td>
-                                            <td>
-                                                <span class="badge bg-<?php echo $quote['status'] === 'APPROVED' ? 'success' : ($quote['status'] === 'SENT' ? 'warning' : 'secondary'); ?>">
-                                                    <?php echo sanitizeOutput($quote['status']); ?>
-                                                </span>
-                                            </td>
-                                            <td><?php echo formatCurrency($quote['total_amount']); ?></td>
-                                            <td><?php echo formatDate($quote['issue_date'], 'M j, Y'); ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    <?php else: ?>
-                        <p class="text-muted"><?php echo __('no_recent_quotes') ?: 'No recent quotes'; ?></p>
-                    <?php endif; ?>
-                </div>
-            </div>
-
-            <!-- Right Column - Alerts and Top Lists -->
-            <div>
-                <!-- Keyboard Shortcuts -->
-                <div class="sidebar-card mb-3">
-                    <h6 class="sidebar-card-title">
-                        <i class="bi bi-keyboard"></i>
-                        <?php echo __('keyboard_shortcuts') ?: 'Keyboard Shortcuts'; ?>
-                    </h6>
-                    <div class="shortcuts-list">
-                        <div class="shortcut-item d-flex justify-content-between align-items-center mb-2">
-                            <span class="shortcut-label"><?php echo __('new_client') ?: 'New Client'; ?></span>
-                            <kbd class="shortcut-key">Ctrl Alt C</kbd>
-                        </div>
-                        <div class="shortcut-item d-flex justify-content-between align-items-center mb-2">
-                            <span class="shortcut-label"><?php echo __('new_quote') ?: 'New Quote'; ?></span>
-                            <kbd class="shortcut-key">Ctrl Alt Q</kbd>
-                        </div>
-                        <div class="shortcut-item d-flex justify-content-between align-items-center mb-2">
-                            <span class="shortcut-label"><?php echo __('new_product') ?: 'New Product'; ?></span>
-                            <kbd class="shortcut-key">Ctrl Alt N</kbd>
-                        </div>
-                        <div class="shortcut-item d-flex justify-content-between align-items-center mb-2">
-                            <span class="shortcut-label"><?php echo __('dashboard') ?: 'Dashboard'; ?></span>
-                            <kbd class="shortcut-key">Ctrl Alt D</kbd>
-                        </div>
-                        <div class="shortcut-item d-flex justify-content-between align-items-center">
-                            <span class="shortcut-label"><?php echo __('profile') ?: 'Profile'; ?></span>
-                            <kbd class="shortcut-key">Ctrl Alt P</kbd>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Expiring Quotes -->
-                <?php if (!empty($expiringQuotes)): ?>
-                <div class="sidebar-card mb-3">
-                    <h6 class="sidebar-card-title">
-                        <i class="bi bi-clock-history"></i>
-                        <?php echo __('expiring_quotes') ?: 'Expiring Quotes'; ?>
-                    </h6>
-                    <?php foreach ($expiringQuotes as $quote): ?>
-                        <div class="expiring-quote">
-                            <div class="quote-info">
-                                <div class="quote-details">
-                                    <h6><?php echo sanitizeOutput($quote['quote_number']); ?></h6>
-                                    <small><?php echo sanitizeOutput($quote['client_name']); ?></small>
-                                </div>
-                                <span class="quote-badge badge-<?php echo $quote['days_until_expiry'] <= 1 ? 'danger' : 'warning'; ?>">
-                                    <?php echo $quote['days_until_expiry']; ?> <?php echo __('days') ?: 'days'; ?>
-                                </span>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <?php endif; ?>
-
-                <!-- Low Stock Products -->
-                <?php if (!empty($lowStockProducts)): ?>
-                <div class="sidebar-card mb-3">
-                    <h6 class="sidebar-card-title">
-                        <i class="bi bi-exclamation-triangle"></i>
-                        <?php echo __('low_stock_products') ?: 'Low Stock Products'; ?>
-                    </h6>
-                    <?php foreach ($lowStockProducts as $product): ?>
-                        <div class="alert-custom">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong><?php echo sanitizeOutput($product['product_name']); ?></strong>
-                                    <br>
-                                    <small class="text-muted"><?php echo sanitizeOutput($product['sku']); ?></small>
-                                </div>
-                                <span class="badge bg-danger"><?php echo $product['stock_quantity']; ?></span>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <?php endif; ?>
-
-                <!-- Top Clients -->
-                <?php if (!empty($topClients)): ?>
-                <div class="sidebar-card mb-3">
-                    <h6 class="sidebar-card-title">
-                        <i class="bi bi-star"></i>
-                        <?php echo __('top_clients') ?: 'Top Clients'; ?>
-                    </h6>
-                    <?php foreach ($topClients as $client): ?>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <strong><?php echo sanitizeOutput($client['company_name']); ?></strong>
-                                <br>
-                                <small class="text-muted"><?php echo $client['purchase_count']; ?> <?php echo __('orders') ?: 'orders'; ?></small>
-                            </div>
-                            <div class="text-end">
-                                <span class="fw-bold"><?php echo formatCurrency($client['total_spend']); ?></span>
-                                <br>
-                                <small class="text-muted"># <?php echo $client['rank']; ?></small>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <?php endif; ?>
-            </div>
-        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <style>
-    .shortcuts-list {
-        font-size: 0.875rem;
-    }
-    
-    .shortcut-label {
-        color: #374151;
-        font-weight: 500;
-    }
-    
-    .shortcut-key {
-        background: #f3f4f6;
-        border: 1px solid #d1d5db;
-        border-radius: 4px;
-        padding: 0.25rem 0.5rem;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: #374151;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
-    
-    .sidebar-card {
-        margin-bottom: 1.5rem;
-    }
-    
-    .chart-card {
-        margin-bottom: 1.5rem;
-        min-height: 200px;
-    }
-    
-    .charts-container {
-        background: white;
-        border-radius: 15px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 20px rgba(30, 58, 138, 0.08);
-        border: 1px solid rgba(30, 58, 138, 0.1);
-    }
-    
-    .charts-title {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: #1e3a8a;
-        margin-bottom: 1.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    
-    .charts-container .chart-card {
-        min-height: 280px;
-        margin-bottom: 0;
-    }
-    
-    .charts-container .chart-container {
-        position: relative;
-        height: 220px;
-        width: 100%;
-    }
-    
-    .charts-container .chart-header h6 {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .chart-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-    }
-    
-    .chart-footer {
-        margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 1px solid #e9ecef;
-    }
-    </style>
-    
     <script>
-    // Datos de la gráfica de tendencia de ventas
+    // Datos de ventas
     const salesData = <?php echo json_encode($salesData); ?>;
     
-    // Preparar datos para la gráfica
+    // Preparar datos para gráfica
     const salesTrendLabels = [];
     const salesTrendValues = [];
     
-    // Crear un array con los últimos 7 días
+    // Crear array de últimos 7 días
     const last7Days = [];
-    for (let i = 7; i >= 0; i--) {
+    for (let i = 6; i >= 0; i--) {
         const date = new Date();
         date.setDate(date.getDate() - i);
         last7Days.push(date.toISOString().split('T')[0]);
     }
     
-    // Llenar los datos, incluyendo días sin ventas
+    // Llenar datos
     last7Days.forEach(day => {
         const sale = salesData.find(item => item.date === day);
         salesTrendLabels.push(new Date(day).toLocaleDateString());
         salesTrendValues.push(sale ? parseFloat(sale.total) : 0);
     });
     
-    // Crear la gráfica de tendencia de ventas
+    // Gráfica de tendencia de ventas
     const salesTrendCtx = document.getElementById('salesTrendChart').getContext('2d');
     const salesTrendChart = new Chart(salesTrendCtx, {
         type: 'line',
         data: {
             labels: salesTrendLabels,
             datasets: [{
-                label: '<?php echo __('sales') ?: 'Sales'; ?>',
+                label: 'Ventas',
                 data: salesTrendValues,
                 borderColor: '#1e3a8a',
                 backgroundColor: 'rgba(30, 58, 138, 0.1)',
@@ -612,8 +376,7 @@ try {
                 pointBackgroundColor: '#1e3a8a',
                 pointBorderColor: '#ffffff',
                 pointBorderWidth: 2,
-                pointRadius: 5,
-                pointHoverRadius: 7
+                pointRadius: 5
             }]
         },
         options: {
@@ -622,191 +385,188 @@ try {
             plugins: {
                 legend: {
                     display: false
-                },
-                tooltip: {
-                    enabled: false,
-                    external: function(context) {
-                        // Tooltip personalizado
-                        const tooltip = document.getElementById('salesTrendTooltip');
-                        if (context.tooltip.opacity === 0) {
-                            tooltip.style.display = 'none';
-                            return;
-                        }
-                        
-                        const dataIndex = context.tooltip.dataPoints[0].dataIndex;
-                        const value = context.tooltip.dataPoints[0].formattedValue;
-                        const label = context.tooltip.dataPoints[0].label;
-                        
-                        tooltip.innerHTML = `
-                            <div><strong>${label}</strong></div>
-                            <div>Ventas: $${value}</div>
-                        `;
-                        
-                        const chartRect = context.chart.canvas.getBoundingClientRect();
-                        tooltip.style.left = chartRect.left + context.tooltip.caretX + 'px';
-                        tooltip.style.top = chartRect.top + context.tooltip.caretY - 80 + 'px';
-                        tooltip.style.display = 'block';
-                    }
                 }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0.1)'
-                    },
                     ticks: {
                         callback: function(value) {
                             return '$' + value;
                         }
                     }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    }
                 }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index'
             }
         }
     });
     
-    // Botón para actualizar la gráfica
-    document.getElementById('refreshSalesChart').addEventListener('click', function() {
-        this.disabled = true;
-        this.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Actualizando...';
-        
-        // Simular una actualización (en un caso real, harías una petición AJAX)
-        setTimeout(() => {
-            salesTrendChart.update();
-            this.disabled = false;
-            this.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Actualizar';
-        }, 1000);
-    });
-    
-    // Otras gráficas (mantenidas igual)
     <?php
+    // Datos para otras gráficas
+    $quotesStatusData = [];
     try {
         $quotesStatusData = $db->fetchAll("SELECT status, COUNT(*) as count FROM quotes WHERE MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE()) GROUP BY status");
     } catch (Exception $e) {
         logError("Chart data error: " . $e->getMessage());
-        $quotesStatusData = [];
     }
     ?>
     
     const quotesStatusData = <?php echo json_encode($quotesStatusData); ?>;
     const topClientsData = <?php echo json_encode(array_slice($topClients, 0, 5)); ?>;
     
-    // Quotes Status Chart
-    const quotesCtx = document.getElementById('quotesChart').getContext('2d');
-    new Chart(quotesCtx, {
-        type: 'doughnut',
-        data: {
-            labels: quotesStatusData.map(item => item.status),
-            datasets: [{
-                data: quotesStatusData.map(item => parseInt(item.count)),
-                backgroundColor: ['#1e3a8a', '#3b82f6', '#60a5fa', '#93c5fd'],
-                borderWidth: 0,
-                hoverOffset: 10
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        font: {
-                            size: 11
-                        },
-                        padding: 15,
-                        usePointStyle: true
+    // Gráfica de estado de cotizaciones
+    if (quotesStatusData.length > 0) {
+        const quotesCtx = document.getElementById('quotesChart').getContext('2d');
+        new Chart(quotesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: quotesStatusData.map(item => item.status),
+                datasets: [{
+                    data: quotesStatusData.map(item => parseInt(item.count)),
+                    backgroundColor: ['#1e3a8a', '#3b82f6', '#60a5fa', '#93c5fd'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
                     }
                 }
             }
-        }
-    });
+        });
+    }
     
-    // Top Clients Chart
-    const clientsCtx = document.getElementById('clientsChart').getContext('2d');
-    new Chart(clientsCtx, {
-        type: 'bar',
-        data: {
-            labels: topClientsData.map(client => client.company_name.length > 12 ? client.company_name.substring(0, 12) + '...' : client.company_name),
-            datasets: [{
-                label: '<?php echo __('total_spend') ?: 'Total Spend'; ?>',
-                data: topClientsData.map(client => parseFloat(client.total_spend)),
-                backgroundColor: '#1e3a8a',
-                borderRadius: 6,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
+    // Gráfica de top clientes
+    if (topClientsData.length > 0) {
+        const clientsCtx = document.getElementById('clientsChart').getContext('2d');
+        new Chart(clientsCtx, {
+            type: 'bar',
+            data: {
+                labels: topClientsData.map(client => client.company_name.substring(0, 12)),
+                datasets: [{
+                    label: 'Total',
+                    data: topClientsData.map(client => parseFloat(client.total_spend)),
+                    backgroundColor: '#1e3a8a'
+                }]
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0.1)'
-                    }
-                },
-                x: {
-                    grid: {
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
                         display: false
                     }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
+            }
+        });
+    }
+    
+    <?php if ($forcePasswordChange): ?>
+    // Modal de cambio de contraseña
+    const forcePasswordModal = new bootstrap.Modal(document.getElementById('forcePasswordChangeModal'));
+    forcePasswordModal.show();
+    
+    // Validación de fortaleza
+    document.getElementById('new_password').addEventListener('input', function() {
+        const password = this.value;
+        const strengthDiv = document.getElementById('passwordStrength');
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthText = document.getElementById('strengthText');
+        
+        if (password.length > 0) {
+            strengthDiv.style.display = 'block';
+            
+            let strength = 0;
+            if (password.length >= 8) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[a-z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+            
+            strengthBar.style.width = strength + '%';
+            
+            if (strength < 50) {
+                strengthBar.className = 'progress-bar bg-danger';
+                strengthText.textContent = 'Débil';
+            } else if (strength < 100) {
+                strengthBar.className = 'progress-bar bg-warning';
+                strengthText.textContent = 'Medio';
+            } else {
+                strengthBar.className = 'progress-bar bg-success';
+                strengthText.textContent = 'Fuerte';
+            }
+        } else {
+            strengthDiv.style.display = 'none';
+        }
+    });
+    
+    // Validar coincidencia
+    document.getElementById('confirm_password').addEventListener('input', function() {
+        const newPassword = document.getElementById('new_password').value;
+        const confirmPassword = this.value;
+        
+        if (confirmPassword.length > 0) {
+            if (newPassword !== confirmPassword) {
+                this.classList.add('is-invalid');
+                this.nextElementSibling.textContent = 'Las contraseñas no coinciden';
+            } else {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
             }
         }
     });
     
-    // Keyboard shortcuts functionality
-    document.addEventListener('keydown', function(e) {
-        // Ctrl + Alt + C - New Client
-        if (e.ctrlKey && e.altKey && e.key === 'c') {
-            e.preventDefault();
-            <?php if (canAccessModule('clients')): ?>
-            window.location.href = '<?php echo url('clients', 'add'); ?>';
-            <?php endif; ?>
-        }
+    // Envío del formulario
+    document.getElementById('forcePasswordChangeForm').addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        // Ctrl + Alt + Q - New Quote
-        if (e.ctrlKey && e.altKey && e.key === 'q') {
-            e.preventDefault();
-            <?php if (canAccessModule('quotes')): ?>
-            window.location.href = '<?php echo url('quotes', 'create'); ?>';
-            <?php endif; ?>
-        }
+        const formData = new FormData(this);
+        const submitBtn = document.getElementById('changePasswordBtn');
+        const errorDiv = document.getElementById('passwordChangeError');
+        const successDiv = document.getElementById('passwordChangeSuccess');
         
-        // Ctrl + Alt + N - New Product
-        if (e.ctrlKey && e.altKey && e.key === 'n') {
-            e.preventDefault();
-            <?php if (canAccessModule('products')): ?>
-            window.location.href = '<?php echo url('products', 'add'); ?>';
-            <?php endif; ?>
-        }
+        errorDiv.style.display = 'none';
+        successDiv.style.display = 'none';
         
-        // Ctrl + Alt + D - Dashboard
-        if (e.ctrlKey && e.altKey && e.key === 'd') {
-            e.preventDefault();
-            window.location.href = '<?php echo url('dashboard', 'index'); ?>';
-        }
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Cambiando...';
         
-        // Ctrl + Alt + P - Profile
-        if (e.ctrlKey && e.altKey && e.key === 'p') {
-            e.preventDefault();
-            window.location.href = '<?php echo url('users', 'edit', ['id' => $user['user_id']]); ?>';
-        }
+        fetch('/?module=users&action=force_password_change', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                successDiv.style.display = 'block';
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            } else {
+                errorDiv.style.display = 'block';
+                document.getElementById('passwordChangeErrorText').textContent = data.message || 'Error al cambiar la contraseña';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            errorDiv.style.display = 'block';
+            document.getElementById('passwordChangeErrorText').textContent = 'Error de conexión';
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="bi bi-shield-check me-2"></i>Cambiar Contraseña';
+        });
     });
+    <?php endif; ?>
     </script>
 </body>
 </html>
