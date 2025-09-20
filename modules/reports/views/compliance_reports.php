@@ -13,18 +13,6 @@
         .audit-table { font-size: 0.9rem; }
         .loading-spinner { display: none; }
         .badge-action { font-size: 0.75rem; }
-        .pagination-container { 
-            display: flex; 
-            justify-content: center; 
-            margin-top: 20px; 
-        }
-        .page-info {
-            margin: 0 15px;
-            padding: 8px 12px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            font-weight: 500;
-        }
         .filter-card {
             background-color: #f8f9fa;
             border: 1px solid #dee2e6;
@@ -84,24 +72,25 @@
                         <div class="col-md-3">
                             <label for="startDate" class="form-label">Fecha Inicio</label>
                             <input type="date" id="startDate" name="start_date" class="form-control form-control-sm" 
-                                   value="<?= sanitizeOutput($_GET['start_date'] ?? '') ?>">
+                                   value="<?= sanitizeOutput($startDate) ?>">
                         </div>
                         
                         <div class="col-md-3">
                             <label for="endDate" class="form-label">Fecha Fin</label>
                             <input type="date" id="endDate" name="end_date" class="form-control form-control-sm" 
-                                   value="<?= sanitizeOutput($_GET['end_date'] ?? '') ?>">
+                                   value="<?= sanitizeOutput($endDate) ?>">
                         </div>
                         
                         <div class="col-md-4">
                             <label for="actionFilter" class="form-label">Tipo de Acción</label>
                             <select id="actionFilter" name="action_type" class="form-select form-select-sm">
                                 <option value="">Todas las acciones</option>
-                                <option value="INSERT" <?= ($_GET['action_type'] ?? '') == 'INSERT' ? 'selected' : '' ?>>INSERT</option>
-                                <option value="UPDATE" <?= ($_GET['action_type'] ?? '') == 'UPDATE' ? 'selected' : '' ?>>UPDATE</option>
-                                <option value="DELETE" <?= ($_GET['action_type'] ?? '') == 'DELETE' ? 'selected' : '' ?>>DELETE</option>
-                                <option value="LOGIN" <?= ($_GET['action_type'] ?? '') == 'LOGIN' ? 'selected' : '' ?>>LOGIN</option>
-                                <option value="LOGOUT" <?= ($_GET['action_type'] ?? '') == 'LOGOUT' ? 'selected' : '' ?>>LOGOUT</option>
+                                <option value="INSERT" <?= $actionType == 'INSERT' ? 'selected' : '' ?>>INSERT</option>
+                                <option value="UPDATE" <?= $actionType == 'UPDATE' ? 'selected' : '' ?>>UPDATE</option>
+                                <option value="DELETE" <?= $actionType == 'DELETE' ? 'selected' : '' ?>>DELETE</option>
+                                <option value="LOGIN" <?= $actionType == 'LOGIN' ? 'selected' : '' ?>>LOGIN</option>
+                                <option value="LOGOUT" <?= $actionType == 'LOGOUT' ? 'selected' : '' ?>>LOGOUT</option>
+                                <option value="STOCK_UPDATE" <?= $actionType == 'STOCK_UPDATE' ? 'selected' : '' ?>>STOCK_UPDATE</option>
                             </select>
                         </div>
                         
@@ -111,7 +100,7 @@
                             </button>
                         </div>
                         
-                        <?php if (!empty($_GET['start_date']) || !empty($_GET['end_date']) || !empty($_GET['action_type'])): ?>
+                        <?php if (!empty($startDate) || !empty($endDate) || !empty($actionType)): ?>
                         <div class="col-12">
                             <a href="<?= url('reports', 'compliance') ?>" class="btn btn-outline-danger btn-sm">
                                 <i class="bi bi-x-circle"></i> Limpiar Filtros
@@ -232,7 +221,7 @@
                         <h5 class="card-title mb-0">
                             <i class="bi bi-list-ul"></i> Logs de Auditoría
                             <?php if (!empty($auditLogs)): ?>
-                            <span class="badge bg-secondary ms-2"><?= number_format($securityPosture['audit_log_count'] ?? 0) ?> total</span>
+                            <span class="badge bg-secondary ms-2"><?= number_format($totalLogs) ?> total</span>
                             <?php endif; ?>
                         </h5>
                         <div>
@@ -250,6 +239,10 @@
                     </div>
 
                     <?php if (!empty($auditLogs)): ?>
+                        <?php 
+                        $totalLogs = $totalCount ?? $securityPosture['audit_log_count'] ?? 0;
+                        $totalPages = ceil($totalLogs / $limit);
+                        ?>
                         <div class="table-responsive">
                             <table class="table table-striped table-hover audit-table report-table">
                                 <thead class="table-dark">
@@ -272,7 +265,7 @@
                                             </td>
                                             <td>
                                                 <?php if ($log['user_id']): ?>
-                                                    <span class="badge bg-primary">Usuario #<?= $log['user_id'] ?></span>
+                                                    <span class="badge bg-primary"><?= sanitizeOutput($log['username'] ?? 'Usuario #' . $log['user_id']) ?></span>
                                                 <?php else: ?>
                                                     <span class="badge bg-secondary">Sistema</span>
                                                 <?php endif; ?>
@@ -309,66 +302,51 @@
                         </div>
 
                         <!-- Pagination -->
-                        <div class="pagination-container">
-                            <nav aria-label="Paginación de logs de auditoría">
-                                <ul class="pagination">
-                                    <?php if ($page > 1): ?>
-                                        <li class="page-item">
-                                            <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => 1])) ?>">
-                                                <i class="bi bi-chevron-double-left"></i> Primera
-                                            </a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => $page - 1])) ?>">
-                                                <i class="bi bi-chevron-left"></i> Anterior
-                                            </a>
-                                        </li>
-                                    <?php else: ?>
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="bi bi-chevron-double-left"></i> Primera</span>
-                                        </li>
-                                        <li class="page-item disabled">
-                                            <span class="page-link"><i class="bi bi-chevron-left"></i> Anterior</span>
-                                        </li>
-                                    <?php endif; ?>
-                                    
-                                    <li class="page-item active">
-                                        <span class="page-info">Página <?= $page ?> de <?= ceil($securityPosture['audit_log_count'] / 15) ?></span>
+                        <?php if ($totalPages > 1): ?>
+                        <nav aria-label="Paginación de logs de auditoría" class="mt-3">
+                            <ul class="pagination justify-content-center">
+                                <?php if ($page > 1): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => 1])) ?>">
+                                            <i class="bi bi-chevron-double-left"></i>
+                                        </a>
                                     </li>
-                                    
-                                    <?php if (count($auditLogs) >= 15 && $page < ceil($securityPosture['audit_log_count'] / 15)): ?>
-                                        <li class="page-item">
-                                            <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => $page + 1])) ?>">
-                                                Siguiente <i class="bi bi-chevron-right"></i>
-                                            </a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => ceil($securityPosture['audit_log_count'] / 15)])) ?>">
-                                                Última <i class="bi bi-chevron-double-right"></i>
-                                            </a>
-                                        </li>
-                                    <?php else: ?>
-                                        <li class="page-item disabled">
-                                            <span class="page-link">Siguiente <i class="bi bi-chevron-right"></i></span>
-                                        </li>
-                                        <li class="page-item disabled">
-                                            <span class="page-link">Última <i class="bi bi-chevron-double-right"></i></span>
-                                        </li>
-                                    <?php endif; ?>
-                                </ul>
-                            </nav>
-                        </div>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => $page - 1])) ?>">
+                                            <i class="bi bi-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                                
+                                <li class="page-item active">
+                                    <span class="page-link">Página <?= $page ?> de <?= $totalPages ?></span>
+                                </li>
+                                
+                                <?php if ($page < $totalPages): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => $page + 1])) ?>">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?= url('reports', 'compliance', array_merge($_GET, ['page' => $totalPages])) ?>">
+                                            <i class="bi bi-chevron-double-right"></i>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </nav>
+                        <?php endif; ?>
                         
-                        <!-- Información de paginación -->
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <p class="text-muted small">
-                                    Mostrando <?= count($auditLogs) ?> de <?= number_format($securityPosture['audit_log_count']) ?> registros
+                                    Mostrando <?= count($auditLogs) ?> de <?= number_format($totalLogs) ?> registros
                                 </p>
                             </div>
                             <div class="col-md-6 text-end">
                                 <p class="text-muted small">
-                                    Página <?= $page ?> de <?= ceil($securityPosture['audit_log_count'] / 15) ?>
+                                    Página <?= $page ?> de <?= $totalPages ?>
                                 </p>
                             </div>
                         </div>
@@ -376,8 +354,8 @@
                         <div class="text-center py-5">
                             <i class="bi bi-journal-text display-1 text-muted"></i>
                             <h5 class="text-muted mt-3">No hay logs de auditoría disponibles</h5>
-                            <?php if (!empty($_GET['start_date']) || !empty($_GET['end_date'])): ?>
-                            <p class="text-muted">Pruebe con un rango de fechas diferente</p>
+                            <?php if (!empty($startDate) || !empty($endDate) || !empty($actionType)): ?>
+                            <p class="text-muted">Pruebe con un rango de fechas diferente o filtros distintos</p>
                             <?php endif; ?>
                         </div>
                     <?php endif; ?>
@@ -389,12 +367,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Establecer fecha máxima como hoy para ambos campos
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('startDate').setAttribute('max', today);
         document.getElementById('endDate').setAttribute('max', today);
         
-        // Validar que fecha inicio no sea mayor a fecha fin
         document.getElementById('startDate').addEventListener('change', function() {
             const endDate = document.getElementById('endDate');
             if (this.value && endDate.value && this.value > endDate.value) {
@@ -409,19 +385,20 @@
             }
         });
         
-        // Exportar a CSV
         document.getElementById('exportCSV').addEventListener('click', function() {
             const url = new URL(window.location.href);
             url.searchParams.set('export', 'csv');
             window.location.href = url.toString();
         });
         
-        // Refrescar reportes
         document.getElementById('refreshReports').addEventListener('click', function() {
             this.disabled = true;
             this.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Actualizando...';
             
-            fetch('<?= url('reports', 'compliance') ?>', {
+            const url = new URL(window.location.href);
+            url.searchParams.set('action', 'refresh');
+            
+            fetch(url.toString(), {
                 method: 'POST',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'

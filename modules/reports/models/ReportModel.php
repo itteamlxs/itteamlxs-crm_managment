@@ -22,7 +22,7 @@ class ReportModel {
                     ORDER BY total_amount DESC";
             return $this->db->fetchAll($sql);
         } catch (Exception $e) {
-            logError("Get sales performance failed: " . $e->getMessage());
+            error_log("Get sales performance failed: " . $e->getMessage());
             return [];
         }
     }
@@ -35,7 +35,7 @@ class ReportModel {
                     LIMIT ?";
             return $this->db->fetchAll($sql, [$months]);
         } catch (Exception $e) {
-            logError("Get sales trends failed: " . $e->getMessage());
+            error_log("Get sales trends failed: " . $e->getMessage());
             return [];
         }
     }
@@ -105,7 +105,6 @@ class ReportModel {
     
     public function getLowStockProducts() {
         try {
-            // Get low stock threshold from settings or use default
             $thresholdSql = "SELECT setting_value FROM settings WHERE setting_key = 'low_stock_threshold'";
             $thresholdResult = $this->db->fetch($thresholdSql);
             $threshold = $thresholdResult ? (int)$thresholdResult['setting_value'] : 10;
@@ -123,34 +122,63 @@ class ReportModel {
     }
     
     // Compliance Reports
-    public function getAuditLogs($limit = 100, $offset = 0, $startDate = '', $endDate = '') {
+    public function getAuditLogs($limit = 100, $offset = 0, $startDate = '', $endDate = '', $actionType = '') {
         try {
-            // Use the audit_logs table directly since view has issues
             $sql = "SELECT al.audit_id, al.user_id, al.action, al.entity_type, al.entity_id, 
-                           al.ip_address, al.created_at
-                    FROM audit_logs al";
+                           al.ip_address, al.created_at, u.username, u.display_name
+                    FROM audit_logs al
+                    LEFT JOIN users u ON al.user_id = u.user_id
+                    WHERE 1=1";
             $params = [];
             
             if (!empty($startDate) && !empty($endDate)) {
-                $sql .= " WHERE al.created_at BETWEEN ? AND ?";
+                $sql .= " AND al.created_at BETWEEN ? AND ?";
                 $params[] = $startDate . ' 00:00:00';
                 $params[] = $endDate . ' 23:59:59';
             }
             
+            if (!empty($actionType)) {
+                $sql .= " AND al.action = ?";
+                $params[] = $actionType;
+            }
+            
             $sql .= " ORDER BY al.created_at DESC LIMIT ? OFFSET ?";
-            $params[] = $limit;
-            $params[] = $offset;
+            $params[] = (int)$limit;
+            $params[] = (int)$offset;
             
             return $this->db->fetchAll($sql, $params);
         } catch (Exception $e) {
-            logError("Get audit logs failed: " . $e->getMessage());
+            error_log("Get audit logs failed: " . $e->getMessage());
             return [];
+        }
+    }
+    
+    public function getAuditLogsCount($startDate = '', $endDate = '', $actionType = '') {
+        try {
+            $sql = "SELECT COUNT(*) as total FROM audit_logs al WHERE 1=1";
+            $params = [];
+            
+            if (!empty($startDate) && !empty($endDate)) {
+                $sql .= " AND al.created_at BETWEEN ? AND ?";
+                $params[] = $startDate . ' 00:00:00';
+                $params[] = $endDate . ' 23:59:59';
+            }
+            
+            if (!empty($actionType)) {
+                $sql .= " AND al.action = ?";
+                $params[] = $actionType;
+            }
+            
+            $result = $this->db->fetch($sql, $params);
+            return $result ? (int)$result['total'] : 0;
+        } catch (Exception $e) {
+            error_log("Get audit logs count failed: " . $e->getMessage());
+            return 0;
         }
     }
     
     public function getSecurityPosture() {
         try {
-            // Query directo sin depender de la vista problemática
             $sql = "SELECT 
                         COALESCE(SUM(u.failed_login_attempts), 0) AS failed_login_count,
                         COALESCE(COUNT(CASE WHEN u.locked_until IS NOT NULL AND u.locked_until > NOW() THEN 1 END), 0) AS locked_accounts,
@@ -162,7 +190,6 @@ class ReportModel {
                     
             $result = $this->db->fetch($sql);
             
-            // Asegurar que todos los valores sean enteros
             if ($result) {
                 $result['failed_login_count'] = (int)$result['failed_login_count'];
                 $result['locked_accounts'] = (int)$result['locked_accounts'];
@@ -181,7 +208,7 @@ class ReportModel {
             ];
             
         } catch (Exception $e) {
-            logError("Get security posture failed: " . $e->getMessage());
+            error_log("Get security posture failed: " . $e->getMessage());
             return [
                 'failed_login_count' => 0,
                 'locked_accounts' => 0,
@@ -205,7 +232,7 @@ class ReportModel {
             
             return $this->db->fetchAll($sql);
         } catch (Exception $e) {
-            logError("Get user activities failed: " . $e->getMessage());
+            error_log("Get user activities failed: " . $e->getMessage());
             return [];
         }
     }
@@ -227,7 +254,6 @@ class ReportModel {
         try {
             $this->db->beginTransaction();
             
-            // Check if materialized tables exist before refreshing
             $tables = ['materialized_sales_performance', 'materialized_sales_trends', 'materialized_client_purchase_patterns'];
             
             foreach ($tables as $table) {
@@ -263,8 +289,10 @@ class ReportModel {
             $this->db->commit();
             return true;
         } catch (Exception $e) {
-            $this->db->rollback();
-            logError("Refresh materialized views failed: " . $e->getMessage());
+            if ($this->db->inTransaction()) {
+                $this->db->rollback();
+            }
+            error_log("Refresh materialized views failed: " . $e->getMessage());
             return false;
         }
     }
