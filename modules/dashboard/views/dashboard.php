@@ -20,7 +20,6 @@ try {
     logError("Failed to get company name: " . $e->getMessage());
 }
 
-// Obtener datos para la gráfica de tendencia de ventas
 $salesData = [];
 try {
     $salesData = $db->fetchAll("SELECT DATE(issue_date) as date, SUM(total_amount) as total FROM quotes WHERE status = 'APPROVED' AND issue_date >= DATE_SUB(NOW(), INTERVAL 7 DAY) GROUP BY DATE(issue_date) ORDER BY date ASC");
@@ -87,7 +86,6 @@ try {
 <body>
     <?php include __DIR__ . '/../../../public/includes/nav.php'; ?>
     
-    <!-- Modal de Cambio de Contraseña Obligatorio -->
     <?php if ($forcePasswordChange): ?>
     <div class="modal fade" id="forcePasswordChangeModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
@@ -176,7 +174,6 @@ try {
             </div>
         </div>
 
-        <!-- Statistics Cards -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-card-content">
@@ -251,7 +248,6 @@ try {
             </div>
         </div>
 
-        <!-- Quick Actions -->
         <div class="quick-actions">
             <h5 class="quick-actions-title">
                 <i class="bi bi-lightning"></i>
@@ -286,7 +282,6 @@ try {
             </div>
         </div>
 
-        <!-- Charts Section -->
         <div class="charts-section mb-4">
             <div class="row g-3">
                 <div class="col-12">
@@ -337,14 +332,11 @@ try {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <script>
-    // Datos de ventas
     const salesData = <?php echo json_encode($salesData); ?>;
     
-    // Preparar datos para gráfica
     const salesTrendLabels = [];
     const salesTrendValues = [];
     
-    // Crear array de últimos 7 días
     const last7Days = [];
     for (let i = 6; i >= 0; i--) {
         const date = new Date();
@@ -352,14 +344,12 @@ try {
         last7Days.push(date.toISOString().split('T')[0]);
     }
     
-    // Llenar datos
     last7Days.forEach(day => {
         const sale = salesData.find(item => item.date === day);
         salesTrendLabels.push(new Date(day).toLocaleDateString());
         salesTrendValues.push(sale ? parseFloat(sale.total) : 0);
     });
     
-    // Gráfica de tendencia de ventas
     const salesTrendCtx = document.getElementById('salesTrendChart').getContext('2d');
     const salesTrendChart = new Chart(salesTrendCtx, {
         type: 'line',
@@ -401,7 +391,6 @@ try {
     });
     
     <?php
-    // Datos para otras gráficas
     $quotesStatusData = [];
     try {
         $quotesStatusData = $db->fetchAll("SELECT status, COUNT(*) as count FROM quotes WHERE MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE()) GROUP BY status");
@@ -413,7 +402,6 @@ try {
     const quotesStatusData = <?php echo json_encode($quotesStatusData); ?>;
     const topClientsData = <?php echo json_encode(array_slice($topClients, 0, 5)); ?>;
     
-    // Gráfica de estado de cotizaciones
     if (quotesStatusData.length > 0) {
         const quotesCtx = document.getElementById('quotesChart').getContext('2d');
         new Chart(quotesCtx, {
@@ -438,7 +426,6 @@ try {
         });
     }
     
-    // Gráfica de top clientes
     if (topClientsData.length > 0) {
         const clientsCtx = document.getElementById('clientsChart').getContext('2d');
         new Chart(clientsCtx, {
@@ -469,11 +456,9 @@ try {
     }
     
     <?php if ($forcePasswordChange): ?>
-    // Modal de cambio de contraseña
     const forcePasswordModal = new bootstrap.Modal(document.getElementById('forcePasswordChangeModal'));
     forcePasswordModal.show();
     
-    // Validación de fortaleza
     document.getElementById('new_password').addEventListener('input', function() {
         const password = this.value;
         const strengthDiv = document.getElementById('passwordStrength');
@@ -506,7 +491,6 @@ try {
         }
     });
     
-    // Validar coincidencia
     document.getElementById('confirm_password').addEventListener('input', function() {
         const newPassword = document.getElementById('new_password').value;
         const confirmPassword = this.value;
@@ -522,7 +506,6 @@ try {
         }
     });
     
-    // Envío del formulario
     document.getElementById('forcePasswordChangeForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -544,7 +527,15 @@ try {
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            const contentType = response.headers.get('Content-Type');
+            if (!contentType || !contentType.includes('application/json')) {
+                return response.text().then(text => {
+                    throw new Error('Server returned non-JSON response');
+                });
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
                 successDiv.style.display = 'block';
@@ -553,11 +544,26 @@ try {
                 }, 2000);
             } else {
                 errorDiv.style.display = 'block';
-                document.getElementById('passwordChangeErrorText').textContent = data.message || 'Error al cambiar la contraseña';
+                if (data.errors && Object.keys(data.errors).length > 0) {
+                    let errorMessage = '';
+                    for (const [field, message] of Object.entries(data.errors)) {
+                        errorMessage += message + '. ';
+                        const fieldElement = document.getElementById(field);
+                        if (fieldElement) {
+                            fieldElement.classList.add('is-invalid');
+                            const feedback = fieldElement.nextElementSibling;
+                            if (feedback && feedback.classList.contains('invalid-feedback')) {
+                                feedback.textContent = message;
+                            }
+                        }
+                    }
+                    document.getElementById('passwordChangeErrorText').textContent = errorMessage;
+                } else {
+                    document.getElementById('passwordChangeErrorText').textContent = data.message || data.error || 'Error al cambiar la contraseña';
+                }
             }
         })
         .catch(error => {
-            console.error('Error:', error);
             errorDiv.style.display = 'block';
             document.getElementById('passwordChangeErrorText').textContent = 'Error de conexión';
         })
@@ -565,6 +571,18 @@ try {
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<i class="bi bi-shield-check me-2"></i>Cambiar Contraseña';
         });
+    });
+    
+    document.getElementById('current_password').addEventListener('input', function() {
+        this.classList.remove('is-invalid');
+    });
+    
+    document.getElementById('new_password').addEventListener('input', function() {
+        this.classList.remove('is-invalid');
+    });
+    
+    document.getElementById('confirm_password').addEventListener('input', function() {
+        this.classList.remove('is-invalid');
     });
     <?php endif; ?>
     </script>

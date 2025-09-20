@@ -10,28 +10,51 @@ require_once __DIR__ . '/../../../core/security.php';
 require_once __DIR__ . '/../../../core/rbac.php';
 require_once __DIR__ . '/../../../config/db.php';
 
-// Require login
-requireLogin();
+// Prevent any redirects by disabling session timeout check for this endpoint
+ini_set('session.gc_maxlifetime', 0);
 
-// Only allow POST requests
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    jsonResponse(['error' => 'Method not allowed'], 405);
+header('Content-Type: application/json');
+
+// Disable any potential redirects from helper functions
+if (!function_exists('redirect')) {
+    function redirect($url) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'error' => 'Redirect attempted in AJAX endpoint']);
+        exit;
+    }
 }
 
-// Only allow AJAX requests
+if (!isset($_SESSION) || session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+if (!isLoggedIn()) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'error' => 'Authentication required']);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'error' => 'Method not allowed']);
+    exit;
+}
+
 if (!isAjaxRequest()) {
-    jsonResponse(['error' => 'Direct access not allowed'], 403);
+    http_response_code(403);
+    echo json_encode(['success' => false, 'error' => 'Direct access not allowed']);
+    exit;
 }
 
 $user = getCurrentUser();
 $db = Database::getInstance();
 
-// Validate CSRF token
 if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
-    jsonResponse(['error' => 'Invalid CSRF token'], 403);
+    http_response_code(403);
+    echo json_encode(['success' => false, 'error' => 'Invalid CSRF token']);
+    exit;
 }
 
-// Get form data
 $userId = (int)($_POST['user_id'] ?? 0);
 $currentPassword = $_POST['current_password'] ?? '';
 $newPassword = $_POST['new_password'] ?? '';
@@ -40,80 +63,71 @@ $confirmPassword = $_POST['confirm_password'] ?? '';
 $errors = [];
 $response = ['success' => false, 'message' => '', 'errors' => []];
 
-// Validate user ID matches current user
-if ($userId !== $user['user_id']) {
-    jsonResponse(['error' => 'Unauthorized access'], 403);
-}
-
-// Verify user actually needs to change password
 try {
+    if ($userId !== $user['user_id']) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'error' => 'Unauthorized access']);
+        exit;
+    }
+
     $sql = "SELECT password_hash, force_password_change FROM users WHERE user_id = ?";
     $userData = $db->fetch($sql, [$userId]);
     
     if (!$userData) {
-        jsonResponse(['error' => 'User not found'], 404);
+        http_response_code(404);
+        echo json_encode(['success' => false, 'error' => 'User not found']);
+        exit;
     }
     
     if (!$userData['force_password_change']) {
-        jsonResponse(['error' => 'Password change not required'], 400);
+        http_response_code(400);
+        echo json_encode(['success' => false, 'error' => 'Password change not required']);
+        exit;
     }
-    
-} catch (Exception $e) {
-    logError("Force password change - user lookup error: " . $e->getMessage());
-    jsonResponse(['error' => 'Database error'], 500);
-}
 
-// Validate input data
-if (empty($currentPassword)) {
-    $errors['current_password'] = __('current_password_required') ?: 'La contraseña actual es requerida';
-}
-
-if (empty($newPassword)) {
-    $errors['new_password'] = __('new_password_required') ?: 'La nueva contraseña es requerida';
-}
-
-if (empty($confirmPassword)) {
-    $errors['confirm_password'] = __('confirm_password_required') ?: 'La confirmación de contraseña es requerida';
-}
-
-// Verify current password
-if (!empty($currentPassword) && !verifyPassword($currentPassword, $userData['password_hash'])) {
-    $errors['current_password'] = __('current_password_incorrect') ?: 'La contraseña actual es incorrecta';
-}
-
-// Validate new password strength
-if (!empty($newPassword)) {
-    $passwordValidation = validatePassword($newPassword);
-    if (!$passwordValidation['valid']) {
-        $errors['new_password'] = implode('. ', $passwordValidation['errors']);
+    if (empty($currentPassword)) {
+        $errors['current_password'] = 'La contraseña actual es requerida';
     }
-}
 
-// Verify passwords match
-if (!empty($newPassword) && !empty($confirmPassword) && $newPassword !== $confirmPassword) {
-    $errors['confirm_password'] = __('passwords_do_not_match') ?: 'Las contraseñas no coinciden';
-}
+    if (empty($newPassword)) {
+        $errors['new_password'] = 'La nueva contraseña es requerida';
+    }
 
-// Prevent using the same password
-if (!empty($currentPassword) && !empty($newPassword) && $currentPassword === $newPassword) {
-    $errors['new_password'] = __('new_password_must_be_different') ?: 'La nueva contraseña debe ser diferente a la actual';
-}
+    if (empty($confirmPassword)) {
+        $errors['confirm_password'] = 'La confirmación de contraseña es requerida';
+    }
 
-// If there are validation errors, return them
-if (!empty($errors)) {
-    $response['errors'] = $errors;
-    $response['message'] = __('validation_errors_found') ?: 'Se encontraron errores de validación';
-    jsonResponse($response, 400);
-}
+    if (!empty($currentPassword) && !verifyPassword($currentPassword, $userData['password_hash'])) {
+        $errors['current_password'] = 'La contraseña actual es incorrecta';
+    }
 
-// Update password and remove force change flag
-try {
+    if (!empty($newPassword)) {
+        $passwordValidation = validatePassword($newPassword);
+        if (!$passwordValidation['valid']) {
+            $errors['new_password'] = implode('. ', $passwordValidation['errors']);
+        }
+    }
+
+    if (!empty($newPassword) && !empty($confirmPassword) && $newPassword !== $confirmPassword) {
+        $errors['confirm_password'] = 'Las contraseñas no coinciden';
+    }
+
+    if (!empty($currentPassword) && !empty($newPassword) && $currentPassword === $newPassword) {
+        $errors['new_password'] = 'La nueva contraseña debe ser diferente a la actual';
+    }
+
+    if (!empty($errors)) {
+        $response['errors'] = $errors;
+        $response['message'] = 'Se encontraron errores de validación';
+        http_response_code(400);
+        echo json_encode($response);
+        exit;
+    }
+
     $db->beginTransaction();
     
-    // Hash new password
     $newPasswordHash = hashPassword($newPassword);
     
-    // Update user password and remove force_password_change flag
     $sql = "UPDATE users SET 
                 password_hash = ?, 
                 force_password_change = FALSE,
@@ -126,7 +140,6 @@ try {
         throw new Exception("Failed to update user password");
     }
     
-    // Log the password change in audit logs
     $auditSql = "INSERT INTO audit_logs (user_id, action, entity_type, entity_id, old_value, new_value, ip_address, user_agent, created_at) 
                  VALUES (?, 'FORCE_PASSWORD_CHANGE', 'USER', ?, 
                          JSON_OBJECT('force_password_change', true), 
@@ -142,29 +155,33 @@ try {
     
     $db->commit();
     
-    // Update session user data to reflect the change
     $_SESSION['user']['force_password_change'] = false;
     
-    // Log security event
     logSecurityEvent('FORCE_PASSWORD_CHANGE_COMPLETED', [
         'user_id' => $userId,
         'username' => $user['username']
     ]);
     
     $response['success'] = true;
-    $response['message'] = __('password_changed_successfully') ?: 'Contraseña cambiada exitosamente';
+    $response['message'] = 'Contraseña cambiada exitosamente';
     
-    jsonResponse($response, 200);
+    http_response_code(200);
+    echo json_encode($response);
     
 } catch (Exception $e) {
-    $db->rollback();
+    if ($db->inTransaction()) {
+        $db->rollback();
+    }
     
     logError("Force password change error: " . $e->getMessage());
     logSecurityEvent('FORCE_PASSWORD_CHANGE_FAILED', [
-        'user_id' => $userId,
-        'username' => $user['username'],
+        'user_id' => $userId ?? 'unknown',
+        'username' => $user['username'] ?? 'unknown',
         'error' => $e->getMessage()
     ]);
     
-    jsonResponse(['error' => 'Failed to update password'], 500);
+    http_response_code(500);
+    echo json_encode(['success' => false, 'error' => 'Failed to update password']);
 }
+
+exit;

@@ -9,8 +9,16 @@ require_once __DIR__ . '/../core/helpers.php';
 require_once __DIR__ . '/../core/security.php';
 require_once __DIR__ . '/../core/rbac.php';
 
-// Check session timeout
-if (isLoggedIn() && !checkSessionTimeout()) {
+// Check session timeout (skip for AJAX password change requests)
+$skipTimeoutCheck = (
+    $_SERVER['REQUEST_METHOD'] === 'POST' && 
+    ($_GET['module'] ?? '') === 'users' && 
+    ($_GET['action'] ?? '') === 'force_password_change' &&
+    isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'
+);
+
+if (isLoggedIn() && !$skipTimeoutCheck && !checkSessionTimeout()) {
     redirect('/?module=auth&action=login');
 }
 
@@ -21,7 +29,7 @@ $action = sanitizeInput($_GET['action'] ?? '');
 // Whitelist allowed modules and actions for security
 $allowedModules = [
     'auth' => ['login', 'logout', 'reset'],
-    'users' => ['list', 'edit', 'profile'],
+    'users' => ['list', 'edit', 'profile', 'force_password_change'],
     'roles' => ['list', 'assign', 'delete'],
     'clients' => ['list', 'add', 'edit', 'delete'],
     'products' => ['list', 'categories', 'add', 'edit'],
@@ -62,19 +70,24 @@ if ($module !== 'auth' && !isLoggedIn()) {
 
 // Module access check (except for auth and dashboard) - FIXED
 if (!in_array($module, ['auth', 'dashboard'])) {
-    // Special handling for users module - allow profile editing for all users
-    if ($module === 'users' && $action === 'edit') {
+    // Special handling for users module - allow profile editing and force password change for all users
+    if ($module === 'users' && in_array($action, ['edit', 'force_password_change'])) {
         $targetUserId = (int)($_GET['id'] ?? 0);
         $currentUser = getCurrentUser();
         
-        // Allow if editing own profile OR has admin permissions
-        if ($targetUserId === $currentUser['user_id'] || 
-            hasPermission('reset_user_password') || 
-            $currentUser['is_admin']) {
-            // Access granted for profile editing
+        // For force_password_change, only allow for current user
+        if ($action === 'force_password_change') {
+            // No additional checks needed - user must be logged in (already checked above)
         } else {
-            // Deny access - redirect to dashboard
-            redirect('/?module=dashboard&action=index');
+            // For edit action, allow if editing own profile OR has admin permissions
+            if ($targetUserId === $currentUser['user_id'] || 
+                hasPermission('reset_user_password') || 
+                $currentUser['is_admin']) {
+                // Access granted for profile editing
+            } else {
+                // Deny access - redirect to dashboard
+                redirect('/?module=dashboard&action=index');
+            }
         }
     } else {
         // Standard module access check for other modules/actions
@@ -115,6 +128,9 @@ try {
                 case 'edit':
                 case 'profile':
                     require_once $controllerPath . 'edit_controller.php';
+                    break;
+                case 'force_password_change':
+                    require_once $controllerPath . 'force_password_change_controller.php';
                     break;
             }
             break;
