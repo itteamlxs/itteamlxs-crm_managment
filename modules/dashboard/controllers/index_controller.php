@@ -15,23 +15,11 @@ requireLogin();
 $user = getCurrentUser();
 $db = Database::getInstance();
 
-// NUEVO: Verificar si el usuario debe cambiar su contraseña
-$forcePasswordChange = false;
-try {
-    $sql = "SELECT force_password_change FROM users WHERE user_id = ?";
-    $result = $db->fetch($sql, [$user['user_id']]);
-    if ($result) {
-        $forcePasswordChange = (bool)$result['force_password_change'];
-    }
-} catch (Exception $e) {
-    logError("Error checking force_password_change: " . $e->getMessage());
-}
-
 // Get dashboard statistics
 $stats = [];
 
 try {
-    // Total clients - CORREGIDO: usar vw_clients como en el original
+    // Total clients
     $result = $db->fetch("SELECT COUNT(*) as count FROM vw_clients");
     $stats['total_clients'] = $result['count'] ?? 0;
     
