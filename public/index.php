@@ -30,7 +30,7 @@ $allowedModules = [
     'settings' => ['edit'],
     'access_requests' => ['list', 'review'],
     'backups' => ['list', 'request'],
-    'dashboard' => ['index']
+    'dashboard' => ['index', 'f_password']
 ];
 
 // Default routing
@@ -231,7 +231,14 @@ try {
             break;
             
         case 'dashboard':
-            require_once __DIR__ . '/../modules/dashboard/controllers/index_controller.php';
+            switch ($action) {
+                case 'index':
+                    require_once __DIR__ . '/../modules/dashboard/controllers/index_controller.php';
+                    break;
+                case 'f_password':
+                    require_once __DIR__ . '/../modules/dashboard/controllers/f_password_controller.php';
+                    break;
+            }
             break;
             
         default:
