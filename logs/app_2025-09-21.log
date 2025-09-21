@@ -9,3 +9,63 @@
 [2025-09-21 02:22:01] [ERROR] Failed to get sales data: Database operation failed
 [2025-09-21 02:22:32] [ERROR] Failed to get sales data: Database operation failed
 [2025-09-21 02:29:17] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=2, username=aleon, ip=127.0.0.1
+[2025-09-21 02:45:20] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 02:45:20] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 02:45:47] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=2, username=aleon, ip=127.0.0.1
+[2025-09-21 02:45:47] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 02:45:47] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 02:48:59] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 02:48:59] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 02:49:05] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 02:49:05] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 02:51:12] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-21 02:51:12","details":{"user_id":2,"username":"aleon"}}
+[2025-09-21 02:51:24] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 02:51:24] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 02:55:52] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 02:55:52] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 02:56:13] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=2, username=aleon, ip=127.0.0.1
+[2025-09-21 02:56:14] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 02:56:14] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 02:56:35] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-21 02:56:35","details":{"user_id":2,"username":"aleon"}}
+[2025-09-21 02:56:40] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 02:56:40] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 02:56:55] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 02:56:55] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 02:57:10] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=2, username=aleon, ip=127.0.0.1
+[2025-09-21 02:57:10] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 02:57:10] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 03:02:02] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 03:02:02] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 03:02:08] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 03:02:08] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 03:02:12] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 03:02:12] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 11:45:55] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 11:45:55] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 12:00:41] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 12:00:41] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 12:07:05] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 12:07:05] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 12:12:36] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 12:12:36] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 12:15:00] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 12:15:00] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 12:16:11] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=2, username=aleon, ip=127.0.0.1
+[2025-09-21 12:16:11] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 12:16:11] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 12:16:56] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 12:16:56] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 14:55:12] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 14:55:12] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 14:58:10] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 14:58:10] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 14:59:41] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 14:59:41] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 15:01:01] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 15:01:01] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 15:01:35] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 15:01:35] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 15:02:29] [ERROR] Failed to get recent activities: Database operation failed
+[2025-09-21 15:02:29] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 15:35:19] [ERROR] Failed to get low stock products: Database operation failed
+[2025-09-21 15:35:19] [ERROR] Failed to get dashboard stats: Database operation failed
