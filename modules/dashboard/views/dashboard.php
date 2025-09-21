@@ -20,9 +20,9 @@ try {
     logError("Failed to get company name: " . $e->getMessage());
 }
 
-// Obtener datos para la gráfica de tendencia de ventas
+// Obtener datos para la gráfica de tendencia de ventas - CORREGIDO: Cambiar a 30 días
 try {
-    $salesData = $db->fetchAll("SELECT DATE(issue_date) as date, SUM(total_amount) as total FROM quotes WHERE status = 'APPROVED' AND issue_date >= DATE_SUB(NOW(), INTERVAL 7 DAY) GROUP BY DATE(issue_date) ORDER BY date ASC");
+    $salesData = $db->fetchAll("SELECT DATE(issue_date) as date, SUM(total_amount) as total FROM quotes WHERE status = 'APPROVED' AND issue_date >= DATE_SUB(NOW(), INTERVAL 30 DAY) GROUP BY DATE(issue_date) ORDER BY date ASC");
 } catch (Exception $e) {
     logError("Failed to get sales data: " . $e->getMessage());
     $salesData = [];
@@ -235,7 +235,7 @@ try {
                         <div class="chart-header">
                             <h6 class="chart-title">
                                 <i class="bi bi-graph-up"></i>
-                                Tendencia de Ventas (Últimos 7 Días)
+                                Tendencia de Ventas (Últimos 30 Días)
                             </h6>
                             <div class="chart-actions">
                                 <button class="btn btn-sm btn-outline-primary" id="refreshSalesChart">
@@ -573,15 +573,15 @@ try {
     </style>
     
     <script>
-    // Charts - Improved Sales Trend Chart Logic from Document B
+    // Charts - CORREGIDO: Usar datos directos de PHP sin generar fechas ficticias
     const salesData = <?php echo json_encode($salesData); ?>;
     
-    // Process sales data directly without generating arbitrary date ranges
+    // Process sales data directamente sin generar rangos arbitrarios
     const salesTrendLabels = [];
     const salesTrendValues = [];
     
     if (salesData.length > 0) {
-        // Use actual data from database
+        // Usar datos reales de la base de datos
         salesData.forEach(item => {
             const date = new Date(item.date);
             salesTrendLabels.push(date.toLocaleDateString());
