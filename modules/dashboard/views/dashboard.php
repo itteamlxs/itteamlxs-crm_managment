@@ -16,25 +16,6 @@ try {
     if ($result) {
         $companyName = $result['setting_value'];
     }
-
-// Verificar si el usuario debe cambiar su contraseña
-$forcePasswordChange = false;
-try {
-    $sql = "SELECT force_password_change FROM users WHERE user_id = ?";
-    $result = $db->fetch($sql, [$user['user_id']]);
-    if ($result) {
-        $forcePasswordChange = (bool)$result['force_password_change'];
-    }
-} catch (Exception $e) {
-    logError("Error checking force_password_change: " . $e->getMessage());
-}
-
-// Obtener mensajes de error/éxito de la sesión
-$passwordChangeError = $_SESSION['password_change_error'] ?? '';
-$passwordChangeSuccess = $_SESSION['password_change_success'] ?? '';
-
-// Limpiar mensajes de la sesión
-unset($_SESSION['password_change_error'], $_SESSION['password_change_success']);
 } catch (Exception $e) {
     logError("Failed to get company name: " . $e->getMessage());
 }
@@ -592,7 +573,7 @@ try {
     </style>
     
     <script>
-    // Charts - Fixed Sales Trend Chart
+    // Charts - Improved Sales Trend Chart Logic from Document B
     const salesData = <?php echo json_encode($salesData); ?>;
     
     // Process sales data directly without generating arbitrary date ranges
@@ -619,7 +600,7 @@ try {
         data: {
             labels: salesTrendLabels,
             datasets: [{
-                label: '<?php echo __('sales') ?: 'Sales'; ?>',
+                label: 'Ventas',
                 data: salesTrendValues,
                 borderColor: '#1e3a8a',
                 backgroundColor: 'rgba(30, 58, 138, 0.1)',
@@ -629,8 +610,7 @@ try {
                 pointBackgroundColor: '#1e3a8a',
                 pointBorderColor: '#ffffff',
                 pointBorderWidth: 2,
-                pointRadius: 5,
-                pointHoverRadius: 7
+                pointRadius: 5
             }]
         },
         options: {
@@ -639,54 +619,17 @@ try {
             plugins: {
                 legend: {
                     display: false
-                },
-                tooltip: {
-                    enabled: false,
-                    external: function(context) {
-                        // Tooltip personalizado
-                        const tooltip = document.getElementById('salesTrendTooltip');
-                        if (context.tooltip.opacity === 0) {
-                            tooltip.style.display = 'none';
-                            return;
-                        }
-                        
-                        const dataIndex = context.tooltip.dataPoints[0].dataIndex;
-                        const value = context.tooltip.dataPoints[0].formattedValue;
-                        const label = context.tooltip.dataPoints[0].label;
-                        
-                        tooltip.innerHTML = `
-                            <div><strong>${label}</strong></div>
-                            <div>Ventas: ${value}</div>
-                        `;
-                        
-                        const chartRect = context.chart.canvas.getBoundingClientRect();
-                        tooltip.style.left = chartRect.left + context.tooltip.caretX + 'px';
-                        tooltip.style.top = chartRect.top + context.tooltip.caretY - 80 + 'px';
-                        tooltip.style.display = 'block';
-                    }
                 }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0.1)'
-                    },
                     ticks: {
                         callback: function(value) {
-                            return ' + value;
+                            return '$' + value;
                         }
                     }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    }
                 }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index'
             }
         }
     });
