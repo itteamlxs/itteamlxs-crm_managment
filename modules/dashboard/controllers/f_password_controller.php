@@ -8,16 +8,17 @@
 require_once __DIR__ . '/../../../config/app.php';
 require_once __DIR__ . '/../../../core/helpers.php';
 require_once __DIR__ . '/../../../core/security.php';
+require_once __DIR__ . '/../../../core/url_helper.php';
 require_once __DIR__ . '/../../../config/db.php';
 
 // Check if user is logged in
 if (!isLoggedIn()) {
-    redirect('/?module=auth&action=login');
+    redirect(url('auth', 'login'));
 }
 
 // Only process POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    redirect('/?module=dashboard&action=index');
+    redirect(url('dashboard', 'index'));
 }
 
 $user = getCurrentUser();
@@ -31,7 +32,7 @@ try {
     // Validate CSRF token
     if (!validateCSRFToken($_POST['csrf_token'] ?? '')) {
         $_SESSION['password_change_error'] = 'Token de seguridad inválido';
-        redirect('/?module=dashboard&action=index');
+        redirect(url('dashboard', 'index'));
     }
 
     // Get user data
@@ -40,12 +41,12 @@ try {
     
     if (!$userData) {
         $_SESSION['password_change_error'] = 'Usuario no encontrado';
-        redirect('/?module=dashboard&action=index');
+        redirect(url('dashboard', 'index'));
     }
     
     if (!$userData['force_password_change']) {
         // User no longer needs to change password, just redirect
-        redirect('/?module=dashboard&action=index');
+        redirect(url('dashboard', 'index'));
     }
 
     // Get form data
@@ -87,7 +88,7 @@ try {
     // If there are errors, store them and redirect back
     if (!empty($errors)) {
         $_SESSION['password_change_error'] = implode('. ', $errors);
-        redirect('/?module=dashboard&action=index');
+        redirect(url('dashboard', 'index'));
     }
 
     // Update password in database
@@ -137,8 +138,8 @@ try {
     // Set success message
     $_SESSION['password_change_success'] = 'Contraseña cambiada exitosamente';
     
-    // Redirect to dashboard
-    redirect('/?module=dashboard&action=index');
+    // Redirect to dashboard using url helper
+    redirect(url('dashboard', 'index'));
     
 } catch (Exception $e) {
     if ($db->inTransaction()) {
@@ -148,7 +149,7 @@ try {
     logError("Force password change error: " . $e->getMessage());
     
     $_SESSION['password_change_error'] = 'Error al cambiar la contraseña';
-    redirect('/?module=dashboard&action=index');
+    redirect(url('dashboard', 'index'));
 }
 
 exit;

@@ -158,7 +158,7 @@ try {
                     </script>
                     <?php else: ?>
                     
-                    <form id="forcePasswordChangeForm" method="POST" action="/?module=dashboard&action=f_password">
+                    <form id="forcePasswordChangeForm" method="POST" action="/crm-project/public/index.php?module=dashboard&action=f_password">
                         <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
                         
                         <div class="mb-3">

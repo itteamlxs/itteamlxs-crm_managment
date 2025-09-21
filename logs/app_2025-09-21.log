@@ -1,0 +1,11 @@
+[2025-09-21 00:04:06] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=7, username=lleon, ip=127.0.0.1
+[2025-09-21 00:05:27] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":7,"username":"lleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-21 00:05:27","details":{"user_id":7,"username":"lleon"}}
+[2025-09-21 00:06:06] [SECURITY] SECURITY_EVENT: {"event":"PASSWORD_RESET","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-21 00:06:06","details":{"target_user_id":7}}
+[2025-09-21 00:07:06] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=7, username=lleon, ip=127.0.0.1
+[2025-09-21 00:08:50] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=7, username=lleon, ip=127.0.0.1
+[2025-09-21 00:11:35] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=7, username=lleon, ip=127.0.0.1
+[2025-09-21 02:01:21] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":3,"username":"janderson","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-21 02:01:21","details":{"user_id":3,"username":"janderson"}}
+[2025-09-21 02:19:08] [ERROR] Failed to get sales data: Database operation failed
+[2025-09-21 02:22:01] [ERROR] Failed to get sales data: Database operation failed
+[2025-09-21 02:22:32] [ERROR] Failed to get sales data: Database operation failed
+[2025-09-21 02:29:17] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=2, username=aleon, ip=127.0.0.1
