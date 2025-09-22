@@ -16,12 +16,9 @@
 # Prevent directory browsing
 Options -Indexes
 
-# Prevent hotlinking - SECURE VERSION
+# Prevent hotlinking (optional - replace yourdomain.com with your actual domain)
 RewriteEngine on
-
-# Allow requests from same server (same HTTP_HOST)
 RewriteCond %{HTTP_REFERER} !^$
-RewriteCond %{HTTP_REFERER} !^https?://%{HTTP_HOST} [NC]
-
-# Block external hotlinking, allow internal requests
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?localhost [NC]
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?127.0.0.1 [NC]
 RewriteRule \.(jpg|jpeg|png|gif)$ - [NC,F,L]

@@ -56,9 +56,6 @@ window.SecurityManager = {
                 }
             });
             
-            // Initialize developer tools protection
-            SecurityManager.devToolsProtection.init();
-            
             // Check if already blocked
             self.checkBlocked();
         },
@@ -174,269 +171,7 @@ window.SecurityManager = {
         }
     },
     
-    // Developer Tools Protection
-    devToolsProtection: {
-        
-        /**
-         * Initialize developer tools blocking
-         */
-        init() {
-            const self = SecurityManager.devToolsProtection;
-            
-            // Block common developer shortcuts
-            self.blockKeyboardShortcuts();
-            
-            // Block right-click context menu
-            self.blockContextMenu();
-            
-            // Detect DevTools opening (basic detection)
-            self.detectDevTools();
-            
-            // Block text selection (optional)
-            self.blockTextSelection();
-        },
-        
-        /**
-         * Block keyboard shortcuts for developer tools
-         */
-        blockKeyboardShortcuts() {
-            document.addEventListener('keydown', (e) => {
-                const blockedShortcuts = [
-                    // View Source
-                    { ctrl: true, key: 'u' },
-                    { ctrl: true, key: 'U' },
-                    
-                    // Developer Tools
-                    { key: 'F12' },
-                    { ctrl: true, shift: true, key: 'I' },
-                    { ctrl: true, shift: true, key: 'i' },
-                    { ctrl: true, shift: true, key: 'J' },
-                    { ctrl: true, shift: true, key: 'j' },
-                    { ctrl: true, shift: true, key: 'C' },
-                    { ctrl: true, shift: true, key: 'c' },
-                    
-                    // Console
-                    { ctrl: true, shift: true, key: 'K' },
-                    { ctrl: true, shift: true, key: 'k' },
-                    
-                    // Network tab
-                    { ctrl: true, shift: true, key: 'E' },
-                    { ctrl: true, shift: true, key: 'e' },
-                    
-                    // Sources/Debugger
-                    { ctrl: true, shift: true, key: 'S' },
-                    { ctrl: true, shift: true, key: 's' },
-                    
-                    // Application/Storage
-                    { ctrl: true, shift: true, key: 'A' },
-                    { ctrl: true, shift: true, key: 'a' },
-                    
-                    // Print (could be used to see source)
-                    { ctrl: true, key: 'p' },
-                    { ctrl: true, key: 'P' },
-                    
-                    // Save page
-                    { ctrl: true, key: 's' },
-                    { ctrl: true, key: 'S' }
-                ];
-                
-                const isBlocked = blockedShortcuts.some(shortcut => {
-                    return (!shortcut.ctrl || e.ctrlKey) &&
-                           (!shortcut.shift || e.shiftKey) &&
-                           (!shortcut.alt || e.altKey) &&
-                           e.key === shortcut.key;
-                });
-                
-                if (isBlocked) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    SecurityManager.ui.showWarning('Acceso a herramientas de desarrollador bloqueado por seguridad.');
-                    
-                    // Log attempt
-                    SecurityManager.logger.logEvent('DEV_TOOLS_ATTEMPT', {
-                        key: e.key,
-                        ctrlKey: e.ctrlKey,
-                        shiftKey: e.shiftKey,
-                        altKey: e.altKey
-                    });
-                    
-                    return false;
-                }
-            });
-        },
-        
-        /**
-         * Block right-click context menu
-         */
-        blockContextMenu() {
-            document.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
-                
-                SecurityManager.ui.showWarning('Menú contextual deshabilitado por seguridad.');
-                
-                SecurityManager.logger.logEvent('CONTEXT_MENU_ATTEMPT', {
-                    target: e.target.tagName,
-                    x: e.clientX,
-                    y: e.clientY
-                });
-                
-                return false;
-            });
-        },
-        
-        /**
-         * Basic DevTools detection
-         */
-        detectDevTools() {
-            let devtools = {
-                open: false,
-                orientation: null
-            };
-            
-            const threshold = 160;
-            
-            setInterval(() => {
-                if (window.outerHeight - window.innerHeight > threshold || 
-                    window.outerWidth - window.innerWidth > threshold) {
-                    
-                    if (!devtools.open) {
-                        devtools.open = true;
-                        
-                        SecurityManager.ui.showWarning('Herramientas de desarrollador detectadas. El acceso puede estar limitado.');
-                        
-                        SecurityManager.logger.logEvent('DEV_TOOLS_DETECTED', {
-                            outerHeight: window.outerHeight,
-                            innerHeight: window.innerHeight,
-                            outerWidth: window.outerWidth,
-                            innerWidth: window.innerWidth
-                        });
-                        
-                        // Optional: Blur content or show overlay
-                        SecurityManager.devToolsProtection.obfuscateContent();
-                    }
-                } else {
-                    devtools.open = false;
-                    SecurityManager.devToolsProtection.restoreContent();
-                }
-            }, 500);
-        },
-        
-        /**
-         * Block text selection (optional)
-         */
-        blockTextSelection() {
-            // CSS to prevent selection - MORE SPECIFIC to avoid affecting images
-            const style = document.createElement('style');
-            style.textContent = `
-                body, p, h1, h2, h3, h4, h5, h6, div, span, a {
-                    -webkit-user-select: none !important;
-                    -moz-user-select: none !important;
-                    -ms-user-select: none !important;
-                    user-select: none !important;
-                }
-                
-                /* Explicitly allow images and media */
-                img, video, canvas, svg {
-                    -webkit-user-select: auto !important;
-                    -moz-user-select: auto !important;
-                    -ms-user-select: auto !important;
-                    user-select: auto !important;
-                }
-                
-                /* Allow selection in input fields */
-                input, textarea, [contenteditable="true"] {
-                    -webkit-user-select: text !important;
-                    -moz-user-select: text !important;
-                    -ms-user-select: text !important;
-                    user-select: text !important;
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // Block drag operations
-            document.addEventListener('dragstart', (e) => {
-                e.preventDefault();
-                return false;
-            });
-            
-            // Block select all
-            document.addEventListener('keydown', (e) => {
-                if (e.ctrlKey && (e.key === 'a' || e.key === 'A')) {
-                    const target = e.target;
-                    if (target.tagName !== 'INPUT' && 
-                        target.tagName !== 'TEXTAREA' && 
-                        !target.contentEditable) {
-                        e.preventDefault();
-                        return false;
-                    }
-                }
-            });
-        },
-        
-        /**
-         * Obfuscate content when dev tools detected
-         */
-        obfuscateContent() {
-            if (!document.querySelector('#devToolsOverlay')) {
-                const overlay = document.createElement('div');
-                overlay.id = 'devToolsOverlay';
-                overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0, 0, 0, 0.8);
-                    z-index: 9999;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    backdrop-filter: blur(10px);
-                    pointer-events: none;
-                `;
-                
-                overlay.innerHTML = `
-                    <div style="color: white; text-align: center; font-size: 18px;">
-                        <div style="font-size: 48px; margin-bottom: 20px;">🔒</div>
-                        <div>Contenido protegido</div>
-                        <div style="font-size: 14px; opacity: 0.7; margin-top: 10px;">Cierra las herramientas de desarrollador</div>
-                    </div>
-                `;
-                
-                document.body.appendChild(overlay);
-            }
-        },
-        
-        /**
-         * Restore content when dev tools closed
-         */
-        restoreContent() {
-            const overlay = document.querySelector('#devToolsOverlay');
-            if (overlay) {
-                overlay.remove();
-            }
-        },
-        
-        /**
-         * Console warning message
-         */
-        showConsoleWarning() {
-            if (typeof console !== 'undefined') {
-                console.clear();
-                console.log('%c🚫 ALTO - ZONA RESTRINGIDA', 
-                    'color: red; font-size: 40px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);');
-                console.log('%c⚠️  ADVERTENCIA DE SEGURIDAD', 
-                    'color: orange; font-size: 20px; font-weight: bold;');
-                console.log('%cSi alguien te pidió que copies y pegues algo aquí, es una estafa.', 
-                    'color: white; font-size: 16px;');
-                console.log('%cEsta función es para desarrolladores. El acceso no autorizado puede comprometer tu cuenta.', 
-                    'color: white; font-size: 14px;');
-                console.log('%c❌ El acceso a esta consola ha sido registrado por seguridad.', 
-                    'color: red; font-size: 14px; font-weight: bold;');
-            }
-        }
-    },
+    // Rate Limiting
     rateLimit: {
         
         /**
@@ -876,9 +611,6 @@ window.SecurityManager = {
         SecurityManager.antiDOS.initFormProtection();
         SecurityManager.sessionSecurity.init();
         
-        // Show console warning
-        SecurityManager.devToolsProtection.showConsoleWarning();
-        
         // Log initialization
         SecurityManager.logger.logEvent('SECURITY_INIT', {
             url: window.location.href,
@@ -886,7 +618,7 @@ window.SecurityManager = {
         });
         
         console.log('%cSecurity Manager initialized', 'color: #00ff00; font-weight: bold;');
-        console.log('%cProtections active: Anti-DOS, Rate Limiting, Session Security, DevTools Protection', 'color: #888;');
+        console.log('%cProtections active: Anti-DOS, Rate Limiting, Session Security', 'color: #888;');
     }
 };
 
