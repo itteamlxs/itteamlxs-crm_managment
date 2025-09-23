@@ -156,7 +156,7 @@
         <div class="w-1/2 left-panel left-panel-gradient relative flex flex-col justify-end p-12 text-white">
             <!-- Background Image -->
             <div class="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-transparent flex items-center justify-center">
-                <img src="assets/images/mtn.jpg" alt="Mountain landscape" class="absolute inset-0 w-full h-full object-cover">
+                <img src="/crm-project/public/assets/images/mtn.jpg" alt="Mountain landscape" class="absolute inset-0 w-full h-full object-cover">
             </div>
             
             <!-- Bottom Text Content -->
@@ -280,7 +280,6 @@
             </div>
         </div>
     </div>
-    <script src="assets/js/security.js"></script>
-    <script src="assets/js/auth.js"></script>
-</body>
+        <script src="/crm-project/public/assets/js/security.js"></script>
+        <script src="/crm-project/public/assets/js/auth.js"></script>
 </html>
