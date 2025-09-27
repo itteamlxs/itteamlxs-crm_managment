@@ -1,0 +1,16 @@
+[2025-09-26 03:54:56] [ERROR] Access denied for permission: add_client, User: janderson
+[2025-09-26 03:55:01] [ERROR] Access denied for permission: add_client, User: janderson
+[2025-09-26 03:55:24] [ERROR] Access denied for permission: add_client, User: janderson
+[2025-09-26 03:55:37] [ERROR] Access denied for permission: edit_client, User: janderson
+[2025-09-26 03:55:40] [ERROR] Access denied for permission: edit_client, User: janderson
+[2025-09-26 03:55:44] [ERROR] Access denied for permission: edit_client, User: janderson
+[2025-09-26 03:56:15] [ERROR] Access denied for permission: add_client, User: janderson
+[2025-09-26 04:01:43] [ERROR] Access denied for permission: add_client, User: janderson
+[2025-09-26 04:04:28] [ERROR] Access denied for permission: add_client, User: janderson
+[2025-09-26 04:04:36] [ERROR] Access denied for permission: add_client, User: janderson
+[2025-09-26 04:06:40] [ERROR] Access denied for permission: add_client, User: janderson
+[2025-09-26 04:08:05] [ERROR] Access denied for permission: add_client, User: janderson
+[2025-09-26 04:10:30] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":3,"username":"janderson","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-26 04:10:30","details":{"user_id":3,"username":"janderson"}}
+[2025-09-26 04:14:43] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":2,"username":"aleon","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-09-26 04:14:43","details":{"user_id":2,"username":"aleon"}}
+[2025-09-26 04:18:45] [ERROR] Access denied for permission: add_client, User: janderson
+[2025-09-26 04:19:35] [ERROR] Access denied for permission: add_client, User: janderson
