@@ -63,746 +63,7 @@ CREATE TABLE `audit_logs` (
 -- Dumping data for table `audit_logs`
 --
 
-INSERT INTO `audit_logs` (`audit_id`, `user_id`, `action`, `entity_type`, `entity_id`, `old_value`, `new_value`, `ip_address`, `user_agent`, `created_at`) VALUES
-(1, NULL, 'INSERT', 'SETTINGS', 1, NULL, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Company Name\"}', '38', NULL, '2025-08-18 23:31:48'),
-(2, NULL, 'INSERT', 'SETTINGS', 2, NULL, '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '38', NULL, '2025-08-18 23:31:48'),
-(3, NULL, 'INSERT', 'SETTINGS', 3, NULL, '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '38', NULL, '2025-08-18 23:31:48'),
-(4, NULL, 'INSERT', 'SETTINGS', 4, NULL, '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '38', NULL, '2025-08-18 23:31:48'),
-(5, NULL, 'INSERT', 'SETTINGS', 5, NULL, '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '38', NULL, '2025-08-18 23:31:48'),
-(6, NULL, 'INSERT', 'SETTINGS', 6, NULL, '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '38', NULL, '2025-08-18 23:31:48'),
-(7, NULL, 'INSERT', 'SETTINGS', 7, NULL, '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\", \\\"en\\\", \\\"fr\\\", \\\"zh\\\"]\"}', '38', NULL, '2025-08-18 23:31:48'),
-(8, NULL, 'INSERT', 'SETTINGS', 8, NULL, '{\"setting_key\": \"smtp_host\", \"setting_value\": \"smtp.example.com\"}', '38', NULL, '2025-08-18 23:31:48'),
-(9, NULL, 'INSERT', 'SETTINGS', 9, NULL, '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '38', NULL, '2025-08-18 23:31:48'),
-(10, NULL, 'INSERT', 'SETTINGS', 10, NULL, '{\"setting_key\": \"smtp_username\", \"setting_value\": \"user@example.com\"}', '38', NULL, '2025-08-18 23:31:48'),
-(11, NULL, 'INSERT', 'SETTINGS', 11, NULL, '{\"setting_key\": \"smtp_password\", \"setting_value\": \"encrypted_password\"}', '38', NULL, '2025-08-18 23:31:48'),
-(12, NULL, 'INSERT', 'SETTINGS', 12, NULL, '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '38', NULL, '2025-08-18 23:31:48'),
-(13, NULL, 'INSERT', 'SETTINGS', 13, NULL, '{\"setting_key\": \"from_email\", \"setting_value\": \"no-reply@example.com\"}', '38', NULL, '2025-08-18 23:31:48'),
-(14, NULL, 'INSERT', 'SETTINGS', 14, NULL, '{\"setting_key\": \"from_name\", \"setting_value\": \"Company Name\"}', '38', NULL, '2025-08-18 23:31:48'),
-(15, NULL, 'INSERT', 'SETTINGS', 15, NULL, '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '38', NULL, '2025-08-18 23:31:48'),
-(16, NULL, 'INSERT', 'BACKUP_REQUEST', 1, NULL, '{\"status\": \"PENDING\", \"requested_at\": \"2025-08-19 04:18:17\"}', '69', NULL, '2025-08-19 10:18:17'),
-(17, NULL, 'INSERT', 'USER', 1, NULL, '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\"}', '77', NULL, '2025-08-19 10:44:21'),
-(18, NULL, 'UPDATE', 'USER', 1, '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '22', NULL, '2025-08-19 21:52:30'),
-(19, NULL, 'UPDATE', 'USER', 1, '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '23', NULL, '2025-08-19 21:52:38'),
-(20, NULL, 'UPDATE', 'USER', 1, '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '24', NULL, '2025-08-19 21:52:47'),
-(21, NULL, 'UPDATE', 'USER', 1, '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '25', NULL, '2025-08-19 21:52:58'),
-(22, NULL, 'UPDATE', 'USER', 1, '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '64', NULL, '2025-08-19 21:54:40'),
-(23, NULL, 'UPDATE', 'USER', 1, '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '72', NULL, '2025-08-19 21:57:43'),
-(24, NULL, 'UPDATE', 'USER', 1, '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '73', NULL, '2025-08-19 21:57:51'),
-(25, NULL, 'UPDATE', 'USER', 1, '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"root\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '11', NULL, '2025-08-19 22:17:15'),
-(26, 2, 'INSERT', 'USER', 2, NULL, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\"}', '57', NULL, '2025-08-19 22:18:19'),
-(27, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '63', NULL, '2025-08-19 22:18:39'),
-(28, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '63', NULL, '2025-08-19 22:18:39'),
-(29, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '9', NULL, '2025-08-20 08:38:25'),
-(30, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '9', NULL, '2025-08-20 08:38:25'),
-(31, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '59', NULL, '2025-08-20 08:58:15'),
-(32, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '59', NULL, '2025-08-20 08:58:15'),
-(33, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '62', NULL, '2025-08-20 09:14:36'),
-(34, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '62', NULL, '2025-08-20 09:14:36'),
-(35, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '107', NULL, '2025-08-20 22:03:58'),
-(36, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '107', NULL, '2025-08-20 22:03:58'),
-(37, 3, 'INSERT', 'USER', 3, NULL, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\"}', '110', NULL, '2025-08-20 22:16:27'),
-(38, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-08-21 07:46:08'),
-(39, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-08-21 07:46:08'),
-(40, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '29', NULL, '2025-08-21 08:06:16'),
-(41, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '29', NULL, '2025-08-21 08:06:16'),
-(42, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '32', NULL, '2025-08-21 08:06:28'),
-(43, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '34', NULL, '2025-08-21 08:06:43'),
-(44, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '10', NULL, '2025-08-21 08:09:47'),
-(45, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '11', NULL, '2025-08-21 08:09:54'),
-(46, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '11', NULL, '2025-08-21 08:09:54'),
-(47, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '13', NULL, '2025-08-21 08:11:15'),
-(48, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '13', NULL, '2025-08-21 08:11:15'),
-(49, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '16', NULL, '2025-08-21 08:11:36'),
-(50, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '17', NULL, '2025-08-21 08:11:42'),
-(51, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '17', NULL, '2025-08-21 08:11:42'),
-(52, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"en\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '53', NULL, '2025-08-21 08:12:55'),
-(53, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '55', NULL, '2025-08-21 08:13:33'),
-(54, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '55', NULL, '2025-08-21 08:13:33'),
-(55, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '63', NULL, '2025-08-21 08:14:05'),
-(56, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '64', NULL, '2025-08-21 08:14:05'),
-(57, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '65', NULL, '2025-08-21 08:14:11'),
-(58, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '65', NULL, '2025-08-21 08:14:11'),
-(59, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '67', NULL, '2025-08-21 08:18:07'),
-(60, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '67', NULL, '2025-08-21 08:18:07'),
-(61, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-08-22 01:07:10'),
-(62, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-08-22 01:07:10'),
-(63, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '13', NULL, '2025-08-22 01:07:32'),
-(64, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '54', NULL, '2025-08-22 01:09:16'),
-(65, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '55', NULL, '2025-08-22 01:09:28'),
-(66, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '83', NULL, '2025-08-22 01:10:30'),
-(67, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '106', NULL, '2025-08-22 01:11:56'),
-(68, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-08-22 22:52:06'),
-(69, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '11', NULL, '2025-08-22 22:52:13'),
-(70, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '11', NULL, '2025-08-22 22:52:13'),
-(71, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '30', NULL, '2025-08-22 23:05:32'),
-(72, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '30', NULL, '2025-08-22 23:05:32'),
-(73, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Company Name\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '115', NULL, '2025-08-22 23:26:34'),
-(74, NULL, 'UPDATE', 'SETTINGS', 2, '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '115', NULL, '2025-08-22 23:26:34'),
-(75, NULL, 'UPDATE', 'SETTINGS', 3, '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '115', NULL, '2025-08-22 23:26:34'),
-(76, NULL, 'UPDATE', 'SETTINGS', 4, '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '115', NULL, '2025-08-22 23:26:34'),
-(77, NULL, 'UPDATE', 'SETTINGS', 5, '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '115', NULL, '2025-08-22 23:26:34'),
-(78, NULL, 'UPDATE', 'SETTINGS', 6, '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '115', NULL, '2025-08-22 23:26:34'),
-(79, NULL, 'UPDATE', 'SETTINGS', 7, '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\", \\\"en\\\", \\\"fr\\\", \\\"zh\\\"]\"}', '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '115', NULL, '2025-08-22 23:26:34'),
-(80, NULL, 'UPDATE', 'SETTINGS', 8, '{\"setting_key\": \"smtp_host\", \"setting_value\": \"smtp.example.com\"}', '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '115', NULL, '2025-08-22 23:26:34'),
-(81, NULL, 'UPDATE', 'SETTINGS', 9, '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '115', NULL, '2025-08-22 23:26:34'),
-(82, NULL, 'UPDATE', 'SETTINGS', 10, '{\"setting_key\": \"smtp_username\", \"setting_value\": \"user@example.com\"}', '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '115', NULL, '2025-08-22 23:26:34'),
-(83, NULL, 'UPDATE', 'SETTINGS', 12, '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '115', NULL, '2025-08-22 23:26:34'),
-(84, NULL, 'UPDATE', 'SETTINGS', 13, '{\"setting_key\": \"from_email\", \"setting_value\": \"no-reply@example.com\"}', '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '115', NULL, '2025-08-22 23:26:34'),
-(85, NULL, 'UPDATE', 'SETTINGS', 14, '{\"setting_key\": \"from_name\", \"setting_value\": \"Company Name\"}', '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '115', NULL, '2025-08-22 23:26:34'),
-(86, NULL, 'UPDATE', 'SETTINGS', 15, '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '115', NULL, '2025-08-22 23:26:34'),
-(87, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '116', NULL, '2025-08-22 23:26:42'),
-(88, NULL, 'UPDATE', 'SETTINGS', 2, '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '116', NULL, '2025-08-22 23:26:42'),
-(89, NULL, 'UPDATE', 'SETTINGS', 3, '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '116', NULL, '2025-08-22 23:26:42'),
-(90, NULL, 'UPDATE', 'SETTINGS', 4, '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '116', NULL, '2025-08-22 23:26:42'),
-(91, NULL, 'UPDATE', 'SETTINGS', 5, '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '116', NULL, '2025-08-22 23:26:42'),
-(92, NULL, 'UPDATE', 'SETTINGS', 6, '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '116', NULL, '2025-08-22 23:26:42'),
-(93, NULL, 'UPDATE', 'SETTINGS', 7, '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '116', NULL, '2025-08-22 23:26:42'),
-(94, NULL, 'UPDATE', 'SETTINGS', 8, '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '116', NULL, '2025-08-22 23:26:42'),
-(95, NULL, 'UPDATE', 'SETTINGS', 9, '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '116', NULL, '2025-08-22 23:26:42'),
-(96, NULL, 'UPDATE', 'SETTINGS', 10, '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '116', NULL, '2025-08-22 23:26:42'),
-(97, NULL, 'UPDATE', 'SETTINGS', 12, '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '116', NULL, '2025-08-22 23:26:42'),
-(98, NULL, 'UPDATE', 'SETTINGS', 13, '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '116', NULL, '2025-08-22 23:26:42'),
-(99, NULL, 'UPDATE', 'SETTINGS', 14, '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '116', NULL, '2025-08-22 23:26:42'),
-(100, NULL, 'UPDATE', 'SETTINGS', 15, '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '116', NULL, '2025-08-22 23:26:42'),
-(101, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"LAstoBatalion\"}', '122', NULL, '2025-08-22 23:28:41'),
-(102, NULL, 'UPDATE', 'SETTINGS', 2, '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '122', NULL, '2025-08-22 23:28:41'),
-(103, NULL, 'UPDATE', 'SETTINGS', 3, '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '122', NULL, '2025-08-22 23:28:41'),
-(104, NULL, 'UPDATE', 'SETTINGS', 4, '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '122', NULL, '2025-08-22 23:28:41'),
-(105, NULL, 'UPDATE', 'SETTINGS', 5, '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '122', NULL, '2025-08-22 23:28:41'),
-(106, NULL, 'UPDATE', 'SETTINGS', 6, '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '122', NULL, '2025-08-22 23:28:41'),
-(107, NULL, 'UPDATE', 'SETTINGS', 7, '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '122', NULL, '2025-08-22 23:28:41'),
-(108, NULL, 'UPDATE', 'SETTINGS', 8, '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '122', NULL, '2025-08-22 23:28:41'),
-(109, NULL, 'UPDATE', 'SETTINGS', 9, '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '122', NULL, '2025-08-22 23:28:41'),
-(110, NULL, 'UPDATE', 'SETTINGS', 10, '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '122', NULL, '2025-08-22 23:28:41'),
-(111, NULL, 'UPDATE', 'SETTINGS', 12, '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '122', NULL, '2025-08-22 23:28:42'),
-(112, NULL, 'UPDATE', 'SETTINGS', 13, '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '122', NULL, '2025-08-22 23:28:42'),
-(113, NULL, 'UPDATE', 'SETTINGS', 14, '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '122', NULL, '2025-08-22 23:28:42'),
-(114, NULL, 'UPDATE', 'SETTINGS', 15, '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '122', NULL, '2025-08-22 23:28:42'),
-(115, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"LAstoBatalion\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '135', NULL, '2025-08-22 23:28:59'),
-(116, NULL, 'UPDATE', 'SETTINGS', 2, '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '135', NULL, '2025-08-22 23:28:59'),
-(117, NULL, 'UPDATE', 'SETTINGS', 3, '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '135', NULL, '2025-08-22 23:28:59'),
-(118, NULL, 'UPDATE', 'SETTINGS', 4, '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '135', NULL, '2025-08-22 23:28:59'),
-(119, NULL, 'UPDATE', 'SETTINGS', 5, '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '135', NULL, '2025-08-22 23:28:59'),
-(120, NULL, 'UPDATE', 'SETTINGS', 6, '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '135', NULL, '2025-08-22 23:28:59'),
-(121, NULL, 'UPDATE', 'SETTINGS', 7, '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '135', NULL, '2025-08-22 23:28:59'),
-(122, NULL, 'UPDATE', 'SETTINGS', 8, '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '135', NULL, '2025-08-22 23:28:59'),
-(123, NULL, 'UPDATE', 'SETTINGS', 9, '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '135', NULL, '2025-08-22 23:28:59'),
-(124, NULL, 'UPDATE', 'SETTINGS', 10, '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '135', NULL, '2025-08-22 23:28:59'),
-(125, NULL, 'UPDATE', 'SETTINGS', 12, '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '135', NULL, '2025-08-22 23:28:59'),
-(126, NULL, 'UPDATE', 'SETTINGS', 13, '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '135', NULL, '2025-08-22 23:28:59'),
-(127, NULL, 'UPDATE', 'SETTINGS', 14, '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '135', NULL, '2025-08-22 23:28:59'),
-(128, NULL, 'UPDATE', 'SETTINGS', 15, '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '135', NULL, '2025-08-22 23:28:59'),
-(129, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '183', NULL, '2025-08-22 23:41:40'),
-(130, NULL, 'UPDATE', 'SETTINGS', 2, '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '183', NULL, '2025-08-22 23:41:40'),
-(131, NULL, 'UPDATE', 'SETTINGS', 3, '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '183', NULL, '2025-08-22 23:41:40'),
-(132, NULL, 'UPDATE', 'SETTINGS', 4, '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '183', NULL, '2025-08-22 23:41:40'),
-(133, NULL, 'UPDATE', 'SETTINGS', 5, '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '183', NULL, '2025-08-22 23:41:40'),
-(134, NULL, 'UPDATE', 'SETTINGS', 6, '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '183', NULL, '2025-08-22 23:41:40'),
-(135, NULL, 'UPDATE', 'SETTINGS', 7, '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '183', NULL, '2025-08-22 23:41:40'),
-(136, NULL, 'UPDATE', 'SETTINGS', 8, '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '183', NULL, '2025-08-22 23:41:40'),
-(137, NULL, 'UPDATE', 'SETTINGS', 9, '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '183', NULL, '2025-08-22 23:41:40'),
-(138, NULL, 'UPDATE', 'SETTINGS', 10, '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '183', NULL, '2025-08-22 23:41:40'),
-(139, NULL, 'UPDATE', 'SETTINGS', 12, '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '183', NULL, '2025-08-22 23:41:40'),
-(140, NULL, 'UPDATE', 'SETTINGS', 13, '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '183', NULL, '2025-08-22 23:41:40'),
-(141, NULL, 'UPDATE', 'SETTINGS', 14, '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '183', NULL, '2025-08-22 23:41:40'),
-(142, NULL, 'UPDATE', 'SETTINGS', 15, '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '183', NULL, '2025-08-22 23:41:40'),
-(143, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '202', NULL, '2025-08-22 23:47:50'),
-(144, NULL, 'UPDATE', 'SETTINGS', 2, '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '202', NULL, '2025-08-22 23:47:50'),
-(145, NULL, 'UPDATE', 'SETTINGS', 3, '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '202', NULL, '2025-08-22 23:47:50'),
-(146, NULL, 'UPDATE', 'SETTINGS', 4, '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '202', NULL, '2025-08-22 23:47:50'),
-(147, NULL, 'UPDATE', 'SETTINGS', 5, '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '202', NULL, '2025-08-22 23:47:50'),
-(148, NULL, 'UPDATE', 'SETTINGS', 6, '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '202', NULL, '2025-08-22 23:47:50'),
-(149, NULL, 'UPDATE', 'SETTINGS', 7, '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '202', NULL, '2025-08-22 23:47:50'),
-(150, NULL, 'UPDATE', 'SETTINGS', 8, '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '202', NULL, '2025-08-22 23:47:50'),
-(151, NULL, 'UPDATE', 'SETTINGS', 9, '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '202', NULL, '2025-08-22 23:47:50'),
-(152, NULL, 'UPDATE', 'SETTINGS', 10, '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '202', NULL, '2025-08-22 23:47:50'),
-(153, NULL, 'UPDATE', 'SETTINGS', 12, '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '202', NULL, '2025-08-22 23:47:50'),
-(154, NULL, 'UPDATE', 'SETTINGS', 13, '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '202', NULL, '2025-08-22 23:47:50'),
-(155, NULL, 'UPDATE', 'SETTINGS', 14, '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '202', NULL, '2025-08-22 23:47:50'),
-(156, NULL, 'UPDATE', 'SETTINGS', 15, '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '202', NULL, '2025-08-22 23:47:51'),
-(157, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks Essentials\"}', '203', NULL, '2025-08-22 23:48:49'),
-(158, NULL, 'UPDATE', 'SETTINGS', 2, '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '203', NULL, '2025-08-22 23:48:49'),
-(159, NULL, 'UPDATE', 'SETTINGS', 3, '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '203', NULL, '2025-08-22 23:48:49'),
-(160, NULL, 'UPDATE', 'SETTINGS', 4, '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '203', NULL, '2025-08-22 23:48:49'),
-(161, NULL, 'UPDATE', 'SETTINGS', 5, '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '203', NULL, '2025-08-22 23:48:49'),
-(162, NULL, 'UPDATE', 'SETTINGS', 6, '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '203', NULL, '2025-08-22 23:48:49'),
-(163, NULL, 'UPDATE', 'SETTINGS', 7, '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '203', NULL, '2025-08-22 23:48:49'),
-(164, NULL, 'UPDATE', 'SETTINGS', 8, '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '203', NULL, '2025-08-22 23:48:49'),
-(165, NULL, 'UPDATE', 'SETTINGS', 9, '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '203', NULL, '2025-08-22 23:48:49'),
-(166, NULL, 'UPDATE', 'SETTINGS', 10, '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '203', NULL, '2025-08-22 23:48:49'),
-(167, NULL, 'UPDATE', 'SETTINGS', 12, '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '203', NULL, '2025-08-22 23:48:49'),
-(168, NULL, 'UPDATE', 'SETTINGS', 13, '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '203', NULL, '2025-08-22 23:48:49'),
-(169, NULL, 'UPDATE', 'SETTINGS', 14, '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '203', NULL, '2025-08-22 23:48:49'),
-(170, NULL, 'UPDATE', 'SETTINGS', 15, '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '203', NULL, '2025-08-22 23:48:49'),
-(171, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks Essentials\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks Essentials\"}', '204', NULL, '2025-08-22 23:48:56'),
-(172, NULL, 'UPDATE', 'SETTINGS', 2, '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '{\"setting_key\": \"default_tax_rate\", \"setting_value\": \"0.00\"}', '204', NULL, '2025-08-22 23:48:56'),
-(173, NULL, 'UPDATE', 'SETTINGS', 3, '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '{\"setting_key\": \"quote_expiry_days\", \"setting_value\": \"7\"}', '204', NULL, '2025-08-22 23:48:56'),
-(174, NULL, 'UPDATE', 'SETTINGS', 4, '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '{\"setting_key\": \"quote_expiry_notification_days\", \"setting_value\": \"3\"}', '204', NULL, '2025-08-22 23:48:56'),
-(175, NULL, 'UPDATE', 'SETTINGS', 5, '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '204', NULL, '2025-08-22 23:48:56'),
-(176, NULL, 'UPDATE', 'SETTINGS', 6, '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '204', NULL, '2025-08-22 23:48:56'),
-(177, NULL, 'UPDATE', 'SETTINGS', 7, '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '204', NULL, '2025-08-22 23:48:56'),
-(178, NULL, 'UPDATE', 'SETTINGS', 8, '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '204', NULL, '2025-08-22 23:48:56'),
-(179, NULL, 'UPDATE', 'SETTINGS', 9, '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '{\"setting_key\": \"smtp_port\", \"setting_value\": \"587\"}', '204', NULL, '2025-08-22 23:48:56'),
-(180, NULL, 'UPDATE', 'SETTINGS', 10, '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '204', NULL, '2025-08-22 23:48:56'),
-(181, NULL, 'UPDATE', 'SETTINGS', 12, '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '{\"setting_key\": \"smtp_encryption\", \"setting_value\": \"TLS\"}', '204', NULL, '2025-08-22 23:48:56'),
-(182, NULL, 'UPDATE', 'SETTINGS', 13, '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '204', NULL, '2025-08-22 23:48:56'),
-(183, NULL, 'UPDATE', 'SETTINGS', 14, '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '204', NULL, '2025-08-22 23:48:56'),
-(184, NULL, 'UPDATE', 'SETTINGS', 15, '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '{\"setting_key\": \"backup_time\", \"setting_value\": \"02:00:00\"}', '204', NULL, '2025-08-22 23:48:56'),
-(185, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '300', NULL, '2025-08-23 00:36:36'),
-(186, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '300', NULL, '2025-08-23 00:36:36'),
-(187, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '24', NULL, '2025-08-23 11:13:49'),
-(188, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '25', NULL, '2025-08-23 11:13:54'),
-(189, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '25', NULL, '2025-08-23 11:13:54'),
-(190, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '137', NULL, '2025-08-23 20:18:19'),
-(191, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '138', NULL, '2025-08-23 20:18:24'),
-(192, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '138', NULL, '2025-08-23 20:18:24'),
-(193, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '167', NULL, '2025-08-23 21:15:33'),
-(194, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '167', NULL, '2025-08-23 21:15:33'),
-(195, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '169', NULL, '2025-08-23 21:15:42'),
-(196, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '171', NULL, '2025-08-23 21:15:57'),
-(197, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '173', NULL, '2025-08-23 21:16:10'),
-(198, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '178', NULL, '2025-08-23 21:16:38'),
-(199, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '180', NULL, '2025-08-23 21:16:53'),
-(200, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '182', NULL, '2025-08-23 21:17:10'),
-(201, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '183', NULL, '2025-08-23 21:17:18'),
-(202, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '184', NULL, '2025-08-23 21:17:25'),
-(203, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '184', NULL, '2025-08-23 21:17:25'),
-(204, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '186', NULL, '2025-08-23 21:17:35'),
-(205, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '188', NULL, '2025-08-23 21:17:48'),
-(206, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '189', NULL, '2025-08-23 21:17:52'),
-(207, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '191', NULL, '2025-08-23 21:18:07'),
-(208, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '191', NULL, '2025-08-23 21:18:07'),
-(209, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '196', NULL, '2025-08-23 21:18:32'),
-(210, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '197', NULL, '2025-08-23 21:18:42'),
-(211, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '199', NULL, '2025-08-23 21:19:06'),
-(212, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '199', NULL, '2025-08-23 21:19:06'),
-(213, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '202', NULL, '2025-08-23 21:19:23'),
-(214, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '212', NULL, '2025-08-23 21:19:44'),
-(215, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '212', NULL, '2025-08-23 21:19:44'),
-(216, 4, 'INSERT', 'USER', 4, NULL, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\"}', '215', NULL, '2025-08-23 21:20:25'),
-(217, 3, 'UPDATE', 'USER', 3, '{\"username\": \"anderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '219', NULL, '2025-08-23 21:20:46'),
-(218, 2, 'UPDATE', 'USER', 2, '{\"username\": \"leon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '222', NULL, '2025-08-23 21:20:59'),
-(219, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '225', NULL, '2025-08-23 21:21:14'),
-(220, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '225', NULL, '2025-08-23 21:21:14'),
-(221, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '227', NULL, '2025-08-23 21:21:24'),
-(222, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '227', NULL, '2025-08-23 21:21:24'),
-(223, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '232', NULL, '2025-08-23 21:21:42'),
-(224, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '232', NULL, '2025-08-23 21:21:42'),
-(225, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks Essentials\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '269', NULL, '2025-08-23 21:53:40'),
-(226, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '366', NULL, '2025-08-24 11:22:07'),
-(227, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '9', NULL, '2025-08-24 11:22:53');
-INSERT INTO `audit_logs` (`audit_id`, `user_id`, `action`, `entity_type`, `entity_id`, `old_value`, `new_value`, `ip_address`, `user_agent`, `created_at`) VALUES
-(228, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '9', NULL, '2025-08-24 11:22:53'),
-(229, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '298', NULL, '2025-08-24 20:36:17'),
-(230, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '298', NULL, '2025-08-24 20:36:17'),
-(231, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '362', NULL, '2025-08-25 08:50:21'),
-(232, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '363', NULL, '2025-08-25 08:50:27'),
-(233, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '363', NULL, '2025-08-25 08:50:27'),
-(234, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '366', NULL, '2025-08-25 08:50:53'),
-(235, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '367', NULL, '2025-08-25 08:50:57'),
-(236, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '368', NULL, '2025-08-25 08:51:07'),
-(237, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '370', NULL, '2025-08-25 08:51:17'),
-(238, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '371', NULL, '2025-08-25 08:51:26'),
-(239, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '371', NULL, '2025-08-25 08:51:26'),
-(240, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '428', NULL, '2025-08-25 09:08:28'),
-(241, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-08-26 22:40:47'),
-(242, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-08-26 22:40:47'),
-(243, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '21', NULL, '2025-08-26 22:49:52'),
-(244, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '25', NULL, '2025-08-26 22:50:08'),
-(245, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '25', NULL, '2025-08-26 22:50:08'),
-(246, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '29', NULL, '2025-08-26 22:50:42'),
-(247, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '30', NULL, '2025-08-26 22:50:47'),
-(248, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '31', NULL, '2025-08-26 22:50:56'),
-(249, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '43', NULL, '2025-08-26 22:51:50'),
-(250, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '45', NULL, '2025-08-26 22:52:12'),
-(251, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '45', NULL, '2025-08-26 22:52:12'),
-(252, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '48', NULL, '2025-08-26 22:52:27'),
-(253, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '57', NULL, '2025-08-26 22:52:57'),
-(254, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '60', NULL, '2025-08-26 22:53:15'),
-(255, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '62', NULL, '2025-08-26 22:53:38'),
-(256, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '63', NULL, '2025-08-26 22:53:45'),
-(257, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '66', NULL, '2025-08-26 22:54:03'),
-(258, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '68', NULL, '2025-08-26 22:54:12'),
-(259, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '69', NULL, '2025-08-26 22:55:13'),
-(260, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '74', NULL, '2025-08-26 22:57:26'),
-(261, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '80', NULL, '2025-08-26 23:03:41'),
-(262, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '82', NULL, '2025-08-26 23:03:48'),
-(263, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '87', NULL, '2025-08-26 23:04:24'),
-(264, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '88', NULL, '2025-08-26 23:04:30'),
-(265, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '116', NULL, '2025-08-26 23:17:32'),
-(266, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '116', NULL, '2025-08-26 23:17:32'),
-(267, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '146', NULL, '2025-08-26 23:20:32'),
-(268, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '147', NULL, '2025-08-26 23:20:35'),
-(269, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '219', NULL, '2025-08-26 23:32:49'),
-(270, 5, 'INSERT', 'USER', 5, NULL, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\"}', '221', NULL, '2025-08-26 23:33:48'),
-(271, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '223', NULL, '2025-08-26 23:33:55'),
-(272, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '306', NULL, '2025-08-27 09:25:23'),
-(273, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '307', NULL, '2025-08-27 09:25:29'),
-(274, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '308', NULL, '2025-08-27 09:25:37'),
-(275, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '308', NULL, '2025-08-27 09:25:37'),
-(276, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '352', NULL, '2025-08-27 11:20:41'),
-(277, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '352', NULL, '2025-08-27 11:20:41'),
-(278, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '360', NULL, '2025-08-27 22:05:39'),
-(279, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '361', NULL, '2025-08-27 22:05:44'),
-(280, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '361', NULL, '2025-08-27 22:05:44'),
-(281, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '399', NULL, '2025-08-28 23:07:36'),
-(282, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '400', NULL, '2025-08-28 23:07:41'),
-(283, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '400', NULL, '2025-08-28 23:07:41'),
-(284, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '510', NULL, '2025-08-29 00:08:28'),
-(285, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '511', NULL, '2025-08-29 00:08:39'),
-(286, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '511', NULL, '2025-08-29 00:08:39'),
-(287, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '514', NULL, '2025-08-29 00:08:54'),
-(288, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '515', NULL, '2025-08-29 00:09:02'),
-(289, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '580', NULL, '2025-08-29 08:43:35'),
-(290, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '580', NULL, '2025-08-29 08:43:35'),
-(291, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '594', NULL, '2025-08-29 08:49:13'),
-(292, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '595', NULL, '2025-08-29 08:49:20'),
-(293, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '595', NULL, '2025-08-29 08:49:20'),
-(294, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '622', NULL, '2025-08-29 09:02:32'),
-(295, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '629', NULL, '2025-08-29 09:03:24'),
-(296, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '630', NULL, '2025-08-29 09:03:30'),
-(297, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '630', NULL, '2025-08-29 09:03:30'),
-(298, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '637', NULL, '2025-08-29 09:03:58'),
-(299, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '637', NULL, '2025-08-29 09:03:58'),
-(300, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '659', NULL, '2025-08-29 13:17:19'),
-(301, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '659', NULL, '2025-08-29 13:17:19'),
-(302, NULL, 'UPDATE', 'SETTINGS', 13, '{\"setting_key\": \"from_email\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_email\", \"setting_value\": \"itbkup24@gmail.com\"}', '671', NULL, '2025-08-29 13:23:55'),
-(303, NULL, 'UPDATE', 'SETTINGS', 14, '{\"setting_key\": \"from_name\", \"setting_value\": \"\"}', '{\"setting_key\": \"from_name\", \"setting_value\": \"CRM System\"}', '671', NULL, '2025-08-29 13:23:55'),
-(304, NULL, 'UPDATE', 'SETTINGS', 8, '{\"setting_key\": \"smtp_host\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_host\", \"setting_value\": \"smtp.gmail.com\"}', '671', NULL, '2025-08-29 13:23:55'),
-(305, NULL, 'UPDATE', 'SETTINGS', 11, '{\"setting_key\": \"smtp_password\", \"setting_value\": \"encrypted_password\"}', '{\"setting_key\": \"smtp_password\", \"setting_value\": \"rgti ikam yrvi bpjy\"}', '671', NULL, '2025-08-29 13:23:55'),
-(306, NULL, 'UPDATE', 'SETTINGS', 10, '{\"setting_key\": \"smtp_username\", \"setting_value\": \"\"}', '{\"setting_key\": \"smtp_username\", \"setting_value\": \"itbkup24@gmail.com\"}', '671', NULL, '2025-08-29 13:23:55'),
-(307, 2, 'UPDATE', 'QUOTE', 2, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"SENT\", \"parent_quote_id\": null}', '694', NULL, '2025-08-29 13:26:05'),
-(308, 2, 'UPDATE', 'QUOTE', 3, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '701', NULL, '2025-08-29 13:27:38'),
-(309, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-08-29 13:44:21'),
-(310, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '11', NULL, '2025-08-29 13:44:26'),
-(311, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '11', NULL, '2025-08-29 13:44:26'),
-(312, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '23', NULL, '2025-08-29 13:46:35'),
-(313, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '26', NULL, '2025-08-29 20:32:04'),
-(314, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '26', NULL, '2025-08-29 20:32:04'),
-(315, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '48', NULL, '2025-08-29 20:57:14'),
-(316, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '48', NULL, '2025-08-29 20:57:14'),
-(317, 2, 'APPROVE', 'QUOTE', 2, '{\"status\": \"SENT\"}', '{\"status\": \"APPROVED\", \"stock_updated\": true}', '127.0.0.1', NULL, '2025-08-29 21:02:59'),
-(318, 2, 'UPDATE', 'QUOTE', 4, '{\"status\": \"DRAFT\", \"parent_quote_id\": 2}', '{\"status\": \"SENT\", \"parent_quote_id\": 2}', '59', NULL, '2025-08-29 21:05:06'),
-(319, 2, 'APPROVE', 'QUOTE', 4, '{\"status\": \"SENT\"}', '{\"status\": \"APPROVED\", \"stock_updated\": true}', '127.0.0.1', NULL, '2025-08-29 21:05:28'),
-(320, 2, 'UPDATE', 'QUOTE', 3, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"SENT\", \"parent_quote_id\": null}', '126', NULL, '2025-08-29 21:38:31'),
-(321, 2, 'UPDATE', 'QUOTE', 5, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"SENT\", \"parent_quote_id\": null}', '141', NULL, '2025-08-29 21:50:41'),
-(322, 2, 'UPDATE', 'QUOTE', 1, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"SENT\", \"parent_quote_id\": null}', '185', NULL, '2025-08-29 22:13:52'),
-(323, 2, 'UPDATE', 'QUOTE', 1, '{\"status\": \"SENT\", \"parent_quote_id\": null}', '{\"status\": \"REJECTED\", \"parent_quote_id\": null}', '187', NULL, '2025-08-29 22:14:00'),
-(324, 2, 'UPDATE', 'QUOTE', 3, '{\"status\": \"SENT\", \"parent_quote_id\": null}', '{\"status\": \"REJECTED\", \"parent_quote_id\": null}', '214', NULL, '2025-08-29 22:28:30'),
-(325, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-09-04 20:55:17'),
-(326, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '11', NULL, '2025-09-04 20:55:24'),
-(327, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '12', NULL, '2025-09-04 20:55:29'),
-(328, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '12', NULL, '2025-09-04 20:55:29'),
-(329, 2, 'UPDATE', 'QUOTE', 10, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"SENT\", \"parent_quote_id\": null}', '46', NULL, '2025-09-04 21:10:35'),
-(330, 2, 'UPDATE', 'QUOTE', 5, '{\"status\": \"SENT\", \"parent_quote_id\": null}', '{\"status\": \"REJECTED\", \"parent_quote_id\": null}', '54', NULL, '2025-09-04 21:11:35'),
-(331, 2, 'UPDATE', 'QUOTE', 11, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"SENT\", \"parent_quote_id\": null}', '61', NULL, '2025-09-04 21:12:14'),
-(332, 2, 'UPDATE', 'QUOTE', 12, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '99', NULL, '2025-09-04 21:26:30'),
-(333, 2, 'UPDATE', 'QUOTE', 12, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '102', NULL, '2025-09-04 21:26:39'),
-(334, 2, 'UPDATE', 'QUOTE', 12, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '111', NULL, '2025-09-04 21:31:14'),
-(335, 2, 'UPDATE', 'QUOTE', 11, '{\"status\": \"SENT\", \"parent_quote_id\": null}', '{\"status\": \"APPROVED\", \"parent_quote_id\": null}', '120', NULL, '2025-09-04 21:33:01'),
-(336, 2, 'APPROVE_QUOTE', 'QUOTE', 11, '{\"status\":\"SENT\"}', '{\"status\":\"APPROVED\",\"stock_updated\":true}', '127.0.0.1', NULL, '2025-09-04 21:33:01'),
-(337, 2, 'UPDATE', 'QUOTE', 10, '{\"status\": \"SENT\", \"parent_quote_id\": null}', '{\"status\": \"APPROVED\", \"parent_quote_id\": null}', '126', NULL, '2025-09-04 21:33:18'),
-(338, 2, 'APPROVE_QUOTE', 'QUOTE', 10, '{\"status\":\"SENT\"}', '{\"status\":\"APPROVED\",\"stock_updated\":true}', '127.0.0.1', NULL, '2025-09-04 21:33:18'),
-(339, 2, 'UPDATE', 'QUOTE', 12, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '136', NULL, '2025-09-04 21:36:56'),
-(340, 2, 'UPDATE', 'QUOTE', 12, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"SENT\", \"parent_quote_id\": null}', '141', NULL, '2025-09-04 21:37:50'),
-(341, 2, 'UPDATE', 'QUOTE', 12, '{\"status\": \"SENT\", \"parent_quote_id\": null}', '{\"status\": \"REJECTED\", \"parent_quote_id\": null}', '145', NULL, '2025-09-04 21:38:11'),
-(342, 2, 'UPDATE', 'QUOTE', 15, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"SENT\", \"parent_quote_id\": null}', '193', NULL, '2025-09-04 22:04:17'),
-(343, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '229', NULL, '2025-09-04 22:14:30'),
-(344, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '229', NULL, '2025-09-04 22:14:30'),
-(345, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '232', NULL, '2025-09-04 22:14:49'),
-(346, 2, 'UPDATE', 'QUOTE', 14, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"SENT\", \"parent_quote_id\": null}', '318', NULL, '2025-09-04 22:42:18'),
-(347, 2, 'UPDATE', 'QUOTE', 14, '{\"status\": \"SENT\", \"parent_quote_id\": null}', '{\"status\": \"APPROVED\", \"parent_quote_id\": null}', '320', NULL, '2025-09-04 22:42:23'),
-(348, 2, 'APPROVE_QUOTE', 'QUOTE', 14, '{\"status\":\"SENT\"}', '{\"status\":\"APPROVED\",\"stock_updated\":true}', '127.0.0.1', NULL, '2025-09-04 22:42:23'),
-(349, 2, 'UPDATE', 'QUOTE', 13, '{\"status\": \"DRAFT\", \"parent_quote_id\": 12}', '{\"status\": \"SENT\", \"parent_quote_id\": 12}', '326', NULL, '2025-09-04 22:42:34'),
-(350, 2, 'UPDATE', 'QUOTE', 13, '{\"status\": \"SENT\", \"parent_quote_id\": 12}', '{\"status\": \"APPROVED\", \"parent_quote_id\": 12}', '328', NULL, '2025-09-04 22:42:39'),
-(351, 2, 'APPROVE_QUOTE', 'QUOTE', 13, '{\"status\":\"SENT\"}', '{\"status\":\"APPROVED\",\"stock_updated\":true}', '127.0.0.1', NULL, '2025-09-04 22:42:39'),
-(352, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '480', NULL, '2025-09-04 23:07:53'),
-(353, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '14', NULL, '2025-09-05 10:11:34'),
-(354, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '14', NULL, '2025-09-05 10:11:34'),
-(355, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '133', NULL, '2025-09-05 11:11:44'),
-(356, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '142', NULL, '2025-09-05 11:15:15'),
-(357, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '143', NULL, '2025-09-05 11:15:29'),
-(358, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '151', NULL, '2025-09-05 11:16:36'),
-(359, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '152', NULL, '2025-09-05 11:16:41'),
-(360, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '153', NULL, '2025-09-05 11:16:46'),
-(361, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '153', NULL, '2025-09-05 11:16:46'),
-(362, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '164', NULL, '2025-09-05 11:21:55'),
-(363, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '165', NULL, '2025-09-05 11:26:32'),
-(364, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '166', NULL, '2025-09-05 11:26:36'),
-(365, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '167', NULL, '2025-09-05 11:26:40'),
-(366, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '208', NULL, '2025-09-05 11:33:43'),
-(367, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '216', NULL, '2025-09-05 11:56:30'),
-(368, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '232', NULL, '2025-09-05 13:32:24'),
-(369, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '232', NULL, '2025-09-05 13:32:24'),
-(370, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '319', NULL, '2025-09-05 21:50:10'),
-(371, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '321', NULL, '2025-09-05 21:50:21'),
-(372, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '321', NULL, '2025-09-05 21:50:21'),
-(373, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '329', NULL, '2025-09-05 21:50:57'),
-(374, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '329', NULL, '2025-09-05 21:50:57'),
-(375, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '460', NULL, '2025-09-05 22:12:24'),
-(376, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '472', NULL, '2025-09-05 22:13:33'),
-(377, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '474', NULL, '2025-09-05 22:13:42'),
-(378, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '602', NULL, '2025-09-06 22:53:30'),
-(379, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '602', NULL, '2025-09-06 22:53:30'),
-(380, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '15', NULL, '2025-09-06 23:01:01'),
-(381, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '15', NULL, '2025-09-06 23:01:01'),
-(382, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '16', NULL, '2025-09-06 23:05:20'),
-(383, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '16', NULL, '2025-09-06 23:05:20'),
-(384, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '318', NULL, '2025-09-06 23:50:05'),
-(385, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '422', NULL, '2025-09-07 00:10:18'),
-(386, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '454', NULL, '2025-09-07 00:12:41'),
-(387, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '457', NULL, '2025-09-07 00:13:06'),
-(388, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '459', NULL, '2025-09-07 00:13:17'),
-(389, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '459', NULL, '2025-09-07 00:13:17'),
-(390, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '475', NULL, '2025-09-07 00:20:16'),
-(391, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '475', NULL, '2025-09-07 00:20:16'),
-(392, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '484', NULL, '2025-09-07 00:25:08'),
-(393, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '484', NULL, '2025-09-07 00:25:08'),
-(394, 3, 'UPDATE', 'QUOTE', 18, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"SENT\", \"parent_quote_id\": null}', '495', NULL, '2025-09-07 00:27:18'),
-(395, 3, 'UPDATE', 'QUOTE', 18, '{\"status\": \"SENT\", \"parent_quote_id\": null}', '{\"status\": \"APPROVED\", \"parent_quote_id\": null}', '502', NULL, '2025-09-07 00:28:32'),
-(396, 3, 'APPROVE_QUOTE', 'QUOTE', 18, '{\"status\":\"SENT\"}', '{\"status\":\"APPROVED\",\"stock_updated\":true}', '127.0.0.1', NULL, '2025-09-07 00:28:32'),
-(397, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '543', NULL, '2025-09-07 00:42:17'),
-(398, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '543', NULL, '2025-09-07 00:42:17'),
-(399, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '598', NULL, '2025-09-07 00:53:21'),
-(400, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '598', NULL, '2025-09-07 00:53:21'),
-(401, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '673', NULL, '2025-09-07 01:06:03'),
-(402, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '673', NULL, '2025-09-07 01:06:03'),
-(403, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '678', NULL, '2025-09-07 01:06:24'),
-(404, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '678', NULL, '2025-09-07 01:06:24'),
-(405, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '686', NULL, '2025-09-07 01:06:54'),
-(406, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '686', NULL, '2025-09-07 01:06:54'),
-(407, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '692', NULL, '2025-09-07 01:07:33'),
-(408, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '693', NULL, '2025-09-07 01:07:38'),
-(409, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '693', NULL, '2025-09-07 01:07:38'),
-(410, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '696', NULL, '2025-09-07 01:07:46'),
-(411, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '710', NULL, '2025-09-07 10:20:36'),
-(412, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '711', NULL, '2025-09-07 10:20:41'),
-(413, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '711', NULL, '2025-09-07 10:20:41'),
-(414, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '12', NULL, '2025-09-07 10:25:54'),
-(415, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '13', NULL, '2025-09-07 10:26:00'),
-(416, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '13', NULL, '2025-09-07 10:26:00'),
-(417, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '35', NULL, '2025-09-07 10:29:50'),
-(418, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '35', NULL, '2025-09-07 10:29:50'),
-(419, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '55', NULL, '2025-09-07 10:35:02'),
-(420, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '55', NULL, '2025-09-07 10:35:02'),
-(421, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '71', NULL, '2025-09-07 10:49:08'),
-(422, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '78', NULL, '2025-09-07 10:54:33'),
-(423, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '79', NULL, '2025-09-07 10:54:40'),
-(424, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '79', NULL, '2025-09-07 10:54:40'),
-(425, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '83', NULL, '2025-09-07 10:57:33'),
-(426, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '86', NULL, '2025-09-07 10:57:55'),
-(427, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '89', NULL, '2025-09-07 10:58:10'),
-(428, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '89', NULL, '2025-09-07 10:58:10'),
-(429, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '92', NULL, '2025-09-07 10:58:18'),
-(430, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '96', NULL, '2025-09-07 10:58:43'),
-(431, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '96', NULL, '2025-09-07 10:58:43'),
-(432, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '100', NULL, '2025-09-07 10:59:01'),
-(433, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '513', NULL, '2025-09-07 13:24:56'),
-(434, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '513', NULL, '2025-09-07 13:24:56'),
-(435, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '518', NULL, '2025-09-07 13:29:00'),
-(436, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '518', NULL, '2025-09-07 13:29:00'),
-(437, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '532', NULL, '2025-09-07 13:35:19'),
-(438, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '532', NULL, '2025-09-07 13:35:19'),
-(439, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '597', NULL, '2025-09-07 13:58:08'),
-(440, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '599', NULL, '2025-09-07 13:58:13'),
-(441, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '599', NULL, '2025-09-07 13:58:13'),
-(442, NULL, 'UPDATE', 'SETTINGS', 14, '{\"setting_key\": \"from_name\", \"setting_value\": \"CRM System\"}', '{\"setting_key\": \"from_name\", \"setting_value\": \"Athena CRM\"}', '602', NULL, '2025-09-07 13:58:26'),
-(443, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '20', NULL, '2025-09-07 14:18:19'),
-(444, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '20', NULL, '2025-09-07 14:18:19'),
-(445, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '27', NULL, '2025-09-07 14:19:04');
-INSERT INTO `audit_logs` (`audit_id`, `user_id`, `action`, `entity_type`, `entity_id`, `old_value`, `new_value`, `ip_address`, `user_agent`, `created_at`) VALUES
-(446, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '29', NULL, '2025-09-07 14:19:12'),
-(447, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '29', NULL, '2025-09-07 14:19:12'),
-(448, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '38', NULL, '2025-09-07 14:32:24'),
-(449, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '38', NULL, '2025-09-07 14:32:24'),
-(450, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '46', NULL, '2025-09-07 14:37:39'),
-(451, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '46', NULL, '2025-09-07 14:37:39'),
-(452, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '57', NULL, '2025-09-07 14:40:20'),
-(453, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '57', NULL, '2025-09-07 14:40:20'),
-(454, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '62', NULL, '2025-09-07 14:40:41'),
-(455, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '63', NULL, '2025-09-07 14:40:46'),
-(456, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '63', NULL, '2025-09-07 14:40:46'),
-(457, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '16', NULL, '2025-09-07 15:04:55'),
-(458, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '17', NULL, '2025-09-07 15:05:01'),
-(459, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '17', NULL, '2025-09-07 15:05:01'),
-(460, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '20', NULL, '2025-09-07 15:05:39'),
-(461, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '20', NULL, '2025-09-07 15:05:39'),
-(462, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '26', NULL, '2025-09-07 15:07:19'),
-(463, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '26', NULL, '2025-09-07 15:07:19'),
-(464, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '52', NULL, '2025-09-07 15:36:01'),
-(465, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '53', NULL, '2025-09-07 15:36:13'),
-(466, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '53', NULL, '2025-09-07 15:36:13'),
-(467, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '113', NULL, '2025-09-07 15:54:29'),
-(468, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '113', NULL, '2025-09-07 15:54:29'),
-(469, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"Leon\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '116', NULL, '2025-09-07 15:56:27'),
-(470, 3, 'UPDATE', 'USER', 3, '{\"username\": \"Leon\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '117', NULL, '2025-09-07 15:56:35'),
-(471, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '128', NULL, '2025-09-07 15:59:14'),
-(472, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '129', NULL, '2025-09-07 15:59:24'),
-(473, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '129', NULL, '2025-09-07 15:59:24'),
-(474, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"PAPITWO\"}', '132', NULL, '2025-09-07 16:00:13'),
-(475, 3, 'UPDATE', 'QUOTE', 19, '{\"status\": \"DRAFT\", \"parent_quote_id\": 18}', '{\"status\": \"SENT\", \"parent_quote_id\": 18}', '144', NULL, '2025-09-07 16:02:43'),
-(476, 3, 'UPDATE', 'QUOTE', 19, '{\"status\": \"SENT\", \"parent_quote_id\": 18}', '{\"status\": \"REJECTED\", \"parent_quote_id\": 18}', '148', NULL, '2025-09-07 16:03:09'),
-(477, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '157', NULL, '2025-09-07 19:23:24'),
-(478, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '158', NULL, '2025-09-07 19:23:29'),
-(479, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '158', NULL, '2025-09-07 19:23:29'),
-(480, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '37', NULL, '2025-09-07 20:51:44'),
-(481, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '37', NULL, '2025-09-07 20:51:44'),
-(482, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '40', NULL, '2025-09-07 20:52:44'),
-(483, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '41', NULL, '2025-09-07 20:52:49'),
-(484, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '41', NULL, '2025-09-07 20:52:49'),
-(485, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '44', NULL, '2025-09-07 20:53:10'),
-(486, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '45', NULL, '2025-09-07 20:53:15'),
-(487, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '45', NULL, '2025-09-07 20:53:15'),
-(488, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '78', NULL, '2025-09-08 19:09:18'),
-(489, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '79', NULL, '2025-09-08 19:09:38'),
-(490, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '100', NULL, '2025-09-09 22:24:26'),
-(491, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '100', NULL, '2025-09-09 22:24:26'),
-(492, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"PAPITWO\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '103', NULL, '2025-09-09 22:24:43'),
-(493, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '115', NULL, '2025-09-09 22:34:41'),
-(494, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '118', NULL, '2025-09-09 22:34:46'),
-(495, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '121', NULL, '2025-09-09 22:34:52'),
-(496, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '124', NULL, '2025-09-09 22:35:04'),
-(497, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '124', NULL, '2025-09-09 22:35:04'),
-(498, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '139', NULL, '2025-09-09 22:43:16'),
-(499, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '140', NULL, '2025-09-09 22:43:22'),
-(500, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '140', NULL, '2025-09-09 22:43:22'),
-(501, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '176', NULL, '2025-09-09 23:06:52'),
-(502, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '176', NULL, '2025-09-09 23:06:52'),
-(503, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '181', NULL, '2025-09-09 23:09:15'),
-(504, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '182', NULL, '2025-09-09 23:09:19'),
-(505, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '182', NULL, '2025-09-09 23:09:19'),
-(506, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '197', NULL, '2025-09-09 23:19:38'),
-(507, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '210', NULL, '2025-09-09 23:34:32'),
-(508, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '212', NULL, '2025-09-09 23:34:37'),
-(509, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '219', NULL, '2025-09-09 23:36:09'),
-(510, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '295', NULL, '2025-09-10 00:06:04'),
-(511, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '295', NULL, '2025-09-10 00:06:04'),
-(512, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '305', NULL, '2025-09-10 09:49:32'),
-(513, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '305', NULL, '2025-09-10 09:49:32'),
-(514, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '313', NULL, '2025-09-10 15:59:45'),
-(515, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '313', NULL, '2025-09-10 15:59:45'),
-(516, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '317', NULL, '2025-09-10 16:05:31'),
-(517, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '318', NULL, '2025-09-10 16:05:37'),
-(518, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '318', NULL, '2025-09-10 16:05:37'),
-(519, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '330', NULL, '2025-09-10 21:20:51'),
-(520, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '330', NULL, '2025-09-10 21:20:51'),
-(521, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '358', NULL, '2025-09-10 21:32:36'),
-(522, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '359', NULL, '2025-09-10 21:32:42'),
-(523, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '359', NULL, '2025-09-10 21:32:42'),
-(524, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '385', NULL, '2025-09-10 21:36:01'),
-(525, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '386', NULL, '2025-09-10 21:36:11'),
-(526, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '387', NULL, '2025-09-10 21:36:16'),
-(527, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '387', NULL, '2025-09-10 21:36:16'),
-(528, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '498', NULL, '2025-09-10 21:58:20'),
-(529, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '498', NULL, '2025-09-10 21:58:20'),
-(530, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '508', NULL, '2025-09-10 22:04:15'),
-(531, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '508', NULL, '2025-09-10 22:04:15'),
-(532, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '573', NULL, '2025-09-10 22:20:44'),
-(533, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '574', NULL, '2025-09-10 22:20:50'),
-(534, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '574', NULL, '2025-09-10 22:20:50'),
-(535, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-09-11 08:52:38'),
-(536, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-09-11 08:52:38'),
-(537, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '153', NULL, '2025-09-11 09:44:23'),
-(538, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '153', NULL, '2025-09-11 09:44:23'),
-(539, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-09-11 15:10:34'),
-(540, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-09-11 15:10:34'),
-(541, 2, 'UPDATE', 'QUOTE', 16, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '15', NULL, '2025-09-11 15:10:50'),
-(542, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '119', NULL, '2025-09-11 15:53:12'),
-(543, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '120', NULL, '2025-09-11 15:53:18'),
-(544, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '120', NULL, '2025-09-11 15:53:18'),
-(545, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '130', NULL, '2025-09-11 15:55:13'),
-(546, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '131', NULL, '2025-09-11 15:55:18'),
-(547, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '131', NULL, '2025-09-11 15:55:18'),
-(548, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '147', NULL, '2025-09-11 16:06:56'),
-(549, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '148', NULL, '2025-09-11 16:07:00'),
-(550, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '150', NULL, '2025-09-11 16:07:12'),
-(551, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '151', NULL, '2025-09-11 16:07:24'),
-(552, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '152', NULL, '2025-09-11 16:07:29'),
-(553, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '152', NULL, '2025-09-11 16:07:29'),
-(554, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '158', NULL, '2025-09-11 16:07:49'),
-(555, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '159', NULL, '2025-09-11 16:07:54'),
-(556, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '159', NULL, '2025-09-11 16:07:54'),
-(557, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '164', NULL, '2025-09-11 16:08:18'),
-(558, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '166', NULL, '2025-09-11 16:08:24'),
-(559, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '166', NULL, '2025-09-11 16:08:24'),
-(560, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '180', NULL, '2025-09-11 16:09:22'),
-(561, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '181', NULL, '2025-09-11 16:09:27'),
-(562, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '182', NULL, '2025-09-11 16:09:34'),
-(563, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '182', NULL, '2025-09-11 16:09:34'),
-(564, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '194', NULL, '2025-09-11 16:11:02'),
-(565, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '194', NULL, '2025-09-11 16:11:02'),
-(566, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '207', NULL, '2025-09-11 16:14:38'),
-(567, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '208', NULL, '2025-09-11 16:14:42'),
-(568, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '209', NULL, '2025-09-11 16:14:47'),
-(569, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '209', NULL, '2025-09-11 16:14:47'),
-(570, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '216', NULL, '2025-09-11 16:15:27'),
-(571, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '218', NULL, '2025-09-11 16:15:33'),
-(572, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '218', NULL, '2025-09-11 16:15:33'),
-(573, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '225', NULL, '2025-09-11 19:30:41'),
-(574, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '226', NULL, '2025-09-11 19:30:46'),
-(575, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '226', NULL, '2025-09-11 19:30:46'),
-(576, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '281', NULL, '2025-09-11 20:44:12'),
-(577, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '281', NULL, '2025-09-11 20:44:12'),
-(578, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '309', NULL, '2025-09-11 21:09:59'),
-(579, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '309', NULL, '2025-09-11 21:09:59'),
-(580, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '317', NULL, '2025-09-11 21:11:34'),
-(581, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '318', NULL, '2025-09-11 21:11:39'),
-(582, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '318', NULL, '2025-09-11 21:11:39'),
-(583, NULL, 'UPDATE', 'SETTINGS', 6, '{\"setting_key\": \"timezone\", \"setting_value\": \"America/New_York\"}', '{\"setting_key\": \"timezone\", \"setting_value\": \"Europe/Madrid\"}', '386', NULL, '2025-09-11 21:31:18'),
-(584, NULL, 'UPDATE', 'SETTINGS', 7, '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"en\\\"]\"}', '387', NULL, '2025-09-11 21:31:33'),
-(585, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '427', NULL, '2025-09-11 21:48:36'),
-(586, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '427', NULL, '2025-09-11 21:48:36'),
-(587, NULL, 'UPDATE', 'SETTINGS', 7, '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"en\\\"]\"}', '{\"setting_key\": \"available_languages\", \"setting_value\": \"[\\\"es\\\"]\"}', '431', NULL, '2025-09-11 21:53:03'),
-(588, NULL, 'UPDATE', 'SETTINGS', 5, '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"10\"}', '{\"setting_key\": \"low_stock_threshold\", \"setting_value\": \"12\"}', '444', NULL, '2025-09-11 22:03:56'),
-(589, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks 2\"}', '446', NULL, '2025-09-11 22:06:06'),
-(590, NULL, 'UPDATE', 'SETTINGS', 1, '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks 2\"}', '{\"setting_key\": \"company_display_name\", \"setting_value\": \"Entropic Networks\"}', '447', NULL, '2025-09-11 22:06:14'),
-(591, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '487', NULL, '2025-09-11 22:25:02'),
-(592, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '488', NULL, '2025-09-11 22:25:07'),
-(593, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '488', NULL, '2025-09-11 22:25:07'),
-(594, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '512', NULL, '2025-09-11 22:34:54'),
-(595, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '512', NULL, '2025-09-11 22:34:54'),
-(596, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '521', NULL, '2025-09-11 22:36:41'),
-(597, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '522', NULL, '2025-09-11 22:36:49'),
-(598, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '523', NULL, '2025-09-11 22:36:54'),
-(599, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '523', NULL, '2025-09-11 22:36:54'),
-(600, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '561', NULL, '2025-09-11 22:46:00'),
-(601, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '561', NULL, '2025-09-11 22:46:00'),
-(602, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '585', NULL, '2025-09-12 13:49:06'),
-(603, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '586', NULL, '2025-09-12 13:49:16'),
-(604, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '586', NULL, '2025-09-12 13:49:16'),
-(605, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '625', NULL, '2025-09-12 14:58:27'),
-(606, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '625', NULL, '2025-09-12 14:58:27'),
-(607, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '628', NULL, '2025-09-12 14:59:00'),
-(608, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '628', NULL, '2025-09-12 14:59:00'),
-(609, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-09-15 18:12:58'),
-(610, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-09-15 18:12:58'),
-(611, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '35', NULL, '2025-09-16 17:46:42'),
-(612, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '36', NULL, '2025-09-16 17:46:47'),
-(613, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '36', NULL, '2025-09-16 17:46:47'),
-(614, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '40', NULL, '2025-09-16 17:57:15'),
-(615, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '40', NULL, '2025-09-16 17:57:15'),
-(616, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '44', NULL, '2025-09-16 18:02:00'),
-(617, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '44', NULL, '2025-09-16 18:02:00'),
-(618, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '173', NULL, '2025-09-16 19:00:14'),
-(619, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '173', NULL, '2025-09-16 19:00:14'),
-(620, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '187', NULL, '2025-09-16 19:19:38'),
-(621, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '187', NULL, '2025-09-16 19:19:38'),
-(622, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '241', NULL, '2025-09-16 19:54:35'),
-(623, 6, 'INSERT', 'USER', 6, NULL, '{\"username\": \"jleon\", \"email\": \"jleon@local.com\"}', '348', NULL, '2025-09-16 21:29:17'),
-(624, 6, 'UPDATE', 'USER', 6, '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '352', NULL, '2025-09-16 21:29:37'),
-(625, 6, 'UPDATE', 'USER', 6, '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '352', NULL, '2025-09-16 21:29:37'),
-(626, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '392', NULL, '2025-09-16 21:34:40'),
-(627, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '394', NULL, '2025-09-16 21:34:44'),
-(628, 6, 'UPDATE', 'USER', 6, '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '398', NULL, '2025-09-16 21:34:52'),
-(629, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '425', NULL, '2025-09-16 21:37:34'),
-(630, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '425', NULL, '2025-09-16 21:37:34'),
-(631, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '436', NULL, '2025-09-16 21:45:55'),
-(632, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '440', NULL, '2025-09-16 21:46:57'),
-(633, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '501', NULL, '2025-09-16 23:24:24'),
-(634, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '502', NULL, '2025-09-16 23:24:33'),
-(635, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '503', NULL, '2025-09-16 23:24:38'),
-(636, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '503', NULL, '2025-09-16 23:24:38'),
-(637, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-09-18 19:26:12'),
-(638, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-09-18 19:26:12'),
-(639, NULL, 'INSERT', 'SETTINGS', 16, NULL, '{\"setting_key\": \"company_logo\", \"setting_value\": \"\"}', '166', NULL, '2025-09-18 20:32:54'),
-(640, NULL, 'UPDATE', 'SETTINGS', 16, '{\"setting_key\": \"company_logo\", \"setting_value\": \"\"}', '{\"setting_key\": \"company_logo\", \"setting_value\": \"/crm-project/public/uploads/company_logo_1758227866.png\"}', '187', NULL, '2025-09-18 20:37:46'),
-(641, NULL, 'INSERT', 'SETTINGS', 18, NULL, '{\"setting_key\": \"company_slogan\", \"setting_value\": \"\"}', '218', NULL, '2025-09-18 20:40:08'),
-(642, NULL, 'UPDATE', 'SETTINGS', 18, '{\"setting_key\": \"company_slogan\", \"setting_value\": \"\"}', '{\"setting_key\": \"company_slogan\", \"setting_value\": \"La mejor y la que la tiene mas larga\"}', '228', NULL, '2025-09-18 20:40:52'),
-(643, NULL, 'UPDATE', 'SETTINGS', 18, '{\"setting_key\": \"company_slogan\", \"setting_value\": \"La mejor y la que la tiene mas larga\"}', '{\"setting_key\": \"company_slogan\", \"setting_value\": \"La entropía es caos. Entropic Network es control.\"}', '272', NULL, '2025-09-18 21:12:10'),
-(644, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '286', NULL, '2025-09-18 21:15:00'),
-(645, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '286', NULL, '2025-09-18 21:15:00'),
-(646, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '292', NULL, '2025-09-18 21:15:23'),
-(647, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '292', NULL, '2025-09-18 21:15:23'),
-(648, 6, 'UPDATE', 'USER', 6, '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '303', NULL, '2025-09-18 21:16:21'),
-(649, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '306', NULL, '2025-09-18 21:16:44'),
-(650, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '308', NULL, '2025-09-18 21:16:51'),
-(651, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '308', NULL, '2025-09-18 21:16:51'),
-(652, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '319', NULL, '2025-09-18 21:21:53'),
-(653, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '319', NULL, '2025-09-18 21:21:53'),
-(654, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '367', NULL, '2025-09-18 21:48:27'),
-(655, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '368', NULL, '2025-09-18 21:48:33');
-INSERT INTO `audit_logs` (`audit_id`, `user_id`, `action`, `entity_type`, `entity_id`, `old_value`, `new_value`, `ip_address`, `user_agent`, `created_at`) VALUES
-(656, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '368', NULL, '2025-09-18 21:48:33'),
-(657, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '373', NULL, '2025-09-18 21:49:55'),
-(658, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '373', NULL, '2025-09-18 21:49:55'),
-(659, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '382', NULL, '2025-09-18 21:54:34'),
-(660, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '383', NULL, '2025-09-18 21:54:39'),
-(661, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '383', NULL, '2025-09-18 21:54:39'),
-(662, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '391', NULL, '2025-09-18 21:55:14'),
-(663, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '393', NULL, '2025-09-18 21:55:33'),
-(664, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '393', NULL, '2025-09-18 21:55:33'),
-(665, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '400', NULL, '2025-09-18 21:59:29'),
-(666, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '400', NULL, '2025-09-18 21:59:29'),
-(667, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '405', NULL, '2025-09-18 21:59:48'),
-(668, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '405', NULL, '2025-09-18 21:59:48'),
-(669, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '417', NULL, '2025-09-18 22:01:22'),
-(670, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '423', NULL, '2025-09-18 22:01:53'),
-(671, 6, 'UPDATE', 'USER', 6, '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '427', NULL, '2025-09-18 22:02:11'),
-(672, 6, 'UPDATE', 'USER', 6, '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '{\"username\": \"jleon\", \"email\": \"jleon@local.com\", \"language\": \"es\"}', '459', NULL, '2025-09-18 22:05:17'),
-(673, 4, 'UPDATE', 'USER', 4, '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '{\"username\": \"ggaleano\", \"email\": \"galeano@local.com\", \"language\": \"es\"}', '460', NULL, '2025-09-18 22:05:20'),
-(674, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '461', NULL, '2025-09-18 22:05:23'),
-(675, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '512', NULL, '2025-09-18 22:27:34'),
-(676, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '512', NULL, '2025-09-18 22:27:34'),
-(677, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '548', NULL, '2025-09-19 23:33:54'),
-(678, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '548', NULL, '2025-09-19 23:33:54'),
-(679, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '695', NULL, '2025-09-20 01:52:15'),
-(680, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '695', NULL, '2025-09-20 01:52:15'),
-(681, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '750', NULL, '2025-09-20 02:32:20'),
-(682, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '750', NULL, '2025-09-20 02:32:20'),
-(683, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '763', NULL, '2025-09-20 02:44:53'),
-(684, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '763', NULL, '2025-09-20 02:44:53'),
-(685, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '767', NULL, '2025-09-20 02:48:44'),
-(686, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '767', NULL, '2025-09-20 02:48:44'),
-(687, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '770', NULL, '2025-09-20 02:49:30'),
-(688, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '771', NULL, '2025-09-20 02:49:36'),
-(689, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '771', NULL, '2025-09-20 02:49:36'),
-(690, 2, 'UPDATE', 'QUOTE', 20, '{\"status\": \"DRAFT\", \"parent_quote_id\": null}', '{\"status\": \"SENT\", \"parent_quote_id\": null}', '28', NULL, '2025-09-20 03:12:39'),
-(691, 2, 'UPDATE', 'QUOTE', 20, '{\"status\": \"SENT\", \"parent_quote_id\": null}', '{\"status\": \"APPROVED\", \"parent_quote_id\": null}', '31', NULL, '2025-09-20 03:12:44'),
-(692, 2, 'APPROVE_QUOTE', 'QUOTE', 20, '{\"status\":\"SENT\"}', '{\"status\":\"APPROVED\",\"stock_updated\":true}', '127.0.0.1', NULL, '2025-09-20 03:12:44'),
-(693, 2, 'UPDATE', 'QUOTE', 15, '{\"status\": \"SENT\", \"parent_quote_id\": null}', '{\"status\": \"APPROVED\", \"parent_quote_id\": null}', '42', NULL, '2025-09-20 03:16:09'),
-(694, 2, 'APPROVE_QUOTE', 'QUOTE', 15, '{\"status\":\"SENT\"}', '{\"status\":\"APPROVED\",\"stock_updated\":true}', '127.0.0.1', NULL, '2025-09-20 03:16:09'),
-(695, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '10', NULL, '2025-09-20 19:10:39'),
-(696, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '11', NULL, '2025-09-20 19:10:47'),
-(697, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '11', NULL, '2025-09-20 19:10:47'),
-(698, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '59', NULL, '2025-09-20 19:21:29'),
-(699, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '149', NULL, '2025-09-20 19:37:35'),
-(700, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '150', NULL, '2025-09-20 19:37:45'),
-(701, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '150', NULL, '2025-09-20 19:37:45'),
-(702, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '169', NULL, '2025-09-20 19:39:32'),
-(703, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '174', NULL, '2025-09-20 19:40:07'),
-(704, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '175', NULL, '2025-09-20 19:40:14'),
-(705, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '175', NULL, '2025-09-20 19:40:14'),
-(706, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '179', NULL, '2025-09-20 19:40:41'),
-(707, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '182', NULL, '2025-09-20 19:40:48'),
-(708, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '182', NULL, '2025-09-20 19:40:48'),
-(709, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '185', NULL, '2025-09-20 19:43:03'),
-(710, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '185', NULL, '2025-09-20 19:43:03'),
-(711, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '190', NULL, '2025-09-20 19:43:23'),
-(712, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '191', NULL, '2025-09-20 19:43:43'),
-(713, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '193', NULL, '2025-09-20 19:43:52'),
-(714, 5, 'UPDATE', 'USER', 5, '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '{\"username\": \"fluna\", \"email\": \"lunaleon@local.com\", \"language\": \"es\"}', '193', NULL, '2025-09-20 19:43:52'),
-(715, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '196', NULL, '2025-09-20 19:44:12'),
-(716, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '196', NULL, '2025-09-20 19:44:12'),
-(717, 7, 'INSERT', 'USER', 7, NULL, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\"}', '200', NULL, '2025-09-20 19:45:06'),
-(718, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '216', NULL, '2025-09-20 19:45:31'),
-(719, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '218', NULL, '2025-09-20 19:45:49'),
-(720, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '218', NULL, '2025-09-20 19:45:49'),
-(721, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '238', NULL, '2025-09-20 19:48:52'),
-(722, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '239', NULL, '2025-09-20 19:49:01'),
-(723, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '239', NULL, '2025-09-20 19:49:01'),
-(724, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '14', NULL, '2025-09-20 21:23:57'),
-(725, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '14', NULL, '2025-09-20 21:23:57'),
-(726, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '51', NULL, '2025-09-20 21:31:09'),
-(727, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '53', NULL, '2025-09-20 21:31:15'),
-(728, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '55', NULL, '2025-09-20 21:31:36'),
-(729, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '77', NULL, '2025-09-20 21:36:43'),
-(730, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '78', NULL, '2025-09-20 21:36:50'),
-(731, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '78', NULL, '2025-09-20 21:36:50'),
-(732, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '87', NULL, '2025-09-20 21:58:04'),
-(733, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '88', NULL, '2025-09-20 21:58:10'),
-(734, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '88', NULL, '2025-09-20 21:58:10'),
-(735, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '91', NULL, '2025-09-20 22:04:06'),
-(736, 7, 'FORCE_PASSWORD_CHANGE', 'USER', 7, '{\"force_password_change\": true}', '{\"force_password_change\": false}', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0', '2025-09-20 22:04:06'),
+Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0', '2025-09-20 22:04:06'),
 (737, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '12', NULL, '2025-09-20 22:05:33'),
 (738, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '13', NULL, '2025-09-20 22:05:40'),
 (739, 7, 'UPDATE', 'USER', 7, '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '{\"username\": \"lleon\", \"email\": \"lleon@local.com\", \"language\": \"es\"}', '14', NULL, '2025-09-20 22:05:47'),
@@ -933,10 +194,6 @@ INSERT INTO `audit_logs` (`audit_id`, `user_id`, `action`, `entity_type`, `entit
 (864, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '15', NULL, '2025-10-04 19:27:23'),
 (865, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '16', NULL, '2025-10-04 19:27:31'),
 (866, 2, 'UPDATE', 'USER', 2, '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '{\"username\": \"aleon\", \"email\": \"itbkup24@gmail.com\", \"language\": \"es\"}', '16', NULL, '2025-10-04 19:27:31');
-INSERT INTO `audit_logs` (`audit_id`, `user_id`, `action`, `entity_type`, `entity_id`, `old_value`, `new_value`, `ip_address`, `user_agent`, `created_at`) VALUES
-(867, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '25', NULL, '2025-10-04 19:29:28'),
-(868, 3, 'UPDATE', 'USER', 3, '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '{\"username\": \"janderson\", \"email\": \"anderson@local.com\", \"language\": \"es\"}', '25', NULL, '2025-10-04 19:29:28');
-
 -- --------------------------------------------------------
 
 --
@@ -954,29 +211,17 @@ CREATE TABLE `backup_requests` (
 -- Dumping data for table `backup_requests`
 --
 
-INSERT INTO `backup_requests` (`backup_id`, `requested_at`, `status`, `created_by`) VALUES
-(1, '2025-08-19 10:18:17', 'PENDING', NULL);
-
 --
 -- Triggers `backup_requests`
 --
 DELIMITER $$
 CREATE TRIGGER `backup_requests_after_insert` AFTER INSERT ON `backup_requests` FOR EACH ROW BEGIN
-    INSERT INTO audit_logs (user_id, action, entity_type, entity_id, new_value, ip_address, user_agent, created_at)
-    VALUES (NEW.created_by, 'INSERT', 'BACKUP_REQUEST', NEW.backup_id,
-            JSON_OBJECT('status', NEW.status, 'requested_at', NEW.requested_at),
-            CONNECTION_ID(), NULL, NOW());
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `backup_requests_after_update` AFTER UPDATE ON `backup_requests` FOR EACH ROW BEGIN
-    INSERT INTO audit_logs (user_id, action, entity_type, entity_id, old_value, new_value, ip_address, user_agent, created_at)
-    VALUES (NEW.created_by, 'UPDATE', 'BACKUP_REQUEST', NEW.backup_id,
-            JSON_OBJECT('status', OLD.status),
-            JSON_OBJECT('status', NEW.status),
-            CONNECTION_ID(), NULL, NOW());
-END
+    END
 $$
 DELIMITER ;
 
@@ -1004,13 +249,6 @@ CREATE TABLE `clients` (
 -- Dumping data for table `clients`
 --
 
-INSERT INTO `clients` (`client_id`, `company_name`, `contact_name`, `email`, `phone`, `address`, `tax_id`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Entropic Networks', 'Yaixa Cano', 'cano@entropic.com', '504 99665423', 'Modificar St para que sea automatico, pero en el futuro', '15', 2, '2025-08-22 23:18:41', '2025-08-22 23:18:41', NULL),
-(2, 'Lionixx entertaiment', 'Luna Leon', 'itbkup24@gmail.com', '62354676543', 'Modificar St para que sea automatico, pero en el futuro', '15', 2, '2025-08-27 22:33:39', '2025-08-29 13:25:27', NULL),
-(3, 'Trasnportes Galeano', 'Julio La Verdura de la casa', 'fabigaleon26@gmail.com', '65423879086', 'San pedro jula cerca de cerrocigalpa', '12', 2, '2025-09-04 21:09:45', '2025-09-04 21:09:45', NULL),
-(4, 'JYP', 'Im Naeyon', 'nayeon@twice.com', '65423879086', 'Seul, South Korea, St. 23, Dongsehn building', '15', 2, '2025-09-11 15:20:29', '2025-09-11 15:20:29', NULL),
-(5, 'Firm', 'Thess Smith', 'thess@local.com', '65432128974', 'Madrid, Barrio 5 central', '12', 2, '2025-09-27 17:23:00', '2025-09-27 17:23:00', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -1029,19 +267,6 @@ CREATE TABLE `client_activities` (
 --
 -- Dumping data for table `client_activities`
 --
-
-INSERT INTO `client_activities` (`activity_id`, `client_id`, `quote_id`, `activity_type`, `activity_date`, `details`) VALUES
-(1, 1, 1, 'QUOTE_CREATED', '2025-08-29 00:37:00', '{\"total_amount\":2553.125}'),
-(2, 2, 2, 'QUOTE_CREATED', '2025-08-29 00:41:08', '{\"total_amount\":3413.125}'),
-(3, 2, 2, 'QUOTE_APPROVED', '2025-08-29 21:02:59', '{\"approved_amount\":\"3413.13\",\"approved_by\":2}'),
-(4, 2, 4, 'QUOTE_APPROVED', '2025-08-29 21:05:28', '{\"approved_amount\":\"3413.13\",\"approved_by\":2}'),
-(5, 3, 11, 'QUOTE_APPROVED', '2025-09-04 21:33:01', '{\"total_amount\":\"1248.30\"}'),
-(6, 1, 10, 'QUOTE_APPROVED', '2025-09-04 21:33:18', '{\"total_amount\":\"131.40\"}'),
-(7, 3, 14, 'QUOTE_APPROVED', '2025-09-04 22:42:23', '{\"total_amount\":\"1612.50\"}'),
-(8, 3, 13, 'QUOTE_APPROVED', '2025-09-04 22:42:39', '{\"total_amount\":\"1612.50\"}'),
-(9, 2, 18, 'QUOTE_APPROVED', '2025-09-07 00:28:32', '{\"total_amount\":\"643.86\"}'),
-(10, 4, 20, 'QUOTE_APPROVED', '2025-09-20 03:12:44', '{\"total_amount\":\"537.50\"}'),
-(11, 1, 15, 'QUOTE_APPROVED', '2025-09-20 03:16:09', '{\"total_amount\":\"2553.13\"}');
 
 -- --------------------------------------------------------
 
@@ -1105,28 +330,6 @@ CREATE TABLE `permissions` (
 -- Dumping data for table `permissions`
 --
 
-INSERT INTO `permissions` (`permission_id`, `permission_name`, `module`, `description`, `created_at`) VALUES
-(1, 'edit_own_profile', 'users', 'Edit own user profile', '2025-08-18 23:31:48'),
-(2, 'reset_user_password', 'users', 'Reset user passwords', '2025-08-18 23:31:48'),
-(3, 'view_sales_reports', 'reports', 'View sales performance and trends', '2025-08-18 23:31:48'),
-(4, 'view_client_reports', 'reports', 'View client activity and patterns', '2025-08-18 23:31:48'),
-(5, 'view_product_reports', 'reports', 'View product performance and categories', '2025-08-18 23:31:48'),
-(6, 'view_compliance_reports', 'reports', 'View audit logs and security posture', '2025-08-18 23:31:48'),
-(7, 'request_access', 'access', 'Request additional permissions', '2025-08-18 23:31:48'),
-(8, 'manage_access_requests', 'access', 'Review access requests', '2025-08-18 23:31:48'),
-(9, 'manage_settings', 'settings', 'Manage company settings', '2025-08-18 23:31:48'),
-(10, 'renew_quotes', 'quotes', 'Renew existing quotes', '2025-08-18 23:31:48'),
-(11, 'manage_backups', 'backups', 'Manage backup requests', '2025-08-18 23:31:48'),
-(12, 'view_clients', 'clients', 'View client details', '2025-08-18 23:31:48'),
-(13, 'create_quotes', 'quotes', 'Create new quotes', '2025-08-18 23:31:48'),
-(14, 'add_clients', 'clients', 'Add new clients', '2025-09-27 21:25:45'),
-(15, 'edit_clients', 'clients', 'Edit existing clients', '2025-09-27 21:25:45'),
-(16, 'delete_clients', 'clients', 'Delete clients', '2025-09-27 21:25:45'),
-(17, 'add_products', 'products', 'Add new products', '2025-09-27 21:28:46'),
-(18, 'edit_products', 'products', 'Edit existing products', '2025-09-27 21:28:46'),
-(19, 'delete_products', 'products', 'Delete products', '2025-09-27 21:28:46'),
-(20, 'view_products', 'products', 'View products list', '2025-09-27 21:28:46');
-
 -- --------------------------------------------------------
 
 --
@@ -1149,13 +352,6 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `category_id`, `product_name`, `sku`, `price`, `tax_rate`, `stock_quantity`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Dell G15 Ryzen 7 2 nucleos', 'inv-tech-002', 2000.00, 7.50, 200, '2025-08-23 00:11:04', '2025-08-23 00:12:14'),
-(2, 1, 'Dell G15 Intel Core I7', 'INV-TECH-001', 2500.00, 7.50, 80, '2025-08-23 00:13:41', '2025-09-21 15:03:22'),
-(4, 2, 'Silla gamer reclinable pro', 'INV-MOB-001', 1000.00, 7.50, 99, '2025-08-23 00:14:38', '2025-09-20 03:12:44'),
-(5, 1, 'Honor 200 Pro', 'inv-tech-003', 1200.00, 9.50, 199, '2025-08-28 23:17:13', '2025-09-04 21:33:01'),
-(6, 2, 'Libro La song de resistance', 'INV-LIT-001', 50.00, 9.50, 136, '2025-08-28 23:54:17', '2025-09-11 09:24:47');
-
 -- --------------------------------------------------------
 
 --
@@ -1172,10 +368,6 @@ CREATE TABLE `product_categories` (
 --
 -- Dumping data for table `product_categories`
 --
-
-INSERT INTO `product_categories` (`category_id`, `category_name`, `description`, `created_at`) VALUES
-(1, 'Tecnologia', 'Productos y aparatos electronicos de tecnologia personal', '2025-08-23 00:08:25'),
-(2, 'Aparatos de Oficina', 'Tecnologia para oficina', '2025-08-23 00:12:58');
 
 -- --------------------------------------------------------
 
@@ -1202,24 +394,6 @@ CREATE TABLE `quotes` (
 -- Dumping data for table `quotes`
 --
 
-INSERT INTO `quotes` (`quote_id`, `client_id`, `user_id`, `parent_quote_id`, `quote_number`, `status`, `stock_updated`, `total_amount`, `issue_date`, `expiry_date`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, NULL, 'Q20250001', 'REJECTED', 0, 2553.13, '2025-08-28', '2025-09-04', '2025-08-29 00:37:00', '2025-08-29 22:14:00'),
-(2, 2, 2, NULL, 'Q20250002', 'APPROVED', 1, 3413.13, '2025-08-28', '2025-09-04', '2025-08-29 00:41:08', '2025-08-29 21:02:59'),
-(3, 2, 2, NULL, 'Q20250003', 'REJECTED', 0, 3397.00, '2025-08-29', '2025-09-05', '2025-08-29 13:27:19', '2025-08-29 22:28:30'),
-(4, 2, 2, 2, 'Q20250004', 'APPROVED', 1, 3413.13, '2025-08-29', '2025-09-05', '2025-08-29 13:27:55', '2025-08-29 21:05:28'),
-(5, 2, 2, NULL, 'QT2025-0001', 'REJECTED', 0, 54.75, '2025-08-29', '2025-09-05', '2025-08-29 21:26:30', '2025-09-04 21:11:35'),
-(10, 1, 2, NULL, 'QT2025-0002', 'APPROVED', 1, 131.40, '2025-08-29', '2025-09-05', '2025-08-29 22:39:04', '2025-09-04 21:33:18'),
-(11, 3, 2, NULL, 'QT2025-0003', 'APPROVED', 1, 1248.30, '2025-09-04', '2025-09-11', '2025-09-04 21:12:01', '2025-09-04 21:33:01'),
-(12, 3, 2, NULL, 'QT2025-0004', 'REJECTED', 0, 1612.50, '2025-09-04', '2025-09-11', '2025-09-04 21:24:29', '2025-09-04 21:38:11'),
-(13, 3, 2, 12, 'QT2025-0005', 'APPROVED', 1, 1612.50, '2025-09-04', '2025-09-11', '2025-09-04 21:50:16', '2025-09-04 22:42:39'),
-(14, 3, 2, NULL, 'QT2025-0006', 'APPROVED', 1, 1612.50, '2025-09-04', '2025-09-11', '2025-09-04 21:54:36', '2025-09-04 22:42:23'),
-(15, 1, 2, NULL, 'QT2025-0007', 'APPROVED', 1, 2553.13, '2025-09-04', '2025-09-11', '2025-09-04 21:55:02', '2025-09-20 03:16:09'),
-(16, 2, 2, NULL, 'QT2025-0008', 'DRAFT', 0, 3413.13, '2025-09-04', '2025-09-11', '2025-09-04 21:57:48', '2025-09-11 15:10:50'),
-(17, 2, 2, NULL, 'QT2025-0009', 'DRAFT', 0, 967.50, '2025-09-04', '2025-09-11', '2025-09-04 22:03:48', '2025-09-04 22:03:48'),
-(18, 2, 3, NULL, 'QT2025-0010', 'APPROVED', 1, 643.86, '2025-09-06', '2025-09-13', '2025-09-07 00:27:12', '2025-09-07 00:28:32'),
-(19, 2, 3, 18, 'QT2025-0011', 'REJECTED', 0, 643.86, '2025-09-07', '2025-09-14', '2025-09-07 16:02:18', '2025-09-07 16:03:09'),
-(20, 4, 2, NULL, 'QT2025-0012', 'APPROVED', 1, 537.50, '2025-09-11', '2025-09-18', '2025-09-11 15:21:12', '2025-09-20 03:12:44');
-
 --
 -- Triggers `quotes`
 --
@@ -1236,23 +410,9 @@ CREATE TRIGGER `quotes_after_update` AFTER UPDATE ON `quotes` FOR EACH ROW BEGIN
                 SET stock_updated = TRUE
                 WHERE quote_id = NEW.quote_id;
                 
-                INSERT INTO client_activities (client_id, quote_id, activity_type, activity_date, details)
-                VALUES (NEW.client_id, NEW.quote_id, 'QUOTE_APPROVED', NOW(),
-                        JSON_OBJECT('total_amount', NEW.total_amount));
-                        
-                INSERT INTO audit_logs (user_id, action, entity_type, entity_id, old_value, new_value, ip_address, user_agent, created_at)
-                VALUES (NEW.user_id, 'STOCK_UPDATE', 'QUOTE', NEW.quote_id,
-                        JSON_OBJECT('status', OLD.status),
-                        JSON_OBJECT('status', NEW.status, 'stock_updated', NEW.stock_updated),
-                        CONNECTION_ID(), NULL, NOW());
-            END IF;
+                END IF;
             
-            INSERT INTO audit_logs (user_id, action, entity_type, entity_id, old_value, new_value, ip_address, user_agent, created_at)
-            VALUES (NEW.user_id, 'UPDATE', 'QUOTE', NEW.quote_id,
-                    JSON_OBJECT('status', OLD.status, 'parent_quote_id', OLD.parent_quote_id),
-                    JSON_OBJECT('status', NEW.status, 'parent_quote_id', NEW.parent_quote_id),
-                    CONNECTION_ID(), NULL, NOW());
-        END
+            END
 $$
 DELIMITER ;
 
@@ -1278,28 +438,6 @@ CREATE TABLE `quote_items` (
 -- Dumping data for table `quote_items`
 --
 
-INSERT INTO `quote_items` (`quote_item_id`, `quote_id`, `product_id`, `quantity`, `unit_price`, `discount`, `tax_amount`, `subtotal`, `created_at`) VALUES
-(1, 1, 2, 1, 2500.00, 5.00, 178.13, 2553.13, '2025-08-29 00:37:00'),
-(2, 2, 4, 1, 1000.00, 10.00, 67.50, 967.50, '2025-08-29 00:41:08'),
-(3, 2, 2, 1, 2500.00, 9.00, 170.63, 2445.63, '2025-08-29 00:41:08'),
-(7, 3, 2, 1, 2500.00, 10.00, 168.75, 2418.75, '2025-08-29 13:27:38'),
-(8, 3, 4, 1, 1000.00, 9.00, 68.25, 978.25, '2025-08-29 13:27:38'),
-(9, 4, 4, 1, 1000.00, 10.00, 67.50, 967.50, '2025-08-29 13:27:55'),
-(10, 4, 2, 1, 2500.00, 9.00, 170.63, 2445.63, '2025-08-29 13:27:55'),
-(11, 5, 6, 1, 50.00, 0.00, 4.75, 54.75, '2025-08-29 21:26:30'),
-(16, 10, 6, 3, 50.00, 20.00, 11.40, 131.40, '2025-08-29 22:39:04'),
-(17, 11, 5, 1, 1200.00, 5.00, 108.30, 1248.30, '2025-09-04 21:12:01'),
-(22, 12, 2, 2, 1000.00, 25.00, 112.50, 1612.50, '2025-09-04 21:36:56'),
-(23, 13, 2, 2, 1000.00, 25.00, 112.50, 1612.50, '2025-09-04 21:50:16'),
-(24, 14, 2, 2, 1000.00, 25.00, 112.50, 1612.50, '2025-09-04 21:54:36'),
-(25, 15, 2, 1, 2500.00, 5.00, 178.13, 2553.13, '2025-09-04 21:55:02'),
-(28, 17, 4, 1, 1000.00, 10.00, 67.50, 967.50, '2025-09-04 22:03:48'),
-(29, 18, 6, 12, 50.00, 2.00, 55.86, 643.86, '2025-09-07 00:27:12'),
-(30, 19, 6, 12, 50.00, 2.00, 55.86, 643.86, '2025-09-07 16:02:18'),
-(31, 16, 4, 1, 1000.00, 10.00, 67.50, 967.50, '2025-09-11 15:10:50'),
-(32, 16, 2, 1, 2500.00, 9.00, 170.63, 2445.63, '2025-09-11 15:10:50'),
-(33, 20, 4, 1, 1000.00, 50.00, 37.50, 537.50, '2025-09-11 15:21:12');
-
 -- --------------------------------------------------------
 
 --
@@ -1317,11 +455,6 @@ CREATE TABLE `roles` (
 -- Dumping data for table `roles`
 --
 
-INSERT INTO `roles` (`role_id`, `role_name`, `description`, `created_at`) VALUES
-(1, 'Admin', 'Full access to all modules and settings', '2025-08-18 23:31:48'),
-(2, 'Seller', 'Access to sales-related modules and reports', '2025-08-18 23:31:48'),
-(11, 'Auditor', 'Role access to reports and event logs of platform', '2025-08-29 09:00:49');
-
 -- --------------------------------------------------------
 
 --
@@ -1337,34 +470,6 @@ CREATE TABLE `role_permissions` (
 --
 -- Dumping data for table `role_permissions`
 --
-
-INSERT INTO `role_permissions` (`role_id`, `permission_id`, `created_at`) VALUES
-(1, 1, '2025-09-11 22:55:14'),
-(1, 2, '2025-09-11 22:55:14'),
-(1, 3, '2025-09-11 22:55:14'),
-(1, 4, '2025-09-11 22:55:14'),
-(1, 5, '2025-09-11 22:55:14'),
-(1, 6, '2025-09-11 22:55:14'),
-(1, 7, '2025-09-11 22:55:14'),
-(1, 8, '2025-09-11 22:55:14'),
-(1, 9, '2025-09-11 22:55:14'),
-(1, 10, '2025-09-11 22:55:14'),
-(1, 11, '2025-09-11 22:55:14'),
-(1, 12, '2025-09-11 22:55:14'),
-(1, 13, '2025-09-11 22:55:14'),
-(2, 1, '2025-09-27 21:31:36'),
-(2, 3, '2025-09-27 21:31:36'),
-(2, 4, '2025-09-27 21:31:36'),
-(2, 10, '2025-09-27 21:31:36'),
-(2, 12, '2025-09-27 21:31:36'),
-(2, 13, '2025-09-27 21:31:36'),
-(2, 17, '2025-09-27 21:31:36'),
-(2, 18, '2025-09-27 21:31:36'),
-(2, 20, '2025-09-27 21:31:36'),
-(11, 1, '2025-09-07 20:54:39'),
-(11, 6, '2025-09-07 20:54:39'),
-(11, 7, '2025-09-18 21:54:44'),
-(11, 12, '2025-09-07 20:54:39');
 
 -- --------------------------------------------------------
 
@@ -1384,45 +489,17 @@ CREATE TABLE `settings` (
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`setting_id`, `setting_key`, `setting_value`, `created_at`, `updated_at`) VALUES
-(1, 'company_display_name', 'Entropic Networks', '2025-08-18 23:31:48', '2025-09-11 22:06:14'),
-(2, 'default_tax_rate', '0.00', '2025-08-18 23:31:48', '2025-08-22 23:48:56'),
-(3, 'quote_expiry_days', '7', '2025-08-18 23:31:48', '2025-08-22 23:48:56'),
-(4, 'quote_expiry_notification_days', '3', '2025-08-18 23:31:48', '2025-08-22 23:48:56'),
-(5, 'low_stock_threshold', '12', '2025-08-18 23:31:48', '2025-09-11 22:03:56'),
-(6, 'timezone', 'Europe/Madrid', '2025-08-18 23:31:48', '2025-09-11 21:31:18'),
-(7, 'available_languages', '[\"es\"]', '2025-08-18 23:31:48', '2025-09-11 21:53:03'),
-(8, 'smtp_host', 'smtp.gmail.com', '2025-08-18 23:31:48', '2025-08-29 13:23:55'),
-(9, 'smtp_port', '587', '2025-08-18 23:31:48', '2025-08-22 23:48:56'),
-(10, 'smtp_username', 'itbkup24@gmail.com', '2025-08-18 23:31:48', '2025-08-29 13:23:55'),
-(11, 'smtp_password', 'rgti ikam yrvi bpjy', '2025-08-18 23:31:48', '2025-08-29 13:23:55'),
-(12, 'smtp_encryption', 'TLS', '2025-08-18 23:31:48', '2025-08-22 23:48:56'),
-(13, 'from_email', 'itbkup24@gmail.com', '2025-08-18 23:31:48', '2025-08-29 13:23:55'),
-(14, 'from_name', 'Athena CRM', '2025-08-18 23:31:48', '2025-09-07 13:58:26'),
-(15, 'backup_time', '02:00:00', '2025-08-18 23:31:48', '2025-08-22 23:48:56'),
-(16, 'company_logo', '/crm-project/public/uploads/company_logo_1758227866.png', '2025-09-18 20:32:54', '2025-09-18 20:37:46'),
-(18, 'company_slogan', 'La entropía es caos. Entropic Network es control.', '2025-09-18 20:40:08', '2025-09-18 21:12:10');
-
 --
 -- Triggers `settings`
 --
 DELIMITER $$
 CREATE TRIGGER `settings_after_insert` AFTER INSERT ON `settings` FOR EACH ROW BEGIN
-    INSERT INTO audit_logs (user_id, action, entity_type, entity_id, new_value, ip_address, user_agent, created_at)
-    VALUES (NULL, 'INSERT', 'SETTINGS', NEW.setting_id,
-            JSON_OBJECT('setting_key', NEW.setting_key, 'setting_value', NEW.setting_value),
-            CONNECTION_ID(), NULL, NOW());
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `settings_after_update` AFTER UPDATE ON `settings` FOR EACH ROW BEGIN
-    INSERT INTO audit_logs (user_id, action, entity_type, entity_id, old_value, new_value, ip_address, user_agent, created_at)
-    VALUES (NULL, 'UPDATE', 'SETTINGS', NEW.setting_id,
-            JSON_OBJECT('setting_key', OLD.setting_key, 'setting_value', OLD.setting_value),
-            JSON_OBJECT('setting_key', NEW.setting_key, 'setting_value', NEW.setting_value),
-            CONNECTION_ID(), NULL, NOW());
-END
+    END
 $$
 DELIMITER ;
 
@@ -1455,32 +532,17 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `email`, `password_hash`, `display_name`, `profile_picture`, `language`, `role_id`, `is_admin`, `is_active`, `failed_login_attempts`, `locked_until`, `force_password_change`, `created_at`, `updated_at`, `last_login_at`) VALUES
-(2, 'aleon', 'itbkup24@gmail.com', '$2y$12$WTBuzcuB5IECDERkdJH7QONhv1JyagxOmvShZVOH0ZzY6fkt0XGzS', 'Leon Jassiel', 'crm-project/public/uploads/68bd632418510_1757242148.png', 'es', 1, 1, 1, 0, NULL, 0, '2025-08-19 22:18:19', '2025-10-04 19:27:31', '2025-10-04 19:27:31'),
-(3, 'janderson', 'anderson@local.com', '$2y$12$RSUq.gRazxjanpZ7iL.CsuTjuEvNfSJDm3nkwJA7WviuEMKk0z3iS', 'Anderson Zelaya', 'crm-project/public/uploads/68bd654a1617d_1757242698.png', 'es', 2, 0, 1, 0, NULL, 0, '2025-08-20 22:16:27', '2025-10-04 19:29:28', '2025-10-04 19:29:28'),
-(4, 'ggaleano', 'galeano@local.com', '$2y$12$Ic7gXg4vWfvnV4lHaaaBmu7Cl8nAQq2uRt/q.v8EETqiUT8NgjHSe', 'Fabiola Galeano', 'crm-project/public/uploads/68bd65338cc22_1757242675.png', 'es', 11, 0, 0, 0, NULL, 0, '2025-08-23 21:20:25', '2025-09-18 22:05:20', '2025-09-18 21:48:33'),
-(5, 'fluna', 'lunaleon@local.com', '$2y$12$eEoTsikubUXQl0eQPf9zluoE1NJVheoML1G9qmrnpKtRUXJPkTOEm', 'Luna Fabiola', 'crm-project/public/uploads/68bd6575b5599_1757242741.png', 'es', 11, 0, 1, 0, NULL, 0, '2025-08-26 23:33:48', '2025-09-20 19:43:52', '2025-09-20 19:43:52'),
-(6, 'jleon', 'jleon@local.com', '$2y$12$BDCoCI.XChlSEycWWH/Le.S3Hr3jpJrODpT/B9UvFdOCh/pRHCjim', 'Mateo Jassiel Leon Galeano', NULL, 'es', 11, 0, 0, 0, NULL, 0, '2025-09-16 21:29:17', '2025-09-18 22:05:17', '2025-09-16 21:29:37'),
-(7, 'lleon', 'lleon@local.com', '$2y$12$/hL8VoxfgJmfYFwZ4obGwepEGZ4G5fJgz1hQi40/4deP8zTV6HRxC', 'Luna Aurora Leon', NULL, 'es', 1, 0, 1, 3, '2025-09-21 15:23:48', 0, '2025-09-20 19:45:06', '2025-09-21 14:53:48', '2025-09-20 22:06:48');
-
 --
 -- Triggers `users`
 --
 DELIMITER $$
 CREATE TRIGGER `users_after_insert` AFTER INSERT ON `users` FOR EACH ROW BEGIN
-    INSERT INTO audit_logs (user_id, action, entity_type, entity_id, new_value, ip_address, user_agent, created_at)
-    VALUES (NEW.user_id, 'INSERT', 'USER', NEW.user_id, JSON_OBJECT('username', NEW.username, 'email', NEW.email), CONNECTION_ID(), NULL, NOW());
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `users_after_update` AFTER UPDATE ON `users` FOR EACH ROW BEGIN
-    INSERT INTO audit_logs (user_id, action, entity_type, entity_id, old_value, new_value, ip_address, user_agent, created_at)
-    VALUES (NEW.user_id, 'UPDATE', 'USER', NEW.user_id,
-            JSON_OBJECT('username', OLD.username, 'email', OLD.email, 'language', OLD.language),
-            JSON_OBJECT('username', NEW.username, 'email', NEW.email, 'language', NEW.language),
-            CONNECTION_ID(), NULL, NOW());
-END
+    END
 $$
 DELIMITER ;
 
@@ -2335,19 +1397,6 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Electrónicos', 1, '2025-06-25 19:33:25', NULL),
-(2, 'Ropa y Accesorios', 1, '2025-06-25 19:33:25', NULL),
-(3, 'Hogar y Jardín', 1, '2025-06-25 19:33:25', NULL),
-(4, 'Servicios Profesionales', 1, '2025-06-25 19:33:25', NULL),
-(5, 'Oficina y Papelería', 1, '2025-06-25 19:33:25', NULL),
-(6, 'Salud y Belleza', 1, '2025-06-25 19:33:25', NULL),
-(7, 'Deportes y Fitness', 1, '2025-06-25 19:33:25', NULL),
-(8, 'Automotriz', 1, '2025-06-25 19:33:25', NULL),
-(9, 'Alimentación', 1, '2025-06-25 19:33:25', NULL),
-(10, 'Construcción', 1, '2025-06-25 19:33:25', NULL),
-(11, 'Consultoria IT', 1, '2025-07-02 20:35:15', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -2369,8 +1418,7 @@ CREATE TABLE `clients` (
 -- Dumping data for table `clients`
 --
 
-INSERT INTO `clients` (`id`, `name`, `email`, `phone`, `address`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'TechCorp Solutions S.A.', 'contacto@techcorp.com', '+34 911 234 567', 'Calle Tecnolog&iacute;a 123, Madrid, Espa&ntilde;a', 0, '2025-06-25 19:33:25', '2025-06-25 19:40:23'),
+a 123, Madrid, Espa&ntilde;a', 0, '2025-06-25 19:33:25', '2025-06-25 19:40:23'),
 (2, 'María Elena Rodríguez', 'maria.rodriguez@email.com', '+34 655 987 654', 'Avenida Principal 456, Barcelona, España', 1, '2025-06-25 19:33:25', NULL),
 (3, 'Innovación Digital Ltd.', 'info@innovaciondigital.com', '+34 913 456 789', 'Plaza de la Innovación 789, Valencia, España', 1, '2025-06-25 19:33:25', NULL),
 (4, 'Carlos Mendoza García', 'carlos.mendoza@personal.com', '+34 666 123 987', 'Calle Comercial 321, Sevilla, España', 1, '2025-06-25 19:33:25', NULL),
@@ -2405,11 +1453,6 @@ CREATE TABLE `email_logs` (
 -- Dumping data for table `email_logs`
 --
 
-INSERT INTO `email_logs` (`id`, `quote_id`, `recipient_email`, `subject`, `sent_at`, `status`, `error_message`) VALUES
-(1, 11, 'itbkup24@gmail.com', 'Cotización COT-2025-0022 - Envios Inc.', '2025-06-26 21:39:41', 'sent', NULL),
-(2, 12, 'dijilog678@kimdyn.com', 'Cotización COT-2025-0023 - Envios Inc.', '2025-07-02 16:12:12', 'sent', NULL),
-(3, 13, 'dijilog678@kimdyn.com', 'Cotización COT-2025-0024 - Envios Inc.', '2025-07-02 20:30:32', 'sent', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -2434,9 +1477,7 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `category_id`, `base_price`, `tax_rate`, `unit`, `stock`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'MacBook Pro 14\"', 'Laptop profesional Apple con chip M3, 16GB RAM, 512GB SSD', 1, 2299.00, 21.00, 'unidad', 24, 1, '2025-06-25 19:33:25', '2025-07-02 20:32:35'),
-(2, 'Smartphone Samsung Galaxy S24', 'Tel&eacute;fono inteligente con c&aacute;mara de 50MP y 256GB almacenamiento', 1, 899.00, 21.00, 'unidad', 10, 1, '2025-06-25 19:33:25', '2025-06-25 19:42:38'),
+fono inteligente con c&aacute;mara de 50MP y 256GB almacenamiento', 1, 899.00, 21.00, 'unidad', 10, 1, '2025-06-25 19:33:25', '2025-06-25 19:42:38'),
 (3, 'Consultoría en Desarrollo Web', 'Servicio de consultoría especializada en desarrollo web y e-commerce', 4, 85.00, 21.00, 'hora', NULL, 1, '2025-06-25 19:33:25', NULL),
 (4, 'Silla Ergonómica Premium', 'Silla de oficina ergonómica con soporte lumbar y reposabrazos ajustables', 5, 345.00, 21.00, 'unidad', 13, 1, '2025-06-25 19:33:25', '2025-06-26 21:14:34'),
 (5, 'Impresora Multifunci&oacute;n HP', 'Impresora l&aacute;ser a color con scanner, copiadora y fax integrado', 1, 425.00, 21.00, 'unidad', 10, 1, '2025-06-25 19:33:25', '2025-06-25 19:42:46'),
@@ -2474,8 +1515,7 @@ CREATE TABLE `quotes` (
 -- Dumping data for table `quotes`
 --
 
-INSERT INTO `quotes` (`id`, `quote_number`, `client_id`, `quote_date`, `valid_until`, `notes`, `discount_percent`, `subtotal`, `tax_amount`, `total_amount`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'COT-2025-0012', 2, '2025-06-25', '2025-06-26', 'Cotizaci&oacute;n para renovaci&oacute;n de equipos inform&aacute;ticos. Incluye instalaci&oacute;n y configuraci&oacute;n.', 5.00, 439.50, 81.71, 519.32, 3, '2025-06-25 19:33:25', '2025-06-25 19:50:47'),
+n para renovaci&oacute;n de equipos inform&aacute;ticos. Incluye instalaci&oacute;n y configuraci&oacute;n.', 5.00, 439.50, 81.71, 519.32, 3, '2025-06-25 19:33:25', '2025-06-25 19:50:47'),
 (2, 'COT-2025-0013', 2, '2025-06-25', '2025-06-26', 'Propuesta para equipamiento personal de oficina en casa.', 0.00, 345.00, 72.45, 417.45, 3, '2025-06-25 19:33:25', '2025-06-26 21:14:34'),
 (3, 'COT-2025-0014', 3, '2025-06-25', '2025-06-30', 'Servicios de consultor&iacute;a para desarrollo de plataforma web corporativa.', 10.00, 1250.00, 262.50, 1512.50, 5, '2025-06-25 19:33:25', '2025-07-02 16:04:04'),
 (4, 'COT-2025-0015', 4, '2025-06-25', '2025-07-25', 'Equipamiento deportivo para gimnasio personal.', 0.00, 0.00, 0.00, 150.00, 3, '2025-06-25 19:33:25', '2025-06-25 19:51:29'),
@@ -2514,21 +1554,6 @@ CREATE TABLE `quote_details` (
 --
 -- Dumping data for table `quote_details`
 --
-
-INSERT INTO `quote_details` (`id`, `quote_id`, `product_id`, `product_name`, `quantity`, `unit_price`, `discount_percent`, `line_subtotal`, `discount_amount`, `line_total`, `tax_rate`, `tax_amount`, `line_total_with_tax`) VALUES
-(11, 1, 10, 'Café Premium Gourmet', 5, 18.90, 2.00, 94.50, 1.89, 92.61, 10.00, 9.26, 101.87),
-(12, 1, 4, 'Silla Ergonómica Premium', 1, 345.00, 0.00, 345.00, 0.00, 345.00, 21.00, 72.45, 417.45),
-(18, 6, 4, 'Silla Ergonómica Premium', 1, 345.00, 0.00, 345.00, 0.00, 345.00, 21.00, 72.45, 417.45),
-(19, 8, 4, 'Silla Ergonómica Premium', 1, 345.00, 0.00, 345.00, 0.00, 345.00, 21.00, 72.45, 417.45),
-(21, 10, 1, 'MacBook Pro 14\"', 1, 2299.00, 0.00, 2299.00, 0.00, 2299.00, 21.00, 482.79, 2781.79),
-(22, 10, 3, 'Consultoría en Desarrollo Web', 1, 85.00, 0.00, 85.00, 0.00, 85.00, 21.00, 17.85, 102.85),
-(23, 5, 9, 'Aceite de Motor Sintético', 1, 2299.00, 0.00, 2299.00, 0.00, 2299.00, 21.00, 482.79, 2781.79),
-(24, 3, 7, 'Bicicleta de Montaña Trek', 1, 1250.00, 0.00, 1250.00, 0.00, 1250.00, 21.00, 262.50, 1512.50),
-(25, 2, 4, 'Silla Ergonómica Premium', 1, 345.00, 0.00, 345.00, 0.00, 345.00, 21.00, 72.45, 417.45),
-(26, 11, 11, 'Dell Modelo G15, Procesador Core i9', 1, 2500.00, 0.00, 2500.00, 0.00, 2500.00, 5.00, 125.00, 2625.00),
-(27, 12, 6, 'Kit de Herramientas Profesional', 1, 159.99, 5.00, 159.99, 8.00, 151.99, 21.00, 31.92, 183.91),
-(29, 13, 3, 'Consultoría en Desarrollo Web', 1, 85.00, 0.00, 85.00, 0.00, 85.00, 21.00, 17.85, 102.85),
-(30, 13, 1, 'MacBook Pro 14\"', 1, 2299.00, 0.00, 2299.00, 0.00, 2299.00, 21.00, 482.79, 2781.79);
 
 --
 -- Triggers `quote_details`
@@ -2596,8 +1621,7 @@ CREATE TABLE `settings` (
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`id`, `company_name`, `company_slogan`, `company_address`, `company_phone`, `company_email`, `company_website`, `company_logo`, `language`, `timezone`, `currency_code`, `currency_symbol`, `tax_rate`, `tax_name`, `theme`, `date_format`, `smtp_host`, `smtp_port`, `smtp_username`, `smtp_password`, `smtp_security`, `smtp_from_email`, `smtp_from_name`, `created_at`, `updated_at`) VALUES
-(1, 'Envios Inc.', 'Envios confiables a todo el mundo', '', '', '', '', 'assets/images/logos/685db99978f82.jpg', 'es', 'Europe/Madrid', 'USD', '&euro;', 16.00, 'IVA', 'light', 'd/m/Y', 'smtp.gmail.com', 587, 'itbkup24@gmail.com', 'lsyw vjsr qold fpfn ', 'tls', 'itbkup24@gmail.com', 'Mi empresa CRM', '2025-06-25 17:31:55', '2025-06-26 21:34:43');
+', 16.00, 'IVA', 'light', 'd/m/Y', 'smtp.gmail.com', 587, 'itbkup24@gmail.com', 'lsyw vjsr qold fpfn ', 'tls', 'itbkup24@gmail.com', 'Mi empresa CRM', '2025-06-25 17:31:55', '2025-06-26 21:34:43');
 
 -- --------------------------------------------------------
 
@@ -2623,11 +1647,6 @@ CREATE TABLE `users` (
 --
 -- Dumping data for table `users`
 --
-
-INSERT INTO `users` (`id`, `username`, `email`, `password_hash`, `full_name`, `role`, `status`, `last_login`, `failed_login_attempts`, `locked_until`, `created_at`, `updated_at`) VALUES
-(1, 'root', 'root@sysadmin.com', '$2y$10$XaQhK6Aoj.JvThtybuHkYei5DFQT/1JqfFUSdz5LIRQdM5Bttutpm', 'root sysadmin', 1, 1, '2025-08-04 10:27:40', 5, NULL, '2025-06-20 00:16:43', '2025-08-18 13:56:09'),
-(10, 'User', 'user@sysuser.com', '$2y$10$CWX2yMqGe8Yh5pZgQaTV4.gAGd0Fs983pQ3GShgKM//xZ1KO5QoYq', 'Juan Manolo Casal', 2, 1, '2025-08-04 10:16:54', 4, NULL, '2025-06-26 21:13:22', '2025-08-18 13:56:24'),
-(11, 'jgarcia', 'jandres@localhost.com', '$2y$10$6bR3B.aSVIqFEg0gKqE7Z.2Z1p3tTy1Dn9/JjP.b1FThTD8PvSaIO', 'Juan Andres Perez Ciguenza', 2, 0, '2025-07-02 20:43:17', 2, NULL, '2025-07-02 20:41:39', '2025-08-18 13:55:38');
 
 -- --------------------------------------------------------
 
@@ -2916,12 +1935,6 @@ CREATE TABLE `logs` (
 -- Dumping data for table `logs`
 --
 
-INSERT INTO `logs` (`id`, `user_id`, `action`, `request_id`, `created_at`) VALUES
-(32, 1, 'approve', 11, '2025-06-18 12:56:52'),
-(33, 1, 'approve', 10, '2025-06-18 12:57:19'),
-(34, 1, 'approve', 12, '2025-06-19 08:19:06'),
-(35, 1, 'approve', 13, '2025-06-19 08:51:08');
-
 -- --------------------------------------------------------
 
 --
@@ -2941,208 +1954,6 @@ CREATE TABLE `people` (
 --
 -- Dumping data for table `people`
 --
-
-INSERT INTO `people` (`id`, `name`, `status`, `refuge_id`, `entry_date`, `entry_time`, `created_at`) VALUES
-(256, 'Ricardo Torres Ballesteros', 'Albergado', 11, '2025-06-03', '20:24:00', '2025-06-18 12:56:52'),
-(257, 'Rocío Romero Sandoval', 'Dado de alta', 11, '2025-06-13', '00:16:00', '2025-06-18 12:56:52'),
-(258, 'Nancy Blanco Escamilla', 'Albergado', 11, '2025-05-22', '16:16:00', '2025-06-18 12:56:52'),
-(259, 'Zeferino Gollum Páez', 'Dado de alta', 11, '2025-05-24', '08:37:00', '2025-06-18 12:56:52'),
-(260, 'Ricardo Rosario Arenas', 'Pendiente', 11, '2025-05-22', '21:24:00', '2025-06-18 12:56:52'),
-(261, 'Ing. Octavio Mata', 'Albergado', 11, '2025-05-31', '21:21:00', '2025-06-18 12:56:52'),
-(262, 'Evelio Gabino Ortiz Ceja', 'Dado de alta', 11, '2025-06-02', '09:04:00', '2025-06-18 12:56:52'),
-(263, 'Antonia Abril Reynoso Valladares', 'En tránsito', 11, '2025-05-23', '21:43:00', '2025-06-18 12:56:52'),
-(264, 'Dr. Natividad Jaimes', 'Dado de alta', 11, '2025-05-25', '15:52:00', '2025-06-18 12:56:52'),
-(265, 'Felipe Negrón Linares', 'En tránsito', 11, '2025-05-26', '03:16:00', '2025-06-18 12:56:52'),
-(266, 'Mtro. Sara Tafoya', 'Albergado', 11, '2025-05-19', '19:55:00', '2025-06-18 12:56:52'),
-(267, 'Mtro. Wilfrido Cano', 'En tránsito', 11, '2025-05-25', '08:04:00', '2025-06-18 12:56:52'),
-(268, 'Bernabé Uribe Cortés', 'Pendiente', 11, '2025-06-01', '02:09:00', '2025-06-18 12:56:52'),
-(269, 'Dr. Jacobo Figueroa', 'En tránsito', 11, '2025-05-31', '00:14:00', '2025-06-18 12:56:52'),
-(270, 'Fidel Ávalos', 'En tránsito', 11, '2025-05-23', '05:24:00', '2025-06-18 12:56:52'),
-(271, 'Gerónimo Armendáriz', 'Albergado', 11, '2025-05-19', '14:13:00', '2025-06-18 12:56:52'),
-(272, 'Teodoro Frida Cuellar', 'Dado de alta', 11, '2025-06-09', '02:11:00', '2025-06-18 12:56:52'),
-(273, 'Ramiro Aguirre', 'Albergado', 11, '2025-05-24', '04:42:00', '2025-06-18 12:56:52'),
-(274, 'Patricio Alejandro Negrón', 'Pendiente', 11, '2025-06-16', '02:03:00', '2025-06-18 12:56:52'),
-(275, 'Luis Manuel Carolina Arguello', 'En tránsito', 11, '2025-06-02', '11:05:00', '2025-06-18 12:56:52'),
-(276, 'Jorge Gaitán Haro', 'Albergado', 11, '2025-05-23', '17:31:00', '2025-06-18 12:56:52'),
-(277, 'Lic. Silvano Correa', 'Dado de alta', 11, '2025-05-30', '00:04:00', '2025-06-18 12:56:52'),
-(278, 'Liliana Alberto Duarte', 'Pendiente', 11, '2025-06-04', '07:43:00', '2025-06-18 12:56:52'),
-(279, 'Yolanda Guzmán', 'Pendiente', 11, '2025-05-31', '21:12:00', '2025-06-18 12:56:52'),
-(280, 'Juana Arellano Rodrígez', 'Dado de alta', 11, '2025-05-29', '09:49:00', '2025-06-18 12:56:52'),
-(281, 'Jerónimo Magaña', 'En tránsito', 11, '2025-05-30', '19:04:00', '2025-06-18 12:56:52'),
-(282, 'Victoria Espinoza Ozuna', 'En tránsito', 11, '2025-06-03', '17:11:00', '2025-06-18 12:56:52'),
-(283, 'Germán Montoya Saucedo', 'Dado de alta', 11, '2025-06-07', '12:20:00', '2025-06-18 12:56:52'),
-(284, 'Mtro. Alicia Carrillo', 'Dado de alta', 11, '2025-05-31', '07:51:00', '2025-06-18 12:56:52'),
-(285, 'Mtro. Alfonso Cardona', 'En tránsito', 11, '2025-06-16', '03:22:00', '2025-06-18 12:56:52'),
-(286, 'Humberto Marco Antonio Zelaya Segura', 'En tránsito', 11, '2025-05-24', '02:01:00', '2025-06-18 12:56:52'),
-(287, 'Dr. Florencia Armendáriz', 'Pendiente', 11, '2025-06-09', '00:53:00', '2025-06-18 12:56:52'),
-(288, 'Ing. Yuridia Estrada', 'En tránsito', 11, '2025-06-05', '22:55:00', '2025-06-18 12:56:52'),
-(289, 'Wendolin Menéndez Martínez', 'Albergado', 11, '2025-05-25', '14:08:00', '2025-06-18 12:56:52'),
-(290, 'Natividad Horacio Paredes Mena', 'En tránsito', 11, '2025-06-07', '05:01:00', '2025-06-18 12:56:52'),
-(291, 'Perla Carolina Espinosa Peres', 'Pendiente', 11, '2025-06-06', '19:53:00', '2025-06-18 12:56:52'),
-(292, 'Sergio Rebeca Madera', 'Albergado', 11, '2025-06-07', '01:16:00', '2025-06-18 12:56:52'),
-(293, 'Hernán Llamas Gaitán', 'Dado de alta', 11, '2025-06-08', '03:23:00', '2025-06-18 12:56:52'),
-(294, 'Ing. Vanesa Medina', 'En tránsito', 11, '2025-06-10', '15:37:00', '2025-06-18 12:56:52'),
-(295, 'Zeferino Gallardo', 'Pendiente', 11, '2025-06-12', '02:33:00', '2025-06-18 12:56:52'),
-(296, 'Victoria Arturo Limón', 'Pendiente', 11, '2025-06-13', '04:14:00', '2025-06-18 12:56:52'),
-(297, 'Mtro. Aurelio Gollum', 'Albergado', 11, '2025-06-03', '11:22:00', '2025-06-18 12:56:52'),
-(298, 'Concepción Alberto Arredondo', 'En tránsito', 11, '2025-05-30', '13:52:00', '2025-06-18 12:56:52'),
-(299, 'Sr(a). María Eugenia Pedroza', 'Albergado', 11, '2025-06-15', '17:08:00', '2025-06-18 12:56:52'),
-(300, 'Miguel Ángel Pabón', 'Albergado', 11, '2025-05-30', '21:44:00', '2025-06-18 12:56:52'),
-(301, 'Bernabé Pizarro Gaona', 'Dado de alta', 11, '2025-05-27', '06:12:00', '2025-06-18 12:56:52'),
-(302, 'Lic. Amador Valdés', 'En tránsito', 11, '2025-05-31', '09:13:00', '2025-06-18 12:56:52'),
-(303, 'Cecilia Rivera', 'Albergado', 11, '2025-06-13', '03:55:00', '2025-06-18 12:56:52'),
-(304, 'Mtro. Margarita Santana', 'En tránsito', 11, '2025-06-08', '10:21:00', '2025-06-18 12:56:52'),
-(305, 'Cristobal Roldán', 'Dado de alta', 11, '2025-06-09', '05:46:00', '2025-06-18 12:56:52'),
-(306, 'Alberto Laureano Guevara', 'Albergado', 10, '2025-05-29', '05:36:00', '2025-06-18 12:57:19'),
-(307, 'Zoé Trejo Brito', 'Dado de alta', 10, '2025-06-16', '22:10:00', '2025-06-18 12:57:19'),
-(308, 'Alta  Gracia Cabán Gamez', 'Pendiente', 10, '2025-05-30', '16:10:00', '2025-06-18 12:57:19'),
-(309, 'Sr(a). Ramiro Farías', 'En tránsito', 10, '2025-06-14', '05:19:00', '2025-06-18 12:57:19'),
-(310, 'Marisol Rolando Ledesma', 'En tránsito', 10, '2025-05-19', '06:13:00', '2025-06-18 12:57:19'),
-(311, 'Luisa Jacinto Ledesma', 'Pendiente', 10, '2025-05-26', '15:39:00', '2025-06-18 12:57:19'),
-(312, 'Benjamín Aurelio Olivares Calderón', 'Albergado', 10, '2025-06-05', '01:34:00', '2025-06-18 12:57:19'),
-(313, 'Mtro. Alvaro Rico', 'Albergado', 10, '2025-06-14', '13:42:00', '2025-06-18 12:57:19'),
-(314, 'Arcelia Urías', 'Albergado', 10, '2025-06-02', '22:14:00', '2025-06-18 12:57:19'),
-(315, 'Mtro. Reynaldo Espinosa', 'Albergado', 10, '2025-05-22', '23:18:00', '2025-06-18 12:57:19'),
-(316, 'Gregorio Arcelia Gonzales', 'Dado de alta', 10, '2025-05-23', '02:07:00', '2025-06-18 12:57:19'),
-(317, 'María Elena Teresa Nava Curiel', 'Dado de alta', 10, '2025-06-05', '07:13:00', '2025-06-18 12:57:19'),
-(318, 'Yuridia Gabriela Becerra', 'Albergado', 10, '2025-06-17', '11:18:00', '2025-06-18 12:57:19'),
-(319, 'Oswaldo Felipe Dávila', 'Albergado', 10, '2025-06-10', '09:59:00', '2025-06-18 12:57:19'),
-(320, 'Timoteo Porfirio Gaona Meléndez', 'Albergado', 10, '2025-05-21', '00:29:00', '2025-06-18 12:57:19'),
-(321, 'Ignacio Pacheco Jasso', 'Albergado', 10, '2025-05-22', '00:09:00', '2025-06-18 12:57:19'),
-(322, 'Mtro. Eric Sanabria', 'Albergado', 10, '2025-06-07', '04:04:00', '2025-06-18 12:57:19'),
-(323, 'Claudio Jaimes', 'Pendiente', 10, '2025-05-25', '23:02:00', '2025-06-18 12:57:19'),
-(324, 'Ing. Frida Viera', 'En tránsito', 10, '2025-06-08', '18:56:00', '2025-06-18 12:57:19'),
-(325, 'Jos Gaona', 'En tránsito', 10, '2025-05-25', '08:16:00', '2025-06-18 12:57:19'),
-(326, 'Aurora Arreola', 'En tránsito', 10, '2025-05-24', '21:23:00', '2025-06-18 12:57:19'),
-(327, 'Luisa Rubén Barela', 'Dado de alta', 10, '2025-06-06', '04:46:00', '2025-06-18 12:57:19'),
-(328, 'Lic. Óliver Heredia', 'Pendiente', 10, '2025-06-14', '08:41:00', '2025-06-18 12:57:19'),
-(329, 'Omar Jaramillo Molina', 'En tránsito', 10, '2025-05-24', '23:38:00', '2025-06-18 12:57:19'),
-(330, 'Cristina Rendón', 'Pendiente', 10, '2025-05-19', '16:41:00', '2025-06-18 12:57:19'),
-(331, 'Mónica Diego Sarabia Caraballo', 'Pendiente', 10, '2025-06-02', '04:13:00', '2025-06-18 12:57:19'),
-(332, 'Ing. Elvia Corral', 'Dado de alta', 10, '2025-06-06', '07:24:00', '2025-06-18 12:57:19'),
-(333, 'Paola Olga Abrego', 'En tránsito', 10, '2025-06-17', '22:37:00', '2025-06-18 12:57:19'),
-(334, 'Aida Carrasco', 'Pendiente', 10, '2025-06-05', '11:55:00', '2025-06-18 12:57:19'),
-(335, 'Evelio Ana Luisa Guajardo Valverde', 'Dado de alta', 10, '2025-05-22', '22:16:00', '2025-06-18 12:57:19'),
-(336, 'Ángela Tejada', 'En tránsito', 10, '2025-05-25', '04:29:00', '2025-06-18 12:57:19'),
-(337, 'Paulina de Jesús', 'Dado de alta', 10, '2025-05-31', '09:40:00', '2025-06-18 12:57:19'),
-(338, 'Lic. Eric Tirado', 'En tránsito', 10, '2025-05-28', '10:37:00', '2025-06-18 12:57:19'),
-(339, 'Leonor Yuridia Niño Quezada', 'Dado de alta', 10, '2025-06-13', '17:58:00', '2025-06-18 12:57:19'),
-(340, 'Fernando Garza Barela', 'En tránsito', 10, '2025-06-04', '19:25:00', '2025-06-18 12:57:19'),
-(341, 'Ing. Estela Villalobos', 'Albergado', 10, '2025-05-29', '17:30:00', '2025-06-18 12:57:19'),
-(342, 'Susana Bahena Girón', 'Dado de alta', 10, '2025-05-22', '18:33:00', '2025-06-18 12:57:19'),
-(343, 'Angélica Noelia Granados Leiva', 'Dado de alta', 10, '2025-06-11', '21:14:00', '2025-06-18 12:57:19'),
-(344, 'Dr. Reina Velázquez', 'En tránsito', 10, '2025-06-10', '17:29:00', '2025-06-18 12:57:19'),
-(345, 'Lorenzo Espinal', 'Pendiente', 10, '2025-05-23', '05:28:00', '2025-06-18 12:57:19'),
-(346, 'Joaquín Piña', 'En tránsito', 10, '2025-06-07', '23:03:00', '2025-06-18 12:57:19'),
-(347, 'Zacarías Calvillo Ballesteros', 'Dado de alta', 10, '2025-06-07', '20:19:00', '2025-06-18 12:57:19'),
-(348, 'Bianca Felix Espinosa Espinal', 'Albergado', 10, '2025-06-14', '08:24:00', '2025-06-18 12:57:19'),
-(349, 'Luisa Dulce Leiva', 'Pendiente', 10, '2025-06-10', '23:21:00', '2025-06-18 12:57:19'),
-(350, 'Margarita Urbina Calvillo', 'Albergado', 10, '2025-05-21', '03:34:00', '2025-06-18 12:57:19'),
-(351, 'Sr(a). Aurelio Granado', 'Dado de alta', 10, '2025-05-27', '11:25:00', '2025-06-18 12:57:19'),
-(352, 'Mauricio Gallardo', 'Dado de alta', 10, '2025-06-07', '09:22:00', '2025-06-18 12:57:19'),
-(353, 'Juan Abelardo Orellana', 'Pendiente', 10, '2025-05-31', '04:19:00', '2025-06-18 12:57:19'),
-(354, 'Gonzalo Piña', 'En tránsito', 10, '2025-06-14', '21:36:00', '2025-06-18 12:57:19'),
-(355, 'Cristal Espinal', 'Pendiente', 10, '2025-06-02', '23:38:00', '2025-06-18 12:57:19'),
-(356, 'Alberto Laureano Guevara', 'Albergado', 12, '2025-05-30', '05:36:00', '2025-06-19 08:19:06'),
-(357, 'Zoé Trejo Brito', 'Albergado', 12, '2025-06-17', '22:10:00', '2025-06-19 08:19:06'),
-(358, 'Alta  Gracia Cabán Gamez', 'Albergado', 12, '2025-05-31', '16:10:00', '2025-06-19 08:19:06'),
-(359, 'Sr(a). Ramiro Farías', 'Albergado', 12, '2025-06-15', '05:19:00', '2025-06-19 08:19:06'),
-(360, 'Marisol Rolando Ledesma', 'Albergado', 12, '2025-05-20', '06:13:00', '2025-06-19 08:19:06'),
-(361, 'Luisa Jacinto Ledesma', 'Pendiente', 12, '2025-05-27', '15:39:00', '2025-06-19 08:19:06'),
-(362, 'Benjamín Aurelio Olivares Calderón', 'Albergado', 12, '2025-06-06', '01:34:00', '2025-06-19 08:19:06'),
-(363, 'Mtro. Alvaro Rico', 'Dado de alta', 12, '2025-06-15', '13:42:00', '2025-06-19 08:19:06'),
-(364, 'Arcelia Urías', 'Albergado', 12, '2025-06-03', '22:14:00', '2025-06-19 08:19:06'),
-(365, 'Mtro. Reynaldo Espinosa', 'Dado de alta', 12, '2025-05-23', '23:18:00', '2025-06-19 08:19:06'),
-(366, 'Gregorio Arcelia Gonzales', 'Albergado', 12, '2025-05-24', '02:07:00', '2025-06-19 08:19:06'),
-(367, 'María Elena Teresa Nava Curiel', 'Pendiente', 12, '2025-06-06', '07:13:00', '2025-06-19 08:19:06'),
-(368, 'Yuridia Gabriela Becerra', 'En tránsito', 12, '2025-06-18', '11:18:00', '2025-06-19 08:19:06'),
-(369, 'Oswaldo Felipe Dávila', 'Pendiente', 12, '2025-06-11', '09:59:00', '2025-06-19 08:19:06'),
-(370, 'Timoteo Porfirio Gaona Meléndez', 'En tránsito', 12, '2025-05-22', '00:29:00', '2025-06-19 08:19:06'),
-(371, 'Ignacio Pacheco Jasso', 'Dado de alta', 12, '2025-05-23', '00:09:00', '2025-06-19 08:19:06'),
-(372, 'Mtro. Eric Sanabria', 'Albergado', 12, '2025-06-08', '04:04:00', '2025-06-19 08:19:06'),
-(373, 'Claudio Jaimes', 'Pendiente', 12, '2025-05-26', '23:02:00', '2025-06-19 08:19:06'),
-(374, 'Ing. Frida Viera', 'Albergado', 12, '2025-06-09', '18:56:00', '2025-06-19 08:19:06'),
-(375, 'Jos Gaona', 'Pendiente', 12, '2025-05-26', '08:16:00', '2025-06-19 08:19:06'),
-(376, 'Aurora Arreola', 'Albergado', 12, '2025-05-25', '21:23:00', '2025-06-19 08:19:06'),
-(377, 'Luisa Rubén Barela', 'Pendiente', 12, '2025-06-07', '04:46:00', '2025-06-19 08:19:06'),
-(378, 'Lic. Óliver Heredia', 'En tránsito', 12, '2025-06-15', '08:41:00', '2025-06-19 08:19:06'),
-(379, 'Omar Jaramillo Molina', 'Dado de alta', 12, '2025-05-25', '23:38:00', '2025-06-19 08:19:06'),
-(380, 'Cristina Rendón', 'En tránsito', 12, '2025-05-20', '16:41:00', '2025-06-19 08:19:06'),
-(381, 'Mónica Diego Sarabia Caraballo', 'Albergado', 12, '2025-06-03', '04:13:00', '2025-06-19 08:19:06'),
-(382, 'Ing. Elvia Corral', 'Albergado', 12, '2025-06-07', '07:24:00', '2025-06-19 08:19:06'),
-(383, 'Paola Olga Abrego', 'Pendiente', 12, '2025-06-18', '22:37:00', '2025-06-19 08:19:06'),
-(384, 'Aida Carrasco', 'Dado de alta', 12, '2025-06-06', '11:55:00', '2025-06-19 08:19:06'),
-(385, 'Evelio Ana Luisa Guajardo Valverde', 'Dado de alta', 12, '2025-05-23', '22:16:00', '2025-06-19 08:19:06'),
-(386, 'Ángela Tejada', 'Albergado', 12, '2025-05-26', '04:29:00', '2025-06-19 08:19:06'),
-(387, 'Paulina de Jesús', 'Pendiente', 12, '2025-06-01', '09:40:00', '2025-06-19 08:19:06'),
-(388, 'Lic. Eric Tirado', 'Albergado', 12, '2025-05-29', '10:37:00', '2025-06-19 08:19:06'),
-(389, 'Leonor Yuridia Niño Quezada', 'En tránsito', 12, '2025-06-14', '17:58:00', '2025-06-19 08:19:06'),
-(390, 'Fernando Garza Barela', 'Albergado', 12, '2025-06-05', '19:25:00', '2025-06-19 08:19:06'),
-(391, 'Ing. Estela Villalobos', 'Pendiente', 12, '2025-05-30', '17:30:00', '2025-06-19 08:19:06'),
-(392, 'Susana Bahena Girón', 'En tránsito', 12, '2025-05-23', '18:33:00', '2025-06-19 08:19:06'),
-(393, 'Angélica Noelia Granados Leiva', 'Pendiente', 12, '2025-06-12', '21:14:00', '2025-06-19 08:19:06'),
-(394, 'Dr. Reina Velázquez', 'Dado de alta', 12, '2025-06-11', '17:29:00', '2025-06-19 08:19:06'),
-(395, 'Lorenzo Espinal', 'En tránsito', 12, '2025-05-24', '05:28:00', '2025-06-19 08:19:06'),
-(396, 'Joaquín Piña', 'Dado de alta', 12, '2025-06-08', '23:03:00', '2025-06-19 08:19:06'),
-(397, 'Zacarías Calvillo Ballesteros', 'Pendiente', 12, '2025-06-08', '20:19:00', '2025-06-19 08:19:06'),
-(398, 'Bianca Felix Espinosa Espinal', 'En tránsito', 12, '2025-06-15', '08:24:00', '2025-06-19 08:19:06'),
-(399, 'Luisa Dulce Leiva', 'Pendiente', 12, '2025-06-11', '23:21:00', '2025-06-19 08:19:06'),
-(400, 'Margarita Urbina Calvillo', 'Dado de alta', 12, '2025-05-22', '03:34:00', '2025-06-19 08:19:06'),
-(401, 'Sr(a). Aurelio Granado', 'Albergado', 12, '2025-05-28', '11:25:00', '2025-06-19 08:19:06'),
-(402, 'Mauricio Gallardo', 'Pendiente', 12, '2025-06-08', '09:22:00', '2025-06-19 08:19:06'),
-(403, 'Juan Abelardo Orellana', 'En tránsito', 12, '2025-06-01', '04:19:00', '2025-06-19 08:19:06'),
-(404, 'Gonzalo Piña', 'Dado de alta', 12, '2025-06-15', '21:36:00', '2025-06-19 08:19:06'),
-(405, 'Cristal Espinal', 'Albergado', 12, '2025-06-03', '23:38:00', '2025-06-19 08:19:06'),
-(406, 'Ricardo Torres Ballesteros', 'Albergado', 13, '2025-06-04', '20:24:00', '2025-06-19 08:51:08'),
-(407, 'Rocío Romero Sandoval', 'Dado de alta', 13, '2025-06-14', '00:16:00', '2025-06-19 08:51:08'),
-(408, 'Nancy Blanco Escamilla', 'Albergado', 13, '2025-05-23', '16:16:00', '2025-06-19 08:51:08'),
-(409, 'Zeferino Gollum Páez', 'Dado de alta', 13, '2025-05-25', '08:37:00', '2025-06-19 08:51:08'),
-(410, 'Ricardo Rosario Arenas', 'Albergado', 13, '2025-05-23', '21:24:00', '2025-06-19 08:51:08'),
-(411, 'Ing. Octavio Mata', 'Albergado', 13, '2025-06-01', '21:21:00', '2025-06-19 08:51:08'),
-(412, 'Evelio Gabino Ortiz Ceja', 'Albergado', 13, '2025-06-03', '09:04:00', '2025-06-19 08:51:08'),
-(413, 'Antonia Abril Reynoso Valladares', 'En tránsito', 13, '2025-05-24', '21:43:00', '2025-06-19 08:51:08'),
-(414, 'Dr. Natividad Jaimes', 'En tránsito', 13, '2025-05-26', '15:52:00', '2025-06-19 08:51:08'),
-(415, 'Felipe Negrón Linares', 'Pendiente', 13, '2025-05-27', '03:16:00', '2025-06-19 08:51:08'),
-(416, 'Mtro. Sara Tafoya', 'Albergado', 13, '2025-05-20', '19:55:00', '2025-06-19 08:51:08'),
-(417, 'Mtro. Wilfrido Cano', 'Pendiente', 13, '2025-05-26', '08:04:00', '2025-06-19 08:51:08'),
-(418, 'Bernabé Uribe Cortés', 'Dado de alta', 13, '2025-06-02', '02:09:00', '2025-06-19 08:51:08'),
-(419, 'Dr. Jacobo Figueroa', 'Albergado', 13, '2025-06-01', '00:14:00', '2025-06-19 08:51:08'),
-(420, 'Fidel Ávalos', 'En tránsito', 13, '2025-05-24', '05:24:00', '2025-06-19 08:51:08'),
-(421, 'Gerónimo Armendáriz', 'Albergado', 13, '2025-05-20', '14:13:00', '2025-06-19 08:51:08'),
-(422, 'Teodoro Frida Cuellar', 'Pendiente', 13, '2025-06-10', '02:11:00', '2025-06-19 08:51:08'),
-(423, 'Ramiro Aguirre', 'Dado de alta', 13, '2025-05-25', '04:42:00', '2025-06-19 08:51:08'),
-(424, 'Patricio Alejandro Negrón', 'En tránsito', 13, '2025-06-17', '02:03:00', '2025-06-19 08:51:08'),
-(425, 'Luis Manuel Carolina Arguello', 'Pendiente', 13, '2025-06-03', '11:05:00', '2025-06-19 08:51:08'),
-(426, 'Jorge Gaitán Haro', 'Albergado', 13, '2025-05-24', '17:31:00', '2025-06-19 08:51:08'),
-(427, 'Lic. Silvano Correa', 'En tránsito', 13, '2025-05-31', '00:04:00', '2025-06-19 08:51:08'),
-(428, 'Liliana Alberto Duarte', 'Dado de alta', 13, '2025-06-05', '07:43:00', '2025-06-19 08:51:08'),
-(429, 'Yolanda Guzmán', 'Albergado', 13, '2025-06-01', '21:12:00', '2025-06-19 08:51:08'),
-(430, 'Juana Arellano Rodrígez', 'En tránsito', 13, '2025-05-30', '09:49:00', '2025-06-19 08:51:08'),
-(431, 'Jerónimo Magaña', 'Dado de alta', 13, '2025-05-31', '19:04:00', '2025-06-19 08:51:08'),
-(432, 'Victoria Espinoza Ozuna', 'Pendiente', 13, '2025-06-04', '17:11:00', '2025-06-19 08:51:08'),
-(433, 'Germán Montoya Saucedo', 'Dado de alta', 13, '2025-06-08', '12:20:00', '2025-06-19 08:51:08'),
-(434, 'Mtro. Alicia Carrillo', 'Albergado', 13, '2025-06-01', '07:51:00', '2025-06-19 08:51:08'),
-(435, 'Mtro. Alfonso Cardona', 'Albergado', 13, '2025-06-17', '03:22:00', '2025-06-19 08:51:08'),
-(436, 'Humberto Marco Antonio Zelaya Segura', 'En tránsito', 13, '2025-05-25', '02:01:00', '2025-06-19 08:51:08'),
-(437, 'Dr. Florencia Armendáriz', 'Dado de alta', 13, '2025-06-10', '00:53:00', '2025-06-19 08:51:08'),
-(438, 'Ing. Yuridia Estrada', 'Pendiente', 13, '2025-06-06', '22:55:00', '2025-06-19 08:51:08'),
-(439, 'Wendolin Menéndez Martínez', 'En tránsito', 13, '2025-05-26', '14:08:00', '2025-06-19 08:51:08'),
-(440, 'Natividad Horacio Paredes Mena', 'Albergado', 13, '2025-06-08', '05:01:00', '2025-06-19 08:51:08'),
-(441, 'Perla Carolina Espinosa Peres', 'Albergado', 13, '2025-06-07', '19:53:00', '2025-06-19 08:51:08'),
-(442, 'Sergio Rebeca Madera', 'En tránsito', 13, '2025-06-08', '01:16:00', '2025-06-19 08:51:08'),
-(443, 'Hernán Llamas Gaitán', 'En tránsito', 13, '2025-06-09', '03:23:00', '2025-06-19 08:51:08'),
-(444, 'Ing. Vanesa Medina', 'Pendiente', 13, '2025-06-11', '15:37:00', '2025-06-19 08:51:08'),
-(445, 'Zeferino Gallardo', 'Dado de alta', 13, '2025-06-13', '02:33:00', '2025-06-19 08:51:08'),
-(446, 'Victoria Arturo Limón', 'Dado de alta', 13, '2025-06-14', '04:14:00', '2025-06-19 08:51:08'),
-(447, 'Mtro. Aurelio Gollum', 'Albergado', 13, '2025-06-04', '11:22:00', '2025-06-19 08:51:08'),
-(448, 'Concepción Alberto Arredondo', 'En tránsito', 13, '2025-05-31', '13:52:00', '2025-06-19 08:51:08'),
-(449, 'Sr(a). María Eugenia Pedroza', 'Pendiente', 13, '2025-06-16', '17:08:00', '2025-06-19 08:51:08'),
-(450, 'Miguel Ángel Pabón', 'Pendiente', 13, '2025-05-31', '21:44:00', '2025-06-19 08:51:08'),
-(451, 'Bernabé Pizarro Gaona', 'En tránsito', 13, '2025-05-28', '06:12:00', '2025-06-19 08:51:08'),
-(452, 'Lic. Amador Valdés', 'Pendiente', 13, '2025-06-01', '09:13:00', '2025-06-19 08:51:08'),
-(453, 'Cecilia Rivera', 'En tránsito', 13, '2025-06-14', '03:55:00', '2025-06-19 08:51:08'),
-(454, 'Mtro. Margarita Santana', 'Pendiente', 13, '2025-06-09', '10:21:00', '2025-06-19 08:51:08'),
-(455, 'Cristobal Roldán', 'Albergado', 13, '2025-06-10', '05:46:00', '2025-06-19 08:51:08');
 
 -- --------------------------------------------------------
 
@@ -3165,12 +1976,6 @@ CREATE TABLE `requests` (
 -- Dumping data for table `requests`
 --
 
-INSERT INTO `requests` (`id`, `user_id`, `refuge_name`, `location`, `ip`, `csv_path`, `status`, `created_at`) VALUES
-(10, 2, 'Manos que ayudan', 'San Jose, Atocha #25', '127.0.0.1', 'uploads/csv_6852b748a3545.csv', 'approved', '2025-06-18 12:55:36'),
-(11, 2, 'Manuel Becerra', 'Manuel Becerra, Plaza central, #15', '127.0.0.1', 'uploads/csv_6852b77e6fd8d.csv', 'approved', '2025-06-18 12:56:30'),
-(12, 2, 'Vbox del prueblo', 'Diego de leon edificio 29', '127.0.0.1', 'uploads/csv_6853c7ce57931.csv', 'approved', '2025-06-19 08:18:22'),
-(13, 2, 'Centro comunitario de madrid', 'Calle de la Regalada, Retiro, Madrid, Comunidad de Madrid', '127.0.0.1', 'uploads/csv_6853cbffa5744.csv', 'approved', '2025-06-19 08:36:15');
-
 -- --------------------------------------------------------
 
 --
@@ -3190,10 +1995,6 @@ CREATE TABLE `users` (
 --
 -- Dumping data for table `users`
 --
-
-INSERT INTO `users` (`id`, `email`, `password_hash`, `role`, `created_at`, `login_attempts`, `last_attempt`) VALUES
-(1, 'admin@localhost.com', '$2y$10$96xg.9nYredq9qsgihfp8eTae1t6KQsUtk4CCWgVKWW6P4GaRxM0S', 'admin', '2025-06-17 17:15:00', 0, NULL),
-(2, 'user@localhost.com', '$2y$10$LbJrDciahMC7jA2UyR57ruasCuJqJGtBcPXCZXi39I81hogJvuW5O', 'refuge_user', '2025-06-17 17:51:58', 5, '2025-07-24 00:36:46');
 
 --
 -- Indexes for dumped tables
@@ -3307,8 +2108,7 @@ CREATE TABLE `audit_log` (
 -- Dumping data for table `audit_log`
 --
 
-INSERT INTO `audit_log` (`id`, `table_name`, `record_id`, `action`, `old_values`, `new_values`, `user_id`, `ip_address`, `user_agent`, `created_at`) VALUES
-(1, NULL, NULL, 'LOGIN', NULL, NULL, 2, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0', '2025-07-30 09:19:35'),
+Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0', '2025-07-30 09:19:35'),
 (2, 'orders', 35, 'UPDATE', '{\"id\": 35, \"user_id\": null, \"stripe_id\": \"pi_3RqLslQwgcR8epNA1b1mgGcT\", \"total\": 1.95, \"status\": \"paid\", \"shipping_name\": \"Lilian Leon\", \"shipping_email\": \"itbkup24@gmail.com\"}', '{\"id\": 35, \"user_id\": null, \"stripe_id\": \"pi_3RqLslQwgcR8epNA1b1mgGcT\", \"total\": 1.95, \"status\": \"cancelled\", \"shipping_name\": \"Lilian Leon\", \"shipping_email\": \"itbkup24@gmail.com\"}', 2, NULL, NULL, '2025-07-30 09:20:10'),
 (3, 'orders', 26, 'UPDATE', '{\"id\": 26, \"user_id\": null, \"stripe_id\": \"pi_3RoWN2QwgcR8epNA0XCk0VRo\", \"total\": 49.98, \"status\": \"paid\", \"shipping_name\": \"Anderson Leon\", \"shipping_email\": \"itbkup24@gmail.com\"}', '{\"id\": 26, \"user_id\": null, \"stripe_id\": \"pi_3RoWN2QwgcR8epNA0XCk0VRo\", \"total\": 49.98, \"status\": \"cancelled\", \"shipping_name\": \"Anderson Leon\", \"shipping_email\": \"itbkup24@gmail.com\"}', 2, NULL, NULL, '2025-07-30 09:20:16'),
 (4, 'orders', 15, 'UPDATE', '{\"id\": 15, \"user_id\": null, \"stripe_id\": \"pi_3RoKR3QwgcR8epNA0faeWSmm\", \"total\": 9.90, \"status\": \"paid\", \"shipping_name\": \"Anderson Leon\", \"shipping_email\": \"itbkup24@gmail.com\"}', '{\"id\": 15, \"user_id\": null, \"stripe_id\": \"pi_3RoKR3QwgcR8epNA0faeWSmm\", \"total\": 9.90, \"status\": \"cancelled\", \"shipping_name\": \"Anderson Leon\", \"shipping_email\": \"itbkup24@gmail.com\"}', 2, NULL, NULL, '2025-07-30 09:20:21'),
@@ -3335,55 +2135,22 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `description`) VALUES
-(1, 'Electronics', 'Gadgets & devices'),
-(2, 'Books', 'Fiction & non-fiction');
-
 --
 -- Triggers `categories`
 --
 DELIMITER $$
 CREATE TRIGGER `categories_after_delete` AFTER DELETE ON `categories` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, old_values)
-    VALUES ('categories', OLD.id, 'DELETE',
-        JSON_OBJECT(
-            'id', OLD.id,
-            'name', OLD.name,
-            'description', OLD.description
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `categories_after_insert` AFTER INSERT ON `categories` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, new_values)
-    VALUES ('categories', NEW.id, 'INSERT', 
-        JSON_OBJECT(
-            'id', NEW.id,
-            'name', NEW.name,
-            'description', NEW.description
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `categories_after_update` AFTER UPDATE ON `categories` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, old_values, new_values)
-    VALUES ('categories', NEW.id, 'UPDATE',
-        JSON_OBJECT(
-            'id', OLD.id,
-            'name', OLD.name,
-            'description', OLD.description
-        ),
-        JSON_OBJECT(
-            'id', NEW.id,
-            'name', NEW.name,
-            'description', NEW.description
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 
@@ -3415,108 +2182,29 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `stripe_id`, `total`, `status`, `created_at`, `shipping_name`, `shipping_email`, `shipping_address`, `phone`, `card_last4`, `card_brand`, `ip_address`, `latitude`, `longitude`) VALUES
-(1, NULL, 'pi_3RoCP0QwgcR8epNA0grYifNQ', 34.89, 'paid', '2025-07-23 17:49:49', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(2, NULL, 'pi_3RoCS3QwgcR8epNA10UgpsuB', 39.50, 'paid', '2025-07-23 17:52:35', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL),
-(3, NULL, 'pi_3RoD1JQwgcR8epNA1N32mm9t', 24.99, 'paid', '2025-07-23 18:29:20', 'luppo', 'luppo@lu.com', 'calle local, 127 piso 0, apart 1', '789098765', '4242', 'visa', '::1', NULL, NULL),
-(4, NULL, 'pi_3RoD4gQwgcR8epNA0C72Wx6C', 9.90, 'paid', '2025-07-23 18:34:03', 'luppo', 'luppo@luxop.com', 'localhost. 12.0.0.1', '6543213678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(5, NULL, 'pi_3RoDDlQwgcR8epNA0HUHmh8n', 9.90, 'paid', '2025-07-23 18:42:03', 'luppo', 'luppo@lupito.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '765432980', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(6, NULL, 'pi_3RoDKDQwgcR8epNA0Miqy5PS', 108.70, 'paid', '2025-07-23 18:48:36', 'lupoolio', 'polio@poli.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '63576890972', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(7, NULL, 'pi_3RoJQTQwgcR8epNA0Eo5ounO', 24.99, 'paid', '2025-07-24 01:19:52', 'bandoleira', 'bandit@localhost.com', '32, Calle de Sicilia, Numancia, Vallecas, Madrid, Community of Madrid, 28038, Spain', '635456789', '4242', 'visa', '127.0.0.1', 40.40231550, -3.66550270),
-(8, NULL, 'pi_3RoJnGQwgcR8epNA0n8mVgev', 64.49, 'paid', '2025-07-24 01:43:20', 'Sailor Venus ', 'sailor@vn.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '345678901', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(9, NULL, 'pi_3RoK6UQwgcR8epNA08swDKm3', 9.90, 'paid', '2025-07-24 02:02:56', 'Anderson Leon', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '635345678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(10, NULL, 'pi_3RoK9yQwgcR8epNA1EmHzaOo', 19.80, 'paid', '2025-07-24 02:06:20', 'Anderson Leon', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(12, NULL, 'pi_3RoKAzQwgcR8epNA1rdZFxNF', 9.90, 'paid', '2025-07-24 02:07:19', 'Anderson Leon', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6354227890886', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(13, NULL, 'pi_3RoKD3QwgcR8epNA0kCMjzrT', 9.90, 'paid', '2025-07-24 02:09:23', 'Anderson Leon', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(14, NULL, 'pi_3RoKGNQwgcR8epNA0k37yGPW', 39.50, 'paid', '2025-07-24 02:12:51', 'Anderson Leon', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(15, NULL, 'pi_3RoKR3QwgcR8epNA0faeWSmm', 9.90, 'cancelled', '2025-07-24 02:24:00', 'Anderson Leon', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(17, NULL, 'pi_3RoKUaQwgcR8epNA0ygIIr1N', 9.90, 'paid', '2025-07-24 02:27:53', 'bandoleira', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(18, NULL, 'pi_3RoKefQwgcR8epNA06cFs5K0', 9.90, 'paid', '2025-07-24 02:37:58', 'Anderson Leon', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(19, NULL, 'pi_3RoKggQwgcR8epNA1QcaxsXf', 9.90, 'paid', '2025-07-24 02:40:09', 'deCloudeSoner', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(20, NULL, 'pi_3RoKxZQwgcR8epNA1MpOC4ar', 9.90, 'paid', '2025-07-24 02:57:31', 'Anderson Leon', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(21, NULL, 'pi_3RoKzRQwgcR8epNA1TO0Bj7T', 9.90, 'paid', '2025-07-24 02:59:28', 'Anderson Leon cludsoner', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(22, NULL, 'pi_3RoMXdQwgcR8epNA0JmICx7d', 9.90, 'paid', '2025-07-24 04:38:54', 'Anderson Leon', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(23, NULL, 'pi_3RoNxEQwgcR8epNA0SlJxPTG', 79.00, 'paid', '2025-07-24 06:09:19', 'Anderson Leon', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(26, NULL, 'pi_3RoWN2QwgcR8epNA0XCk0VRo', 49.98, 'cancelled', '2025-07-24 15:08:34', 'Anderson Leon', 'itbkup24@gmail.com', 'Bosque del Recuerdo, Calle de Alfonso XII, Jerónimos, Retiro, Madrid, Community of Madrid, 28014, Spain', '6543234678', '4242', 'visa', '::1', 40.41200000, -3.68710000),
-(28, NULL, 'pi_3RpHXvQwgcR8epNA1w68CrPn', 9.90, 'paid', '2025-07-26 17:31:17', 'Carlos Roman ', 'itbkup24@gmail.com', 'Biblioteca Elena Fortún, 189, Calle del Doctor Esquerdo, Adelfas, Retiro, Madrid, Community of Madrid, 28007, Spain', '645322345', '4242', 'visa', '127.0.0.1', 40.40366570, -3.67247480),
-(30, NULL, 'pi_3RpUGPQwgcR8epNA1HRbGqiL', 39.50, 'paid', '2025-07-27 07:06:07', 'PErales torres', 'leon.jass@outlook.com', 'Biblioteca Elena Fortún, 189, Calle del Doctor Esquerdo, Adelfas, Retiro, Madrid, Community of Madrid, 28007, Spain', '64523456789', '4242', 'visa', '127.0.0.1', 40.40366570, -3.67247480),
-(31, NULL, 'pi_3RqL7ZQwgcR8epNA01uZ0zAp', 22.00, 'paid', '2025-07-29 15:32:49', 'Santos Romeo', 'itbkup24@gmail.com', 'Biblioteca Elena Fortún, 189, Calle del Doctor Esquerdo, Adelfas, Retiro, Madrid, Community of Madrid, 28007, Spain', '645322345', '4242', 'visa', '127.0.0.1', 40.40366570, -3.67247480),
-(32, NULL, 'pi_3RqLGEQwgcR8epNA199h7wrA', 22.00, 'paid', '2025-07-29 15:41:12', 'Lilian Maldonado', 'itbkup24@gmail.com', 'Biblioteca Elena Fortún, 189, Calle del Doctor Esquerdo, Adelfas, Retiro, Madrid, Community of Madrid, 28007, Spain', '645322345', '4242', 'visa', '127.0.0.1', 40.40366570, -3.67247480),
-(33, NULL, 'pi_3RqLKkQwgcR8epNA1SoMmguL', 9.90, 'paid', '2025-07-29 15:45:48', 'Lilian Maldonado', 'itbkup24@gmail.com', 'Biblioteca Elena Fortún, 189, Calle del Doctor Esquerdo, Adelfas, Retiro, Madrid, Community of Madrid, 28007, Spain', '674523456789', '4242', 'visa', '127.0.0.1', 40.40366570, -3.67247480),
-(34, NULL, 'pi_3RqLkuQwgcR8epNA1RJOgAWL', 9.90, 'paid', '2025-07-29 16:12:54', 'Lilian Pastrana', 'itbkup24@gmail.com', 'Biblioteca Elena Fortún, 189, Calle del Doctor Esquerdo, Adelfas, Retiro, Madrid, Community of Madrid, 28007, Spain', '674523456789', '4242', 'visa', '127.0.0.1', 40.40366570, -3.67247480),
-(35, NULL, 'pi_3RqLslQwgcR8epNA1b1mgGcT', 1.95, 'cancelled', '2025-07-29 16:21:45', 'Lilian Leon', 'itbkup24@gmail.com', 'Biblioteca Elena Fortún, 189, Calle del Doctor Esquerdo, Adelfas, Retiro, Madrid, Community of Madrid, 28007, Spain', '674523456789', '4242', 'visa', '127.0.0.1', 40.40366570, -3.67247480),
-(36, NULL, 'pi_3RtP1bQwgcR8epNA1pmUSMCB', 59.96, 'paid', '2025-08-07 02:19:46', 'localhost', 'itbkup24@gmail.com', 'Avenida de la Ciudad de Barcelona, Pacífico, Retiro, Madrid, Community of Madrid, 28007, Spain', '645322345', '4242', 'visa', '127.0.0.1', 40.40622080, -3.68640000);
-
 --
 -- Triggers `orders`
 --
 DELIMITER $$
 CREATE TRIGGER `create_shipment_on_paid_order` AFTER INSERT ON `orders` FOR EACH ROW BEGIN
     IF NEW.status = 'paid' THEN
-        INSERT INTO shipments (order_id, status, created_at, updated_at)
-        VALUES (NEW.id, 'pending', NOW(), NOW());
-    END IF;
+        END IF;
 END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `orders_after_delete` AFTER DELETE ON `orders` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, old_values)
-    VALUES ('orders', OLD.id, 'DELETE',
-        JSON_OBJECT(
-            'id', OLD.id,
-            'user_id', OLD.user_id,
-            'stripe_id', OLD.stripe_id,
-            'total', OLD.total,
-            'status', OLD.status,
-            'shipping_name', OLD.shipping_name,
-            'shipping_email', OLD.shipping_email
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `orders_after_insert` AFTER INSERT ON `orders` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, new_values)
-    VALUES ('orders', NEW.id, 'INSERT', 
-        JSON_OBJECT(
-            'id', NEW.id,
-            'user_id', NEW.user_id,
-            'stripe_id', NEW.stripe_id,
-            'total', NEW.total,
-            'status', NEW.status,
-            'shipping_name', NEW.shipping_name,
-            'shipping_email', NEW.shipping_email
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `orders_after_update` AFTER UPDATE ON `orders` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, old_values, new_values)
-    VALUES ('orders', NEW.id, 'UPDATE',
-        JSON_OBJECT(
-            'id', OLD.id,
-            'user_id', OLD.user_id,
-            'stripe_id', OLD.stripe_id,
-            'total', OLD.total,
-            'status', OLD.status,
-            'shipping_name', OLD.shipping_name,
-            'shipping_email', OLD.shipping_email
-        ),
-        JSON_OBJECT(
-            'id', NEW.id,
-            'user_id', NEW.user_id,
-            'stripe_id', NEW.stripe_id,
-            'total', NEW.total,
-            'status', NEW.status,
-            'shipping_name', NEW.shipping_name,
-            'shipping_email', NEW.shipping_email
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
@@ -3547,94 +2235,22 @@ CREATE TABLE `order_items` (
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price_each`) VALUES
-(1, 1, 1, 1, 24.99),
-(2, 1, 2, 1, 9.90),
-(3, 2, 3, 1, 39.50),
-(4, 3, 1, 1, 24.99),
-(5, 4, 2, 1, 9.90),
-(6, 5, 2, 1, 9.90),
-(7, 6, 3, 2, 39.50),
-(8, 6, 2, 3, 9.90),
-(9, 7, 1, 1, 24.99),
-(10, 8, 3, 1, 39.50),
-(11, 8, 1, 1, 24.99),
-(12, 9, 2, 1, 9.90),
-(13, 10, 2, 2, 9.90),
-(14, 12, 2, 1, 9.90),
-(15, 13, 2, 1, 9.90),
-(16, 14, 3, 1, 39.50),
-(17, 15, 2, 1, 9.90),
-(18, 17, 2, 1, 9.90),
-(19, 18, 2, 1, 9.90),
-(20, 19, 2, 1, 9.90),
-(21, 20, 2, 1, 9.90),
-(22, 21, 2, 1, 9.90),
-(23, 22, 2, 1, 9.90),
-(24, 23, 3, 2, 39.50),
-(25, 26, 1, 2, 24.99),
-(26, 28, 2, 1, 9.90),
-(27, 30, 3, 1, 39.50),
-(28, 31, 28, 1, 22.00),
-(29, 32, 28, 1, 22.00),
-(30, 33, 2, 1, 9.90),
-(31, 34, 2, 1, 9.90),
-(32, 35, 4, 1, 1.95),
-(33, 36, 30, 4, 14.99);
-
 --
 -- Triggers `order_items`
 --
 DELIMITER $$
 CREATE TRIGGER `order_items_after_delete` AFTER DELETE ON `order_items` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, old_values)
-    VALUES ('order_items', OLD.id, 'DELETE',
-        JSON_OBJECT(
-            'id', OLD.id,
-            'order_id', OLD.order_id,
-            'product_id', OLD.product_id,
-            'quantity', OLD.quantity,
-            'price_each', OLD.price_each
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `order_items_after_insert` AFTER INSERT ON `order_items` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, new_values)
-    VALUES ('order_items', NEW.id, 'INSERT', 
-        JSON_OBJECT(
-            'id', NEW.id,
-            'order_id', NEW.order_id,
-            'product_id', NEW.product_id,
-            'quantity', NEW.quantity,
-            'price_each', NEW.price_each
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `order_items_after_update` AFTER UPDATE ON `order_items` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, old_values, new_values)
-    VALUES ('order_items', NEW.id, 'UPDATE',
-        JSON_OBJECT(
-            'id', OLD.id,
-            'order_id', OLD.order_id,
-            'product_id', OLD.product_id,
-            'quantity', OLD.quantity,
-            'price_each', OLD.price_each
-        ),
-        JSON_OBJECT(
-            'id', NEW.id,
-            'order_id', NEW.order_id,
-            'product_id', NEW.product_id,
-            'quantity', NEW.quantity,
-            'price_each', NEW.price_each
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 
@@ -3659,78 +2275,22 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `name`, `price`, `stock`, `image_url`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Wireless Mouse', 24.99, 50, 'https://placehold.co/600x400', '2025-07-23 17:19:46', '2025-07-29 17:57:00'),
-(2, 1, 'USB-C Cable', 9.90, 120, 'https://placehold.co/600x400', '2025-07-23 17:19:46', '2025-07-23 17:20:20'),
-(3, 2, 'Clean Code', 39.50, 30, 'https://placehold.co/600x400', '2025-07-23 17:19:46', '2025-07-23 17:20:26'),
-(4, 1, 'Iphone 98', 1.95, 100, 'https://placehold.co/600x400', '2025-07-26 17:36:00', '2025-07-26 17:36:00'),
-(25, 1, 'Auriculares Bluetooth Noise Cancelling', 59.99, 25, 'https://placehold.co/600x400', '2025-07-29 04:01:38', '2025-07-29 04:03:04'),
-(26, 1, 'Smartwatch Fitness Pro', 99.90, 15, 'https://placehold.co/600x400', '2025-07-29 04:01:38', '2025-07-29 04:03:04'),
-(27, 1, 'Power Bank Carga Rápida 20000mAh', 39.90, 12, 'https://placehold.co/600x400', '2025-07-29 04:01:38', '2025-07-29 04:03:04'),
-(28, 1, 'Cargador Inalámbrico Magnético', 22.00, 18, 'https://placehold.co/600x400', '2025-07-29 04:01:38', '2025-07-29 04:03:04'),
-(29, 1, 'Altavoz Portátil con Subwoofer', 45.00, 19, 'https://placehold.co/600x400', '2025-07-29 04:01:38', '2025-07-30 03:20:37'),
-(30, 2, 'Libro: “Hackea Tu Cerebro”', 14.99, 40, 'https://placehold.co/600x400', '2025-07-29 04:01:38', '2025-07-29 04:03:04'),
-(31, 2, 'Guía de Fotografía Digital', 24.95, 30, 'https://placehold.co/600x400', '2025-07-29 04:01:38', '2025-07-29 04:03:04'),
-(33, 2, 'Novela Gráfica “Sombra de Acero”', 29.99, 22, 'https://placehold.co/600x400', '2025-07-29 04:01:38', '2025-07-29 04:03:04'),
-(34, 2, 'Curso de Escritura Creativa (Libro)', 19.80, 35, 'https://placehold.co/600x400', '2025-07-29 04:01:38', '2025-07-29 04:03:04');
-
 --
 -- Triggers `products`
 --
 DELIMITER $$
 CREATE TRIGGER `products_after_delete` AFTER DELETE ON `products` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, old_values)
-    VALUES ('products', OLD.id, 'DELETE',
-        JSON_OBJECT(
-            'id', OLD.id,
-            'category_id', OLD.category_id,
-            'name', OLD.name,
-            'price', OLD.price,
-            'stock', OLD.stock,
-            'image_url', OLD.image_url
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `products_after_insert` AFTER INSERT ON `products` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, new_values)
-    VALUES ('products', NEW.id, 'INSERT', 
-        JSON_OBJECT(
-            'id', NEW.id,
-            'category_id', NEW.category_id,
-            'name', NEW.name,
-            'price', NEW.price,
-            'stock', NEW.stock,
-            'image_url', NEW.image_url
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `products_after_update` AFTER UPDATE ON `products` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, old_values, new_values)
-    VALUES ('products', NEW.id, 'UPDATE',
-        JSON_OBJECT(
-            'id', OLD.id,
-            'category_id', OLD.category_id,
-            'name', OLD.name,
-            'price', OLD.price,
-            'stock', OLD.stock,
-            'image_url', OLD.image_url
-        ),
-        JSON_OBJECT(
-            'id', NEW.id,
-            'category_id', NEW.category_id,
-            'name', NEW.name,
-            'price', NEW.price,
-            'stock', NEW.stock,
-            'image_url', NEW.image_url
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 
@@ -3755,38 +2315,6 @@ CREATE TABLE `shipments` (
 -- Dumping data for table `shipments`
 --
 
-INSERT INTO `shipments` (`id`, `order_id`, `status`, `tracking_number`, `shipped_at`, `notes`, `created_at`, `updated_at`) VALUES
-(1, 1, 'shipped', '', '2025-07-27 13:56:16', NULL, '2025-07-23 17:49:49', '2025-07-27 05:56:16'),
-(2, 2, 'shipped', NULL, NULL, NULL, '2025-07-23 17:52:35', '2025-07-27 06:01:27'),
-(3, 3, 'shipped', NULL, NULL, NULL, '2025-07-23 18:29:20', '2025-07-27 06:01:27'),
-(4, 4, 'shipped', '', '2025-07-27 13:56:19', NULL, '2025-07-23 18:34:03', '2025-07-27 05:56:19'),
-(5, 5, 'shipped', NULL, NULL, NULL, '2025-07-23 18:42:03', '2025-07-27 06:01:27'),
-(6, 6, 'shipped', NULL, NULL, NULL, '2025-07-23 18:48:36', '2025-07-27 06:01:27'),
-(7, 7, 'shipped', '', '2025-07-27 13:56:26', NULL, '2025-07-24 01:19:52', '2025-07-27 05:56:26'),
-(8, 8, 'shipped', NULL, NULL, NULL, '2025-07-24 01:43:20', '2025-07-27 06:01:27'),
-(9, 9, 'shipped', '', '2025-07-27 13:56:22', NULL, '2025-07-24 02:02:56', '2025-07-27 05:56:22'),
-(10, 10, 'shipped', NULL, NULL, NULL, '2025-07-24 02:06:20', '2025-07-27 06:01:27'),
-(11, 12, 'shipped', '', '2025-07-27 13:56:24', NULL, '2025-07-24 02:07:19', '2025-07-27 05:56:24'),
-(12, 13, 'returned', '', NULL, '', '2025-07-24 02:09:23', '2025-07-27 06:05:17'),
-(13, 14, 'cancelled', '', NULL, '', '2025-07-24 02:12:51', '2025-07-27 06:06:26'),
-(14, 15, 'shipped', 'TRK202507270015952', '2025-07-27 14:07:16', '', '2025-07-24 02:24:00', '2025-07-27 06:07:16'),
-(15, 17, 'shipped', 'TRK202507290017855', '2025-07-29 11:07:16', '', '2025-07-24 02:27:53', '2025-07-29 03:07:16'),
-(16, 18, 'shipped', 'TRK202507270018669', '2025-07-27 14:07:18', '', '2025-07-24 02:37:58', '2025-07-27 06:07:18'),
-(17, 19, 'shipped', 'TRK202507290019167', '2025-07-29 11:11:00', '', '2025-07-24 02:40:09', '2025-07-29 03:11:00'),
-(18, 20, 'shipped', 'TRK202507270020598', '2025-07-27 14:07:19', '', '2025-07-24 02:57:31', '2025-07-27 06:07:19'),
-(19, 21, 'shipped', 'TRK202507300021650', '2025-07-30 00:23:56', '', '2025-07-24 02:59:28', '2025-07-29 16:23:56'),
-(20, 22, 'shipped', 'TRK202507270022708', '2025-07-27 14:07:19', '', '2025-07-24 04:38:54', '2025-07-27 06:07:19'),
-(21, 23, 'cancelled', '', NULL, '', '2025-07-24 06:09:19', '2025-07-27 06:06:22'),
-(22, 26, 'shipped', 'TRK202507270026916', '2025-07-27 14:07:21', '', '2025-07-24 15:08:34', '2025-07-27 06:07:21'),
-(23, 28, 'shipped', 'TRK202507270028107', '2025-07-27 14:07:21', '', '2025-07-26 17:31:17', '2025-07-27 06:07:21'),
-(33, 30, 'returned', '', NULL, '', '2025-07-27 07:06:07', '2025-07-29 16:23:53'),
-(34, 31, 'cancelled', '', NULL, '', '2025-07-29 15:32:49', '2025-07-29 16:23:52'),
-(35, 32, 'shipped', 'TRK202507300032747', '2025-07-30 00:23:50', '', '2025-07-29 15:41:12', '2025-07-29 16:23:50'),
-(36, 33, 'shipped', 'TRK202507300033464', '2025-07-30 00:23:48', '', '2025-07-29 15:45:48', '2025-07-29 16:23:48'),
-(40, 34, 'cancelled', '', NULL, '', '2025-07-29 16:12:54', '2025-07-29 16:23:49'),
-(41, 35, 'returned', '', NULL, '', '2025-07-29 16:21:45', '2025-07-29 16:23:46'),
-(43, 36, 'pending', NULL, NULL, NULL, '2025-08-07 02:19:46', '2025-08-07 02:19:46');
-
 -- --------------------------------------------------------
 
 --
@@ -3805,56 +2333,22 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `is_admin`, `created_at`, `password_hash`) VALUES
-(2, 'admin24@store.com', 1, '2025-07-24 05:30:39', '$2y$10$.FnXRvhUDrl.7Z./SzWNveL4tQUsxio.IGoVXIzsK0RyDkT7Tp/QC'),
-(3, 'localhost@admin.com', 1, '2025-07-26 17:35:03', '$2y$10$5Qkwpm59g7/kaKoRXxaCL.2d.ZXE4iI2i/HSwWYr.zF6fFBOAQRgS');
-
 --
 -- Triggers `users`
 --
 DELIMITER $$
 CREATE TRIGGER `users_after_delete` AFTER DELETE ON `users` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, old_values)
-    VALUES ('users', OLD.id, 'DELETE',
-        JSON_OBJECT(
-            'id', OLD.id,
-            'email', OLD.email,
-            'is_admin', OLD.is_admin
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `users_after_insert` AFTER INSERT ON `users` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, new_values)
-    VALUES ('users', NEW.id, 'INSERT', 
-        JSON_OBJECT(
-            'id', NEW.id,
-            'email', NEW.email,
-            'is_admin', NEW.is_admin
-            -- Intencionalmente no guardamos password_hash por seguridad
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `users_after_update` AFTER UPDATE ON `users` FOR EACH ROW BEGIN
-    INSERT INTO audit_log (table_name, record_id, action, old_values, new_values)
-    VALUES ('users', NEW.id, 'UPDATE',
-        JSON_OBJECT(
-            'id', OLD.id,
-            'email', OLD.email,
-            'is_admin', OLD.is_admin
-        ),
-        JSON_OBJECT(
-            'id', NEW.id,
-            'email', NEW.email,
-            'is_admin', NEW.is_admin
-        )
-    );
-END
+    END
 $$
 DELIMITER ;
 
@@ -4443,9 +2937,6 @@ CREATE TABLE `pma__recent` (
 -- Dumping data for table `pma__recent`
 --
 
-INSERT INTO `pma__recent` (`username`, `tables`) VALUES
-('root', '[{\"db\":\"crm_db\",\"table\":\"permissions\"},{\"db\":\"crm_db\",\"table\":\"users\"},{\"db\":\"crm_db\",\"table\":\"quotes\"},{\"db\":\"crm_db\",\"table\":\"materialized_sales_trends\"},{\"db\":\"crm_db\",\"table\":\"materialized_sales_performance\"},{\"db\":\"crm_db\",\"table\":\"access_requests\"},{\"db\":\"crm_db\",\"table\":\"products\"},{\"db\":\"crm_db\",\"table\":\"materialized_client_purchase_patterns\"},{\"db\":\"crm_db\",\"table\":\"audit_logs\"},{\"db\":\"crm_db\",\"table\":\"vw_audit_logs\"}]');
-
 -- --------------------------------------------------------
 
 --
@@ -4519,9 +3010,6 @@ CREATE TABLE `pma__table_uiprefs` (
 -- Dumping data for table `pma__table_uiprefs`
 --
 
-INSERT INTO `pma__table_uiprefs` (`username`, `db_name`, `table_name`, `prefs`, `last_update`) VALUES
-('root', 'crm_db', 'users', '{\"sorted_col\":\"`users`.`force_password_change` DESC\"}', '2025-09-20 19:21:38');
-
 -- --------------------------------------------------------
 
 --
@@ -4556,9 +3044,6 @@ CREATE TABLE `pma__userconfig` (
 --
 -- Dumping data for table `pma__userconfig`
 --
-
-INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
-('root', '2025-10-04 19:31:47', '{\"Console\\/Mode\":\"collapse\",\"NavigationWidth\":2}');
 
 -- --------------------------------------------------------
 
