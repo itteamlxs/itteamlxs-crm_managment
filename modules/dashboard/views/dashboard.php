@@ -178,7 +178,7 @@ try {
                             
                             <div class="mt-2" id="passwordStrengthContainer" style="display: none;">
                                 <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <small class="text-muted"><?php echo __('Strength'); ?>:</small>
+                                    <small class="text-muted">Fortaleza:</small>
                                     <small id="strengthText" class="text-muted"></small>
                                 </div>
                                 <div class="progress" style="height: 4px;">
@@ -189,23 +189,23 @@ try {
                             <div class="password-requirements mt-2" id="passwordRequirements" style="display: none;">
                                 <div class="requirement" id="req-length">
                                     <i class="bi bi-x-circle"></i>
-                                    <span><?php echo __('msj_lchar_pass'); ?></span>
+                                    <span>Mínimo 8 caracteres</span>
                                 </div>
                                 <div class="requirement" id="req-uppercase">
                                     <i class="bi bi-x-circle"></i>
-                                    <span><?php echo __('msj_mayus_pass'); ?></span>
+                                    <span>Una letra mayúscula</span>
                                 </div>
                                 <div class="requirement" id="req-lowercase">
                                     <i class="bi bi-x-circle"></i>
-                                    <span><?php echo __('msj_minus_pass'); ?></span>
+                                    <span>Una letra minúscula</span>
                                 </div>
                                 <div class="requirement" id="req-number">
                                     <i class="bi bi-x-circle"></i>
-                                    <span><?php echo __('msj_num_pass'); ?></span>
+                                    <span>Un número</span>
                                 </div>
                                 <div class="requirement" id="req-special">
                                     <i class="bi bi-x-circle"></i>
-                                    <span><?php echo __('msj_char_pass'); ?></span>
+                                    <span>Un carácter especial</span>
                                 </div>
                             </div>
                         </div>
@@ -225,7 +225,7 @@ try {
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-warning" form="forcePasswordChangeForm" id="changePasswordBtn">
                         <i class="bi bi-shield-check me-2"></i>
-                        <?php echo __('change_password_btn'); ?>
+                        Cambiar Contraseña
                     </button>
                 </div>
                 <?php endif; ?>
@@ -345,21 +345,21 @@ try {
                 <?php echo __('quick_actions') ?: 'Quick Actions'; ?>
             </h5>
             <div class="quick-actions-grid">
-                <?php if (canAccessModule('clients')): ?>
+                <?php if (hasPermission('add_clients')): ?>
                 <a href="<?php echo url('clients', 'add'); ?>" class="quick-action-btn">
                     <i class="bi bi-person-plus"></i>
                     <span><?php echo __('add_client') ?: 'Add Client'; ?></span>
                 </a>
                 <?php endif; ?>
 
-                <?php if (canAccessModule('quotes')): ?>
+                <?php if (hasPermission('create_quotes')): ?>
                 <a href="<?php echo url('quotes', 'create'); ?>" class="quick-action-btn">
                     <i class="bi bi-file-plus"></i>
                     <span><?php echo __('create_quote') ?: 'Create Quote'; ?></span>
                 </a>
                 <?php endif; ?>
 
-                <?php if (canAccessModule('products')): ?>
+                <?php if (hasPermission('add_products')): ?>
                 <a href="<?php echo url('products', 'add'); ?>" class="quick-action-btn">
                     <i class="bi bi-box-seam"></i>
                     <span><?php echo __('add_product') ?: 'Add Product'; ?></span>
@@ -395,11 +395,11 @@ try {
                         <div class="chart-header">
                             <h6 class="chart-title">
                                 <i class="bi bi-graph-up"></i>
-                                 <?php echo __('sales_trend') ?: 'Sales Trend (Last 30 Days)'; ?>
+                                Tendencia de Ventas (Últimos 30 Días)
                             </h6>
                             <div class="chart-actions">
                                 <button class="btn btn-sm btn-outline-primary" id="refreshSalesChart">
-                                    <i class="bi bi-arrow-clockwise"></i><?php echo __('update_sales') ?: 'Update'; ?>
+                                    <i class="bi bi-arrow-clockwise"></i> Actualizar
                                 </button>
                             </div>
                         </div>
@@ -410,7 +410,7 @@ try {
                         <div class="chart-footer">
                             <small class="text-muted">
                                 <i class="bi bi-info-circle"></i>
-                                <?php echo __('info_sales_trend') ?: 'Shows approved sales for the last 30 days. The data is updated automatically.'; ?>
+                                Muestra las ventas aprobadas de los últimos 30 días. Los datos se actualizan automáticamente.
                             </small>
                         </div>
                     </div>
@@ -420,7 +420,7 @@ try {
                         <div class="chart-header">
                             <h6 class="chart-title">
                                 <i class="bi bi-pie-chart"></i>
-                                </i><?php echo __('quote_status') ?: 'Quote Status'; ?>
+                                Estado de Cotizaciones
                             </h6>
                         </div>
                         <div class="chart-container">
@@ -433,7 +433,7 @@ try {
                         <div class="chart-header">
                             <h6 class="chart-title">
                                 <i class="bi bi-people"></i>
-                                </i><?php echo __('client_rank') ?: 'Top 5 clients'; ?>
+                                Top 5 Clientes
                             </h6>
                         </div>
                         <div class="chart-container">
@@ -557,7 +557,7 @@ try {
                     <div class="shortcuts-list">
                         <div class="shortcut-item d-flex justify-content-between align-items-center mb-2">
                             <span class="shortcut-label"><?php echo __('new_client') ?: 'New Client'; ?></span>
-                            <kbd class="shortcut-key">Ctrl Alt N</kbd>
+                            <kbd class="shortcut-key">Ctrl Alt C</kbd>
                         </div>
                         <div class="shortcut-item d-flex justify-content-between align-items-center mb-2">
                             <span class="shortcut-label"><?php echo __('new_quote') ?: 'New Quote'; ?></span>
@@ -901,7 +901,7 @@ try {
                     beginAtZero: true,
                     ticks: {
                         callback: function(value) {
-                            return '$' + value;
+                            return ' + value;
                         }
                     }
                 }
@@ -989,10 +989,10 @@ try {
     
     // Keyboard shortcuts functionality
     document.addEventListener('keydown', function(e) {
-        // Ctrl + Alt + x - New Client
-        if (e.ctrlKey && e.altKey && e.key === 'z') {
+        // Ctrl + Alt + C - New Client
+        if (e.ctrlKey && e.altKey && e.key === 'c') {
             e.preventDefault();
-            <?php if (canAccessModule('clients')): ?>
+            <?php if (hasPermission('add_clients')): ?>
             window.location.href = '<?php echo url('clients', 'add'); ?>';
             <?php endif; ?>
         }
@@ -1000,7 +1000,7 @@ try {
         // Ctrl + Alt + Q - New Quote
         if (e.ctrlKey && e.altKey && e.key === 'q') {
             e.preventDefault();
-            <?php if (canAccessModule('quotes')): ?>
+            <?php if (hasPermission('create_quotes')): ?>
             window.location.href = '<?php echo url('quotes', 'create'); ?>';
             <?php endif; ?>
         }
@@ -1008,7 +1008,7 @@ try {
         // Ctrl + Alt + N - New Product
         if (e.ctrlKey && e.altKey && e.key === 'n') {
             e.preventDefault();
-            <?php if (canAccessModule('products')): ?>
+            <?php if (hasPermission('add_products')): ?>
             window.location.href = '<?php echo url('products', 'add'); ?>';
             <?php endif; ?>
         }
