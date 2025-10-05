@@ -1,7 +1,7 @@
 <?php
 /**
  * Client Edit Controller
- * Handles client editing with validation
+ * Handles client editing with validation and ownership check
  */
 
 require_once __DIR__ . '/../../../core/rbac.php';
@@ -11,11 +11,12 @@ require_once __DIR__ . '/../../../core/url_helper.php';
 require_once __DIR__ . '/../models/ClientModel.php';
 
 // Check permissions
-requirePermission('view_clients');
+requirePermission('edit_client');
 
 $clientModel = new ClientModel();
 $errors = [];
 $success = '';
+$currentUser = getCurrentUser();
 
 // Get client ID
 $clientId = (int)($_GET['id'] ?? 0);
@@ -26,6 +27,11 @@ if (!$clientId) {
 // Get client data
 $client = $clientModel->getClientById($clientId);
 if (!$client) {
+    redirect(url('clients', 'list'));
+}
+
+// Verify ownership for non-admin users
+if (!$currentUser['is_admin'] && $client['created_by'] != $currentUser['user_id']) {
     redirect(url('clients', 'list'));
 }
 

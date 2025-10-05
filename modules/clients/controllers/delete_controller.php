@@ -1,7 +1,7 @@
 <?php
 /**
  * Client Delete Controller
- * Handles client soft deletion with validation
+ * Handles client soft deletion with validation and ownership check
  */
 
 require_once __DIR__ . '/../../../core/rbac.php';
@@ -11,9 +11,10 @@ require_once __DIR__ . '/../../../core/url_helper.php';
 require_once __DIR__ . '/../models/ClientModel.php';
 
 // Check permissions
-requirePermission('view_clients');
+requirePermission('delete_client');
 
 $clientModel = new ClientModel();
+$currentUser = getCurrentUser();
 
 // Get client ID
 $clientId = (int)($_GET['id'] ?? $_POST['id'] ?? 0);
@@ -30,6 +31,14 @@ $client = $clientModel->getClientById($clientId);
 if (!$client) {
     if (isAjaxRequest()) {
         jsonResponse(['success' => false, 'error' => __('client_not_found')], 404);
+    }
+    redirect(url('clients', 'list'));
+}
+
+// Verify ownership for non-admin users
+if (!$currentUser['is_admin'] && $client['created_by'] != $currentUser['user_id']) {
+    if (isAjaxRequest()) {
+        jsonResponse(['success' => false, 'error' => __('access_denied')], 403);
     }
     redirect(url('clients', 'list'));
 }

@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../../core/url_helper.php';
 require_once __DIR__ . '/../models/ClientModel.php';
 
 // Check permissions
-requirePermission('view_clients');
+requirePermission('add_client');
 
 $clientModel = new ClientModel();
 $errors = [];

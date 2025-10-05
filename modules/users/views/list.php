@@ -450,5 +450,10 @@ require_once __DIR__ . '/../../../config/db.php';
             });
         });
     </script>
+
+    <!-- En dashboard.php, clients/list.php, quotes/list.php, etc. -->
+    <?php include __DIR__ . '/../../../public/includes/keyboard_shortcuts_global.php'; ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

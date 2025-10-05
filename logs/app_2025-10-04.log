@@ -4,3 +4,10 @@
 [2025-10-04 21:30:00] [ERROR] Access denied for permission: add_client, User: janderson
 [2025-10-04 21:30:33] [ERROR] Access denied for permission: edit_client, User: janderson
 [2025-10-04 21:30:39] [ERROR] Access denied for permission: edit_client, User: janderson
+[2025-10-04 21:58:30] [ERROR] Access denied for permission: edit_client, User: janderson
+[2025-10-04 21:58:43] [ERROR] Access denied for permission: edit_client, User: janderson
+[2025-10-04 22:00:14] [ERROR] Access denied for permission: edit_client, User: janderson
+[2025-10-04 22:20:08] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=3, username=janderson, ip=127.0.0.1
+[2025-10-04 22:20:16] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":3,"username":"janderson","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-10-04 22:20:16","details":{"user_id":3,"username":"janderson"}}
+[2025-10-04 22:20:51] [SECURITY] FORCE_PASSWORD_CHANGE_COMPLETED: user_id=3, username=janderson, ip=127.0.0.1
+[2025-10-04 22:20:56] [SECURITY] SECURITY_EVENT: {"event":"USER_LOGOUT","user_id":3,"username":"janderson","ip_address":"127.0.0.1","user_agent":"Mozilla\/5.0 (X11; Linux x86_64; rv:140.0) Gecko\/20100101 Firefox\/140.0","timestamp":"2025-10-04 22:20:56","details":{"user_id":3,"username":"janderson"}}
